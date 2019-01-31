@@ -11,7 +11,10 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name="answer", schema = "TESTING_SYSTEM_DATABASE")
@@ -30,10 +33,17 @@ public class Answer {
 	@Column(name = "status")
 	private int status;
 	
+//	@ManyToOne(cascade=CascadeType.DETACH,fetch=FetchType.EAGER)
+//	@JoinColumn(name = "question_id")
+//	@OnDelete(action = OnDeleteAction.CASCADE)
+//	@JsonBackReference
+//	Question question;
 	@ManyToOne(cascade=CascadeType.DETACH,fetch=FetchType.EAGER)
 	@JoinColumn(name = "question_id")
 	@OnDelete(action = OnDeleteAction.CASCADE)
+	 @JsonIgnore
 	Question question;
+
 
 	public Answer(String id, String content, int isTrue, int status, Question question) {
 		super();

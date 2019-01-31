@@ -1,9 +1,7 @@
 package com.cmcglobal.entity;
 
-
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
+import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -18,6 +16,10 @@ import javax.persistence.TemporalType;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name="question", schema = "TESTING_SYSTEM_DATABASE")
@@ -29,8 +31,8 @@ public class Question {
 	@Column(name = "content")
 	private String content;
 	
-	@Column(name = "suggestion")
-	private String suggestion;
+	@Column(name = "sugguestion")
+	private String sugguestion;
 	
 	@Column(name = "status")
 	private int status;
@@ -39,41 +41,75 @@ public class Question {
 	@Column(name = "date_created")
 	private Date dateCreated;
 	
+//	@ManyToOne(cascade=CascadeType.DETACH,fetch=FetchType.EAGER)
+//	@JoinColumn(name = "category_id")
+//	@OnDelete(action = OnDeleteAction.CASCADE)
+//	@JsonBackReference
+//	QuestionCategory questionCategory;
 	@ManyToOne(cascade=CascadeType.DETACH,fetch=FetchType.EAGER)
 	@JoinColumn(name = "category_id")
 	@OnDelete(action = OnDeleteAction.CASCADE)
+	 @JsonIgnore
 	QuestionCategory questionCategory;
 	
+//	@ManyToOne(cascade=CascadeType.DETACH,fetch=FetchType.EAGER)
+//	@JoinColumn(name = "type_id")
+//	@OnDelete(action = OnDeleteAction.CASCADE)
+//	@JsonBackReference
+//	QuestionType questionType;
 	@ManyToOne(cascade=CascadeType.DETACH,fetch=FetchType.EAGER)
 	@JoinColumn(name = "type_id")
 	@OnDelete(action = OnDeleteAction.CASCADE)
+	 @JsonIgnore
 	QuestionType questionType;
 	
+//	@ManyToOne(cascade=CascadeType.DETACH,fetch=FetchType.EAGER)
+//	@JoinColumn(name = "level_id")
+//	@OnDelete(action = OnDeleteAction.CASCADE)
+//	@JsonBackReference
+//	QuestionLevel questionLevel;
 	@ManyToOne(cascade=CascadeType.DETACH,fetch=FetchType.EAGER)
 	@JoinColumn(name = "level_id")
 	@OnDelete(action = OnDeleteAction.CASCADE)
+	 @JsonIgnore
 	QuestionLevel questionLevel;
 	
+//	@ManyToOne(cascade=CascadeType.DETACH,fetch=FetchType.EAGER)
+//	@JoinColumn(name = "tag_id")
+//	@OnDelete(action = OnDeleteAction.CASCADE)
+//	@JsonBackReference
+//	QuestionTag questionTag;
 	@ManyToOne(cascade=CascadeType.DETACH,fetch=FetchType.EAGER)
-	@JoinColumn(name = "questionTag")
+	@JoinColumn(name = "tag_id")
 	@OnDelete(action = OnDeleteAction.CASCADE)
+	 @JsonIgnore
 	QuestionTag questionTag;
 	
+//	@ManyToOne(cascade=CascadeType.DETACH,fetch=FetchType.EAGER)
+//	@JoinColumn(name = "user_id_created")
+//	@OnDelete(action = OnDeleteAction.CASCADE)
+//	@JsonBackReference
+//	User userQuestion;
 	@ManyToOne(cascade=CascadeType.DETACH,fetch=FetchType.EAGER)
-	@JoinColumn(name = "user_id")
+	@JoinColumn(name = "user_id_created")
 	@OnDelete(action = OnDeleteAction.CASCADE)
+	 @JsonIgnore
 	User userQuestion;
 	
+	
+//	@OneToMany(cascade = CascadeType.ALL,mappedBy = "question")
+//	@JsonManagedReference
+//	private Set<Answer> questionAnswer;
 	@OneToMany(cascade = CascadeType.ALL,mappedBy = "question")
-	private List<Answer> questionAnswer = new ArrayList<>();
+	private Set<Answer> questionAnswer;
 
-	public Question(String id, String content, String suggestion, int status, Date dateCreated,
+	public Question(String id, String content, String sugguestion, int status, Date dateCreated,
 			QuestionCategory questionCategory, QuestionType questionType, QuestionLevel questionLevel,
-			QuestionTag questionTag, User userQuestion, List<Answer> questionAnswer) {
+			QuestionTag questionTag, User userQuestion, Set<Answer> questionAnswer) {
 		super();
 		this.id = id;
 		this.content = content;
-		this.suggestion = suggestion;
+		this.sugguestion = sugguestion;
 		this.status = status;
 		this.dateCreated = dateCreated;
 		this.questionCategory = questionCategory;
@@ -104,12 +140,12 @@ public class Question {
 		this.content = content;
 	}
 
-	public String getSuggestion() {
-		return suggestion;
+	public String getSugguestion() {
+		return sugguestion;
 	}
 
-	public void setSuggestion(String suggestion) {
-		this.suggestion = suggestion;
+	public void setSugguestion(String sugguestion) {
+		this.sugguestion = sugguestion;
 	}
 
 	public int getStatus() {
@@ -168,20 +204,14 @@ public class Question {
 		this.userQuestion = userQuestion;
 	}
 
-	public List<Answer> getQuestionAnswer() {
+	public Set<Answer> getQuestionAnswer() {
 		return questionAnswer;
 	}
 
-	public void setQuestionAnswer(List<Answer> questionAnswer) {
+	public void setQuestionAnswer(Set<Answer> questionAnswer) {
 		this.questionAnswer = questionAnswer;
 	}
 
-	@Override
-	public String toString() {
-		return "Question [id=" + id + ", content=" + content + ", suggestion=" + suggestion + ", status=" + status
-				+ ", dateCreated=" + dateCreated + ", questionCategory=" + questionCategory + ", questionType="
-				+ questionType + ", questionLevel=" + questionLevel + ", questionTag=" + questionTag + ", userQuestion="
-				+ userQuestion + ", questionAnswer=" + questionAnswer + "]";
-	}
+	
 	
 }

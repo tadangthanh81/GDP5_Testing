@@ -1,9 +1,7 @@
 package com.cmcglobal.entity;
 
-
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
+import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -17,9 +15,13 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name="category", schema = "TESTING_SYSTEM_DATABASE")
@@ -39,15 +41,24 @@ public class QuestionCategory {
 	@Column(name = "status")
 	private  int status;
 	
+//	@OneToMany(cascade = CascadeType.ALL,mappedBy = "questionCategory")
+//	@JsonManagedReference
+//	private Set<Question> questions;
 	@OneToMany(cascade = CascadeType.ALL,mappedBy = "questionCategory")
-	private List<Question> questions = new ArrayList<>();
+	private Set<Question> questions;
 	
+//	@ManyToOne(cascade=CascadeType.DETACH,fetch=FetchType.EAGER)
+//	@JoinColumn(name = "user_id_created")
+//	@OnDelete(action = OnDeleteAction.CASCADE)
+//	@JsonBackReference
+//	User userCategory;
 	@ManyToOne(cascade=CascadeType.DETACH,fetch=FetchType.EAGER)
-	@JoinColumn(name = "user_id")
+	@JoinColumn(name = "user_id_created")
 	@OnDelete(action = OnDeleteAction.CASCADE)
+	 @JsonIgnore
 	User userCategory;
 
-	public QuestionCategory(int id, String categoryName, Date date_created, int status, List<Question> questions,
+	public QuestionCategory(int id, String categoryName, Date date_created, int status, Set<Question> questions,
 			User userCategory) {
 		super();
 		this.id = id;
@@ -94,11 +105,11 @@ public class QuestionCategory {
 		this.status = status;
 	}
 
-	public List<Question> getQuestions() {
+	public Set<Question> getQuestions() {
 		return questions;
 	}
 
-	public void setQuestions(List<Question> questions) {
+	public void setQuestions(Set<Question> questions) {
 		this.questions = questions;
 	}
 
@@ -110,9 +121,5 @@ public class QuestionCategory {
 		this.userCategory = userCategory;
 	}
 
-	@Override
-	public String toString() {
-		return "QuestionCategory [id=" + id + ", categoryName=" + categoryName + ", date_created=" + date_created
-				+ ", status=" + status + ", questions=" + questions + ", userCategory=" + userCategory + "]";
-	}		
+	
 }

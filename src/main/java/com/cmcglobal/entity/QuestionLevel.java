@@ -1,7 +1,6 @@
 package com.cmcglobal.entity;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -11,6 +10,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name="question_level", schema = "TESTING_SYSTEM_DATABASE")
@@ -26,21 +27,24 @@ public class QuestionLevel {
 	@Column(name = "status")
 	private int status;
 
-
-	public QuestionLevel() {
-		super();
-	}
-	
+//	@OneToMany(cascade = CascadeType.ALL,mappedBy = "questionLevel")
+//	@JsonManagedReference
+//	private Set<Question> questionL;
 	@OneToMany(cascade = CascadeType.ALL,mappedBy = "questionLevel")
-	private List<Question> questions = new ArrayList<>();
+	private Set<Question> questionL;
 
 
-	public QuestionLevel(int id, String levelName, int status, List<Question> questions) {
+	public QuestionLevel(int id, String levelName, int status, Set<Question> questionL) {
 		super();
 		this.id = id;
 		this.levelName = levelName;
 		this.status = status;
-		this.questions = questions;
+		this.questionL = questionL;
+	}
+
+
+	public QuestionLevel() {
+		super();
 	}
 
 
@@ -74,12 +78,13 @@ public class QuestionLevel {
 	}
 
 
-	public List<Question> getQuestions() {
-		return questions;
+	public Set<Question> getQuestionL() {
+		return questionL;
 	}
 
 
-	public void setQuestions(List<Question> questions) {
-		this.questions = questions;
+	public void setQuestionL(Set<Question> questionL) {
+		this.questionL = questionL;
 	}
+
 }

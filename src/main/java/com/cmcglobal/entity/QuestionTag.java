@@ -1,8 +1,7 @@
 package com.cmcglobal.entity;
 
-import java.util.ArrayList;
-import java.util.List;
 
+import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,6 +10,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 
 @Entity
@@ -27,15 +28,18 @@ public class QuestionTag {
 	@Column(name = "status")
 	private int status;
 
+//	@OneToMany(cascade = CascadeType.ALL,mappedBy = "questionTag")
+//	@JsonManagedReference
+//	private Set<Question> questionT;
 	@OneToMany(cascade = CascadeType.ALL,mappedBy = "questionTag")
-	private List<Question> questions = new ArrayList<>();
+	private Set<Question> questionT;
 
-	public QuestionTag(int id, String tagName, int status, List<Question> questions) {
+	public QuestionTag(int id, String tagName, int status, Set<Question> questionT) {
 		super();
 		this.id = id;
 		this.tagName = tagName;
 		this.status = status;
-		this.questions = questions;
+		this.questionT = questionT;
 	}
 
 	public QuestionTag() {
@@ -66,12 +70,14 @@ public class QuestionTag {
 		this.status = status;
 	}
 
-	public List<Question> getQuestions() {
-		return questions;
+	public Set<Question> getQuestionT() {
+		return questionT;
 	}
 
-	public void setQuestions(List<Question> questions) {
-		this.questions = questions;
+	public void setQuestionT(Set<Question> questionT) {
+		this.questionT = questionT;
 	}
+
+	
 
 }

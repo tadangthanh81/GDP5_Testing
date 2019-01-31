@@ -15,11 +15,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter implemen
 
 		http.csrf().disable();
 		http.authorizeRequests()//
-		.antMatchers(HttpMethod.GET, "/questions/view-list").permitAll()//
-		.antMatchers(HttpMethod.POST, "/questions/create").permitAll()//
-		.antMatchers(HttpMethod.GET, "/questions/update").permitAll()//
+		.antMatchers(HttpMethod.GET, "/question/all").permitAll()//
+		.antMatchers(HttpMethod.POST, "/question/add").permitAll()//
+		.antMatchers(HttpMethod.PUT, "/question/edit/**").permitAll()//
 		.antMatchers(HttpMethod.GET, "/questions/**").permitAll()//
-		.antMatchers(HttpMethod.DELETE, "/user/delete/**").permitAll();
+		.antMatchers(HttpMethod.DELETE, "/question/delete/**").permitAll();
 }
 	@Override
 	public void configure(WebSecurity web) throws Exception {

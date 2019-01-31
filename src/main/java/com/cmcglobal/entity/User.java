@@ -1,8 +1,7 @@
 package com.cmcglobal.entity;
 
-import java.util.ArrayList;
-import java.util.List;
 
+import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,6 +10,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name="user", schema = "TESTING_SYSTEM_DATABASE")
@@ -26,28 +27,38 @@ public class User {
 	@Column(name = "email")
 	private String email;
 	
+	@Column(name = "mobile")
+	private String mobile;
+	
 	@Column(name = "password")
 	private String password;
 	
 	@Column(name = "status")
 	private int status;
 	
+//	@OneToMany(cascade = CascadeType.ALL,mappedBy = "userQuestion")
+//	@JsonManagedReference
+//	private Set<Question> userQ;
 	@OneToMany(cascade = CascadeType.ALL,mappedBy = "userQuestion")
-	private List<Question> userQ = new ArrayList<>();
+	private Set<Question> userQ;
 	
+//	@OneToMany(cascade = CascadeType.ALL,mappedBy = "userCategory")
+//	@JsonManagedReference
+//	private Set<QuestionCategory> userC;
 	@OneToMany(cascade = CascadeType.ALL,mappedBy = "userCategory")
-	private List<QuestionCategory> userC = new ArrayList<>();
+	private Set<QuestionCategory> userC;
 
 	public User() {
 		super();
 	}
 
-	public User(int id, String fullName, String email, String password, int status,
-			List<com.cmcglobal.entity.Question> userQ, List<com.cmcglobal.entity.QuestionCategory> userC) {
+	public User(int id, String fullName, String email, String mobile, String password, int status, Set<Question> userQ,
+			Set<QuestionCategory> userC) {
 		super();
 		this.id = id;
 		this.fullName = fullName;
 		this.email = email;
+		this.mobile = mobile;
 		this.password = password;
 		this.status = status;
 		this.userQ = userQ;
@@ -78,6 +89,14 @@ public class User {
 		this.email = email;
 	}
 
+	public String getMobile() {
+		return mobile;
+	}
+
+	public void setMobile(String mobile) {
+		this.mobile = mobile;
+	}
+
 	public String getPassword() {
 		return password;
 	}
@@ -94,19 +113,22 @@ public class User {
 		this.status = status;
 	}
 
-	public List<Question> getUserQ() {
+	public Set<Question> getUserQ() {
 		return userQ;
 	}
 
-	public void setUserQ(List<Question> userQ) {
+	public void setUserQ(Set<Question> userQ) {
 		this.userQ = userQ;
 	}
 
-	public List<QuestionCategory> getUserC() {
+	public Set<QuestionCategory> getUserC() {
 		return userC;
 	}
 
-	public void setUserC(List<QuestionCategory> userC) {
+	public void setUserC(Set<QuestionCategory> userC) {
 		this.userC = userC;
 	}
+	
+	
+	
 }

@@ -2,6 +2,7 @@ package com.cmcglobal.entity;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -11,6 +12,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name="question_type", schema = "TESTING_SYSTEM_DATABASE")
@@ -26,15 +29,18 @@ public class QuestionType {
 	@Column(name = "status")
 	private int status;
 
+//	@OneToMany(cascade = CascadeType.ALL,mappedBy = "questionType")
+//	@JsonManagedReference
+//	private Set<Question> questionTy;
 	@OneToMany(cascade = CascadeType.ALL,mappedBy = "questionType")
-	private List<Question> questions = new ArrayList<>();
+	private Set<Question> questionTy;
 
-	public QuestionType(int id, String typeName, int status, List<Question> questions) {
+	public QuestionType(int id, String typeName, int status, Set<Question> questionTy) {
 		super();
 		this.id = id;
 		this.typeName = typeName;
 		this.status = status;
-		this.questions = questions;
+		this.questionTy = questionTy;
 	}
 
 	public QuestionType() {
@@ -65,11 +71,13 @@ public class QuestionType {
 		this.status = status;
 	}
 
-	public List<Question> getQuestions() {
-		return questions;
+	public Set<Question> getQuestionTy() {
+		return questionTy;
 	}
 
-	public void setQuestions(List<Question> questions) {
-		this.questions = questions;
+	public void setQuestionTy(Set<Question> questionTy) {
+		this.questionTy = questionTy;
 	}
+	
+	
 }
