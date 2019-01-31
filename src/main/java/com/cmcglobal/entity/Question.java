@@ -13,9 +13,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
@@ -37,7 +34,6 @@ public class Question {
 	private int status;
 	
 	@Column(name = "date_created")
-	@Temporal(TemporalType.TIMESTAMP)
 	private Date dateCreated;
 	
 	@ManyToOne(cascade=CascadeType.DETACH,fetch=FetchType.EAGER)
