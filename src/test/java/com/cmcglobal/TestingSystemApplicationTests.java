@@ -1,4 +1,4 @@
-package gdp5.mock1;
+package com.cmcglobal;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -7,7 +7,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class Gdp5TestingSystemApplicationTests {
+public class TestingSystemApplicationTests {
 
 	@Test
 	public void contextLoads() {

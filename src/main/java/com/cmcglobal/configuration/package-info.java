@@ -5,4 +5,4 @@
  * @author thanh
  *
  */
-package gdp5.mock1.service;
+package com.cmcglobal.configuration;
