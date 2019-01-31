@@ -63,14 +63,14 @@ public class Question {
 	@ManyToOne(cascade=CascadeType.DETACH,fetch=FetchType.EAGER)
 	@JoinColumn(name = "user_id")
 	@OnDelete(action = OnDeleteAction.CASCADE)
-	Users userQuestion;
+	User userQuestion;
 	
 	@OneToMany(cascade = CascadeType.ALL,mappedBy = "question")
 	private List<Answer> questionAnswer = new ArrayList<>();
 
 	public Question(String id, String content, String suggestion, int status, Date dateCreated,
 			QuestionCategory questionCategory, QuestionType questionType, QuestionLevel questionLevel,
-			QuestionTag questionTag, Users userQuestion, List<Answer> questionAnswer) {
+			QuestionTag questionTag, User userQuestion, List<Answer> questionAnswer) {
 		super();
 		this.id = id;
 		this.content = content;
@@ -161,11 +161,11 @@ public class Question {
 		this.questionTag = questionTag;
 	}
 
-	public Users getUserQuestion() {
+	public User getUserQuestion() {
 		return userQuestion;
 	}
 
-	public void setUserQuestion(Users userQuestion) {
+	public void setUserQuestion(User userQuestion) {
 		this.userQuestion = userQuestion;
 	}
 

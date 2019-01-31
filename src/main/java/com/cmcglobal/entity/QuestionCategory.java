@@ -45,10 +45,10 @@ public class QuestionCategory {
 	@ManyToOne(cascade=CascadeType.DETACH,fetch=FetchType.EAGER)
 	@JoinColumn(name = "user_id")
 	@OnDelete(action = OnDeleteAction.CASCADE)
-	Users userCategory;
+	User userCategory;
 
 	public QuestionCategory(int id, String categoryName, Date date_created, int status, List<Question> questions,
-			Users userCategory) {
+			User userCategory) {
 		super();
 		this.id = id;
 		this.categoryName = categoryName;
@@ -102,11 +102,11 @@ public class QuestionCategory {
 		this.questions = questions;
 	}
 
-	public Users getUserCategory() {
+	public User getUserCategory() {
 		return userCategory;
 	}
 
-	public void setUserCategory(Users userCategory) {
+	public void setUserCategory(User userCategory) {
 		this.userCategory = userCategory;
 	}
 
