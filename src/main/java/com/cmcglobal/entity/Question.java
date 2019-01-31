@@ -1,7 +1,7 @@
 package com.cmcglobal.entity;
 
 import java.util.Date;
-import java.util.Set;
+import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -15,11 +15,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
-
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name="question", schema = "TESTING_SYSTEM_DATABASE")
@@ -101,24 +97,24 @@ public class Question {
 //	@JsonManagedReference
 //	private Set<Answer> questionAnswer;
 	@OneToMany(cascade = CascadeType.ALL,mappedBy = "question")
-	private Set<Answer> questionAnswer;
+	private List<Answer> questionAnswer;
 
 	public Question(String id, String content, String sugguestion, int status, Date dateCreated,
-			QuestionCategory questionCategory, QuestionType questionType, QuestionLevel questionLevel,
-			QuestionTag questionTag, User userQuestion, Set<Answer> questionAnswer) {
-		super();
-		this.id = id;
-		this.content = content;
-		this.sugguestion = sugguestion;
-		this.status = status;
-		this.dateCreated = dateCreated;
-		this.questionCategory = questionCategory;
-		this.questionType = questionType;
-		this.questionLevel = questionLevel;
-		this.questionTag = questionTag;
-		this.userQuestion = userQuestion;
-		this.questionAnswer = questionAnswer;
-	}
+		QuestionCategory questionCategory, QuestionType questionType, QuestionLevel questionLevel,
+		QuestionTag questionTag, User userQuestion, List<Answer> questionAnswer) {
+	super();
+	this.id = id;
+	this.content = content;
+	this.sugguestion = sugguestion;
+	this.status = status;
+	this.dateCreated = dateCreated;
+	this.questionCategory = questionCategory;
+	this.questionType = questionType;
+	this.questionLevel = questionLevel;
+	this.questionTag = questionTag;
+	this.userQuestion = userQuestion;
+	this.questionAnswer = questionAnswer;
+}
 
 	public Question() {
 		super();
@@ -204,13 +200,15 @@ public class Question {
 		this.userQuestion = userQuestion;
 	}
 
-	public Set<Answer> getQuestionAnswer() {
+	public List<Answer> getQuestionAnswer() {
 		return questionAnswer;
 	}
 
-	public void setQuestionAnswer(Set<Answer> questionAnswer) {
+	public void setQuestionAnswer(List<Answer> questionAnswer) {
 		this.questionAnswer = questionAnswer;
 	}
+
+
 
 	
 	
