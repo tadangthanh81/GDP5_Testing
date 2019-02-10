@@ -41,21 +41,14 @@ public class QuestionCategory {
 	@Column(name = "status")
 	private  int status;
 	
-//	@OneToMany(cascade = CascadeType.ALL,mappedBy = "questionCategory")
-//	@JsonManagedReference
-//	private Set<Question> questions;
 	@OneToMany(cascade = CascadeType.ALL,mappedBy = "questionCategory")
+	@JsonBackReference
 	private Set<Question> questions;
-	
-//	@ManyToOne(cascade=CascadeType.DETACH,fetch=FetchType.EAGER)
-//	@JoinColumn(name = "user_id_created")
-//	@OnDelete(action = OnDeleteAction.CASCADE)
-//	@JsonBackReference
-//	User userCategory;
+
 	@ManyToOne(cascade=CascadeType.DETACH,fetch=FetchType.EAGER)
 	@JoinColumn(name = "user_id_created")
 	@OnDelete(action = OnDeleteAction.CASCADE)
-	 @JsonIgnore
+	@JsonManagedReference
 	User userCategory;
 
 	public QuestionCategory(int id, String categoryName, Date date_created, int status, Set<Question> questions,

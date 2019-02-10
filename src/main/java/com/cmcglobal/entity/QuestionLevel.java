@@ -10,8 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
 @Table(name="question_level", schema = "TESTING_SYSTEM_DATABASE")
@@ -27,10 +26,8 @@ public class QuestionLevel {
 	@Column(name = "status")
 	private int status;
 
-//	@OneToMany(cascade = CascadeType.ALL,mappedBy = "questionLevel")
-//	@JsonManagedReference
-//	private Set<Question> questionL;
 	@OneToMany(cascade = CascadeType.ALL,mappedBy = "questionLevel")
+	@JsonBackReference
 	private Set<Question> questionL;
 
 

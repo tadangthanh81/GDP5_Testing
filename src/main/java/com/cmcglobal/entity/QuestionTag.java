@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 
@@ -28,10 +29,8 @@ public class QuestionTag {
 	@Column(name = "status")
 	private int status;
 
-//	@OneToMany(cascade = CascadeType.ALL,mappedBy = "questionTag")
-//	@JsonManagedReference
-//	private Set<Question> questionT;
 	@OneToMany(cascade = CascadeType.ALL,mappedBy = "questionTag")
+	@JsonBackReference
 	private Set<Question> questionT;
 
 	public QuestionTag(int id, String tagName, int status, Set<Question> questionT) {

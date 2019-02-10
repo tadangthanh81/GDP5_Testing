@@ -15,6 +15,7 @@ import org.hibernate.annotations.OnDeleteAction;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name="answer", schema = "TESTING_SYSTEM_DATABASE")
@@ -41,7 +42,7 @@ public class Answer {
 	@ManyToOne(cascade=CascadeType.DETACH,fetch=FetchType.EAGER)
 	@JoinColumn(name = "question_id")
 	@OnDelete(action = OnDeleteAction.CASCADE)
-	 @JsonIgnore
+	@JsonManagedReference
 	Question question;
 
 

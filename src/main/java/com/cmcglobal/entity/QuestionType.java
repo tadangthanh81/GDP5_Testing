@@ -13,6 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
@@ -29,10 +30,8 @@ public class QuestionType {
 	@Column(name = "status")
 	private int status;
 
-//	@OneToMany(cascade = CascadeType.ALL,mappedBy = "questionType")
-//	@JsonManagedReference
-//	private Set<Question> questionTy;
 	@OneToMany(cascade = CascadeType.ALL,mappedBy = "questionType")
+	@JsonBackReference
 	private Set<Question> questionTy;
 
 	public QuestionType(int id, String typeName, int status, Set<Question> questionTy) {

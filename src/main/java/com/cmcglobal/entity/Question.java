@@ -15,7 +15,10 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name="question", schema = "TESTING_SYSTEM_DATABASE")
@@ -37,26 +40,16 @@ public class Question {
 	@Column(name = "date_created")
 	private Date dateCreated;
 	
-//	@ManyToOne(cascade=CascadeType.DETACH,fetch=FetchType.EAGER)
-//	@JoinColumn(name = "category_id")
-//	@OnDelete(action = OnDeleteAction.CASCADE)
-//	@JsonBackReference
-//	QuestionCategory questionCategory;
 	@ManyToOne(cascade=CascadeType.DETACH,fetch=FetchType.EAGER)
 	@JoinColumn(name = "category_id")
 	@OnDelete(action = OnDeleteAction.CASCADE)
-	 @JsonIgnore
+	@JsonManagedReference
 	QuestionCategory questionCategory;
-	
-//	@ManyToOne(cascade=CascadeType.DETACH,fetch=FetchType.EAGER)
-//	@JoinColumn(name = "type_id")
-//	@OnDelete(action = OnDeleteAction.CASCADE)
-//	@JsonBackReference
-//	QuestionType questionType;
+
 	@ManyToOne(cascade=CascadeType.DETACH,fetch=FetchType.EAGER)
 	@JoinColumn(name = "type_id")
 	@OnDelete(action = OnDeleteAction.CASCADE)
-	 @JsonIgnore
+	@JsonManagedReference
 	QuestionType questionType;
 	
 //	@ManyToOne(cascade=CascadeType.DETACH,fetch=FetchType.EAGER)
@@ -67,29 +60,20 @@ public class Question {
 	@ManyToOne(cascade=CascadeType.DETACH,fetch=FetchType.EAGER)
 	@JoinColumn(name = "level_id")
 	@OnDelete(action = OnDeleteAction.CASCADE)
-	 @JsonIgnore
+	@JsonManagedReference
 	QuestionLevel questionLevel;
 	
-//	@ManyToOne(cascade=CascadeType.DETACH,fetch=FetchType.EAGER)
-//	@JoinColumn(name = "tag_id")
-//	@OnDelete(action = OnDeleteAction.CASCADE)
-//	@JsonBackReference
-//	QuestionTag questionTag;
 	@ManyToOne(cascade=CascadeType.DETACH,fetch=FetchType.EAGER)
 	@JoinColumn(name = "tag_id")
 	@OnDelete(action = OnDeleteAction.CASCADE)
-	 @JsonIgnore
+	@JsonManagedReference
 	QuestionTag questionTag;
 	
-//	@ManyToOne(cascade=CascadeType.DETACH,fetch=FetchType.EAGER)
-//	@JoinColumn(name = "user_id_created")
-//	@OnDelete(action = OnDeleteAction.CASCADE)
-//	@JsonBackReference
-//	User userQuestion;
+
 	@ManyToOne(cascade=CascadeType.DETACH,fetch=FetchType.EAGER)
 	@JoinColumn(name = "user_id_created")
 	@OnDelete(action = OnDeleteAction.CASCADE)
-	 @JsonIgnore
+	@JsonManagedReference
 	User userQuestion;
 	
 	
@@ -97,6 +81,7 @@ public class Question {
 //	@JsonManagedReference
 //	private Set<Answer> questionAnswer;
 	@OneToMany(cascade = CascadeType.ALL,mappedBy = "question")
+	@JsonBackReference
 	private List<Answer> questionAnswer;
 
 	public Question(String id, String content, String sugguestion, int status, Date dateCreated,

@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
@@ -36,16 +37,14 @@ public class User {
 	@Column(name = "status")
 	private int status;
 	
-//	@OneToMany(cascade = CascadeType.ALL,mappedBy = "userQuestion")
-//	@JsonManagedReference
-//	private Set<Question> userQ;
+
 	@OneToMany(cascade = CascadeType.ALL,mappedBy = "userQuestion")
+	@JsonBackReference
 	private Set<Question> userQ;
 	
-//	@OneToMany(cascade = CascadeType.ALL,mappedBy = "userCategory")
-//	@JsonManagedReference
-//	private Set<QuestionCategory> userC;
+
 	@OneToMany(cascade = CascadeType.ALL,mappedBy = "userCategory")
+	@JsonBackReference
 	private Set<QuestionCategory> userC;
 
 	public User() {
