@@ -15,9 +15,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
-
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
@@ -52,11 +50,6 @@ public class Question {
 	@JsonManagedReference
 	QuestionType questionType;
 	
-//	@ManyToOne(cascade=CascadeType.DETACH,fetch=FetchType.EAGER)
-//	@JoinColumn(name = "level_id")
-//	@OnDelete(action = OnDeleteAction.CASCADE)
-//	@JsonBackReference
-//	QuestionLevel questionLevel;
 	@ManyToOne(cascade=CascadeType.DETACH,fetch=FetchType.EAGER)
 	@JoinColumn(name = "level_id")
 	@OnDelete(action = OnDeleteAction.CASCADE)
@@ -76,10 +69,6 @@ public class Question {
 	@JsonManagedReference
 	User userQuestion;
 	
-	
-//	@OneToMany(cascade = CascadeType.ALL,mappedBy = "question")
-//	@JsonManagedReference
-//	private Set<Answer> questionAnswer;
 	@OneToMany(cascade = CascadeType.ALL,mappedBy = "question")
 	@JsonBackReference
 	private List<Answer> questionAnswer;
