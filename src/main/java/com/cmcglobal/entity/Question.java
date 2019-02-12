@@ -2,6 +2,7 @@ package com.cmcglobal.entity;
 
 import java.util.Date;
 import java.util.List;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -13,9 +14,10 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
@@ -47,26 +49,29 @@ public class Question {
 	@JoinColumn(name = "type_id")
 	@OnDelete(action = OnDeleteAction.CASCADE)
 //	 @JsonIgnore
+	@JsonManagedReference
 	QuestionType questionType;
 
 	@ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
 	@JoinColumn(name = "level_id")
 	@OnDelete(action = OnDeleteAction.CASCADE)
-//	 @JsonIgnore
+	@JsonManagedReference
 	QuestionLevel questionLevel;
 
 	@ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
 	@JoinColumn(name = "tag_id")
 	@OnDelete(action = OnDeleteAction.CASCADE)
+	@JsonManagedReference
 	QuestionTag questionTag;
 
 	@ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
 	@JoinColumn(name = "user_id_created")
 	@OnDelete(action = OnDeleteAction.CASCADE)
+	@JsonManagedReference
 	User userQuestion;
 
 	@OneToMany(cascade = CascadeType.ALL)
-	@JoinColumn(name="question_id")
+	@JoinColumn(name = "question_id")
 	@JsonManagedReference
 	private List<Answer> questionAnswer;
 

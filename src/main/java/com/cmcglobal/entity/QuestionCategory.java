@@ -1,7 +1,7 @@
 package com.cmcglobal.entity;
 
 import java.util.Date;
-import java.util.Set;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,43 +11,40 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
-@Table(name="category", schema = "TESTING_SYSTEM_DATABASE")
+@Table(name = "category", schema = "TESTING_SYSTEM_DATABASE")
 public class QuestionCategory {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "category_id", nullable = false)
-	private  int id;
-	
+	private int id;
+
 	@Column(name = "category_name")
-	private  String categoryName;
-	
+	private String categoryName;
+
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "date_created")
-	private  Date dateCreated;
-	
+	private Date dateCreated;
+
 	@Column(name = "status")
-	private  int status;
-	
-	@ManyToOne(cascade=CascadeType.DETACH,fetch=FetchType.EAGER)
+	private int status;
+
+	@ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
 	@JoinColumn(name = "user_id_created")
 	@OnDelete(action = OnDeleteAction.CASCADE)
+	@JsonManagedReference
 	User userCategory;
 
-	public QuestionCategory(int id, String categoryName, Date dateCreated, int status,
-			User userCategory) {
+	public QuestionCategory(int id, String categoryName, Date dateCreated, int status, User userCategory) {
 		super();
 		this.id = id;
 		this.categoryName = categoryName;
@@ -100,5 +97,4 @@ public class QuestionCategory {
 		this.userCategory = userCategory;
 	}
 
-	
 }

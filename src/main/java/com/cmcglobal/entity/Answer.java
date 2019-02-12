@@ -1,20 +1,8 @@
 package com.cmcglobal.entity;
-
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
-
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name="answer", schema = "TESTING_SYSTEM_DATABASE")
@@ -32,7 +20,7 @@ public class Answer {
 	
 	@Column(name = "status")
 	private int status;
-
+	
 	public Answer(String id, String content, int isTrue, int status) {
 		super();
 		this.id = id;
@@ -76,5 +64,5 @@ public class Answer {
 	public void setStatus(int status) {
 		this.status = status;
 	}
-
+	
 }

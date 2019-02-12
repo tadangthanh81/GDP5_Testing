@@ -1,38 +1,32 @@
 package com.cmcglobal.entity;
 
-
-import java.util.Set;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-
 @Entity
-@Table(name="user", schema = "TESTING_SYSTEM_DATABASE")
+@Table(name = "user", schema = "TESTING_SYSTEM_DATABASE")
 public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "user_id", nullable = false)
-	private  int id;
-	
+	private int id;
+
 	@Column(name = "full_name")
 	private String fullName;
-	
+
 	@Column(name = "email")
 	private String email;
-	
+
 	@Column(name = "mobile")
 	private String mobile;
-	
+
 	@Column(name = "password")
 	private String password;
-	
+
 	@Column(name = "status")
 	private int status;
 
