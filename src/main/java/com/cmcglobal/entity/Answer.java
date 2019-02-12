@@ -1,5 +1,4 @@
 package com.cmcglobal.entity;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -8,10 +7,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
-
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -39,11 +36,11 @@ public class Answer {
 //	@OnDelete(action = OnDeleteAction.CASCADE)
 //	@JsonBackReference
 //	Question question;
-	@ManyToOne(cascade=CascadeType.DETACH,fetch=FetchType.EAGER)
-	@JoinColumn(name = "question_id")
-	@OnDelete(action = OnDeleteAction.CASCADE)
-	@JsonManagedReference
-	Question question;
+//	@ManyToOne(cascade=CascadeType.DETACH,fetch=FetchType.EAGER)
+//	@JoinColumn(name = "question_id")
+//	@OnDelete(action = OnDeleteAction.CASCADE)
+//	@JsonBackReference
+//	Question question;
 
 
 	public Answer(String id, String content, int isTrue, int status, Question question) {
@@ -52,7 +49,7 @@ public class Answer {
 		this.content = content;
 		this.isTrue = isTrue;
 		this.status = status;
-		this.question = question;
+		//this.question = question;
 	}
 
 	public Answer() {
@@ -91,11 +88,11 @@ public class Answer {
 		this.status = status;
 	}
 
-	public Question getQuestion() {
-		return question;
-	}
-
-	public void setQuestion(Question question) {
-		this.question = question;
-	}
+//	public Question getQuestion() {
+//		return question;
+//	}
+//
+//	public void setQuestion(Question question) {
+//		this.question = question;
+//	}
 }

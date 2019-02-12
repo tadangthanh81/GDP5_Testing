@@ -27,21 +27,30 @@ public class QuestionTag {
 	@Column(name = "status")
 	private int status;
 
-	@OneToMany(cascade = CascadeType.ALL,mappedBy = "questionTag")
-	@JsonBackReference
-	private Set<Question> questionT;
+//	@OneToMany(cascade = CascadeType.ALL,mappedBy = "questionTag")
+//	@JsonBackReference
+//	private Set<Question> questionT;
 
-	public QuestionTag(int id, String tagName, int status, Set<Question> questionT) {
-		super();
-		this.id = id;
-		this.tagName = tagName;
-		this.status = status;
-		this.questionT = questionT;
-	}
+//	public QuestionTag(int id, String tagName, int status, Set<Question> questionT) {
+//		super();
+//		this.id = id;
+//		this.tagName = tagName;
+//		this.status = status;
+//		this.questionT = questionT;
+//	}
+	
+	
 
 	public QuestionTag() {
 		super();
 	}
+
+	public QuestionTag(int id, String tagName, int status) {
+	super();
+	this.id = id;
+	this.tagName = tagName;
+	this.status = status;
+}
 
 	public int getId() {
 		return id;
@@ -67,14 +76,14 @@ public class QuestionTag {
 		this.status = status;
 	}
 
-	public Set<Question> getQuestionT() {
-		return questionT;
-	}
-
-	public void setQuestionT(Set<Question> questionT) {
-		this.questionT = questionT;
-	}
-
-	
+//	public Set<Question> getQuestionT() {
+//		return questionT;
+//	}
+//
+//	public void setQuestionT(Set<Question> questionT) {
+//		this.questionT = questionT;
+//	}
+//
+//	
 
 }

@@ -33,14 +33,14 @@ public class QuestionCategory {
 	
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "date_created")
-	private  Date date_created;
+	private  Date date_Create;
 	
 	@Column(name = "status")
 	private  int status;
 	
-	@OneToMany(cascade = CascadeType.ALL,mappedBy = "questionCategory")
-	@JsonBackReference
-	private Set<Question> questions;
+//	@OneToMany(cascade = CascadeType.ALL,mappedBy = "category")
+//	@JsonBackReference
+//	private Set<Question> questions;
 
 	@ManyToOne(cascade=CascadeType.DETACH,fetch=FetchType.EAGER)
 	@JoinColumn(name = "user_id_created")
@@ -48,16 +48,16 @@ public class QuestionCategory {
 	@JsonManagedReference
 	User userCategory;
 
-	public QuestionCategory(int id, String categoryName, Date date_created, int status, Set<Question> questions,
-			User userCategory) {
-		super();
-		this.id = id;
-		this.categoryName = categoryName;
-		this.date_created = date_created;
-		this.status = status;
-		this.questions = questions;
-		this.userCategory = userCategory;
-	}
+//	public QuestionCategory(int id, String categoryName, Date date_created, int status, Set<Question> questions,
+//			User userCategory) {
+//		super();
+//		this.id = id;
+//		this.categoryName = categoryName;
+//		this.date_created = date_created;
+//		this.status = status;
+//		this.questions = questions;
+//		this.userCategory = userCategory;
+//	}
 
 	public QuestionCategory() {
 		super();
@@ -80,11 +80,11 @@ public class QuestionCategory {
 	}
 
 	public Date getDate_created() {
-		return date_created;
+		return date_Create;
 	}
 
 	public void setDate_created(Date date_created) {
-		this.date_created = date_created;
+		this.date_Create = date_created;
 	}
 
 	public int getStatus() {
@@ -95,13 +95,13 @@ public class QuestionCategory {
 		this.status = status;
 	}
 
-	public Set<Question> getQuestions() {
-		return questions;
-	}
-
-	public void setQuestions(Set<Question> questions) {
-		this.questions = questions;
-	}
+//	public Set<Question> getQuestions() {
+//		return questions;
+//	}
+//
+//	public void setQuestions(Set<Question> questions) {
+//		this.questions = questions;
+//	}
 
 	public User getUserCategory() {
 		return userCategory;

@@ -2,15 +2,12 @@ package com.cmcglobal.entity;
 
 import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
 @Table(name="question_level", schema = "TESTING_SYSTEM_DATABASE")
@@ -26,23 +23,31 @@ public class QuestionLevel {
 	@Column(name = "status")
 	private int status;
 
-	@OneToMany(cascade = CascadeType.ALL,mappedBy = "questionLevel")
-	@JsonBackReference
-	private Set<Question> questionL;
+//	@OneToMany(cascade = CascadeType.ALL,mappedBy = "questionLevel")
+//	@JsonBackReference
+//	private Set<Question> questionL;
 
 
-	public QuestionLevel(int id, String levelName, int status, Set<Question> questionL) {
-		super();
-		this.id = id;
-		this.levelName = levelName;
-		this.status = status;
-		this.questionL = questionL;
-	}
-
-
+//	public QuestionLevel(int id, String levelName, int status, Set<Question> questionL) {
+//		super();
+//		this.id = id;
+//		this.levelName = levelName;
+//		this.status = status;
+//		this.questionL = questionL;
+//	}
+	
+	
 	public QuestionLevel() {
 		super();
 	}
+
+
+	public QuestionLevel(int id, String levelName, int status) {
+	super();
+	this.id = id;
+	this.levelName = levelName;
+	this.status = status;
+}
 
 
 	public int getId() {
@@ -75,13 +80,13 @@ public class QuestionLevel {
 	}
 
 
-	public Set<Question> getQuestionL() {
-		return questionL;
-	}
-
-
-	public void setQuestionL(Set<Question> questionL) {
-		this.questionL = questionL;
-	}
+//	public Set<Question> getQuestionL() {
+//		return questionL;
+//	}
+//
+//
+//	public void setQuestionL(Set<Question> questionL) {
+//		this.questionL = questionL;
+//	}
 
 }

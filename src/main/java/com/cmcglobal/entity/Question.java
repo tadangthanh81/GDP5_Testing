@@ -42,7 +42,7 @@ public class Question {
 	@JoinColumn(name = "category_id")
 	@OnDelete(action = OnDeleteAction.CASCADE)
 	@JsonManagedReference
-	QuestionCategory questionCategory;
+	QuestionCategory category; 
 
 	@ManyToOne(cascade=CascadeType.DETACH,fetch=FetchType.EAGER)
 	@JoinColumn(name = "type_id")
@@ -69,26 +69,27 @@ public class Question {
 	@JsonManagedReference
 	User userQuestion;
 	
-	@OneToMany(cascade = CascadeType.ALL,mappedBy = "question")
-	@JsonBackReference
+	@OneToMany(cascade = CascadeType.ALL)
+	@JoinColumn(name="question_id")
+	@JsonManagedReference
 	private List<Answer> questionAnswer;
 
 	public Question(String id, String content, String sugguestion, int status, Date dateCreated,
-		QuestionCategory questionCategory, QuestionType questionType, QuestionLevel questionLevel,
-		QuestionTag questionTag, User userQuestion, List<Answer> questionAnswer) {
-	super();
-	this.id = id;
-	this.content = content;
-	this.sugguestion = sugguestion;
-	this.status = status;
-	this.dateCreated = dateCreated;
-	this.questionCategory = questionCategory;
-	this.questionType = questionType;
-	this.questionLevel = questionLevel;
-	this.questionTag = questionTag;
-	this.userQuestion = userQuestion;
-	this.questionAnswer = questionAnswer;
-}
+			QuestionCategory category, QuestionType questionType, QuestionLevel questionLevel, QuestionTag questionTag,
+			User userQuestion, List<Answer> questionAnswer) {
+		super();
+		this.id = id;
+		this.content = content;
+		this.sugguestion = sugguestion;
+		this.status = status;
+		this.dateCreated = dateCreated;
+		this.category = category;
+		this.questionType = questionType;
+		this.questionLevel = questionLevel;
+		this.questionTag = questionTag;
+		this.userQuestion = userQuestion;
+		this.questionAnswer = questionAnswer;
+	}
 
 	public Question() {
 		super();
@@ -134,12 +135,12 @@ public class Question {
 		this.dateCreated = dateCreated;
 	}
 
-	public QuestionCategory getQuestionCategory() {
-		return questionCategory;
+	public QuestionCategory getCategory() {
+		return category;
 	}
 
-	public void setQuestionCategory(QuestionCategory questionCategory) {
-		this.questionCategory = questionCategory;
+	public void setCategory(QuestionCategory category) {
+		this.category = category;
 	}
 
 	public QuestionType getQuestionType() {
@@ -182,8 +183,5 @@ public class Question {
 		this.questionAnswer = questionAnswer;
 	}
 
-
-
-	
 	
 }
