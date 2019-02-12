@@ -2,6 +2,8 @@ package com.cmcglobal.service;
 
 import java.util.List;
 
+import org.springframework.data.domain.Pageable;
+
 import com.cmcglobal.entity.Question;
 
 public interface QuestionServices {
@@ -12,4 +14,5 @@ public interface QuestionServices {
 	String editQuestion(String id, Question newQuestion);
 	List<Question> searchByContent( String contentSearch);
 	void updateMultiQuestion(String category_id, String level_id, String tag_id, String question_id);
+	List<Question> pageQuestion(Pageable pageable);
 }

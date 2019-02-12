@@ -2,6 +2,7 @@ package com.cmcglobal.service.serviceImpl;
 
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.cmcglobal.entity.Question;
@@ -58,6 +59,11 @@ public class QuestionServiceImpl implements QuestionServices {
 	public void updateMultiQuestion(String category_id, String level_id, String tag_id, String question_id) {
 		// TODO Auto-generated method stub
 		questionRepository.updateMultiQuestion(category_id, level_id, tag_id, question_id);
+	}
+	
+	@Override
+	public List<Question> pageQuestion(Pageable pageable) {
+		return questionRepository.pageQuestion(pageable);
 	}
 
 }
