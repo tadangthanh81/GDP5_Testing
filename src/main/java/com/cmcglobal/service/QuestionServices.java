@@ -11,4 +11,5 @@ public interface QuestionServices {
 	void deletebyId(String id);
 	String editQuestion(String id, Question newQuestion);
 	List<Question> searchByContent( String contentSearch);
+	void updateMultiQuestion(String category_id, String level_id, String tag_id, String question_id);
 }

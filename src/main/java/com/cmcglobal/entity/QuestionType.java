@@ -29,18 +29,11 @@ public class QuestionType {
 	@Column(name = "status")
 	private int status;
 
-//	@OneToMany(cascade = CascadeType.ALL,mappedBy = "questionType")
-//	@JsonManagedReference
-//	private Set<Question> questionTy;
-	@OneToMany(cascade = CascadeType.ALL,mappedBy = "questionType")
-	private Set<Question> questionTy;
-
-	public QuestionType(int id, String typeName, int status, Set<Question> questionTy) {
+	public QuestionType(int id, String typeName, int status) {
 		super();
 		this.id = id;
 		this.typeName = typeName;
 		this.status = status;
-		this.questionTy = questionTy;
 	}
 
 	public QuestionType() {
@@ -70,14 +63,5 @@ public class QuestionType {
 	public void setStatus(int status) {
 		this.status = status;
 	}
-
-	public Set<Question> getQuestionTy() {
-		return questionTy;
-	}
-
-	public void setQuestionTy(Set<Question> questionTy) {
-		this.questionTy = questionTy;
-	}
-	
 	
 }

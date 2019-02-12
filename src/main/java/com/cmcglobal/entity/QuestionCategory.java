@@ -36,36 +36,23 @@ public class QuestionCategory {
 	
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "date_created")
-	private  Date date_created;
+	private  Date dateCreated;
 	
 	@Column(name = "status")
 	private  int status;
 	
-//	@OneToMany(cascade = CascadeType.ALL,mappedBy = "questionCategory")
-//	@JsonManagedReference
-//	private Set<Question> questions;
-	@OneToMany(cascade = CascadeType.ALL,mappedBy = "questionCategory")
-	private Set<Question> questions;
-	
-//	@ManyToOne(cascade=CascadeType.DETACH,fetch=FetchType.EAGER)
-//	@JoinColumn(name = "user_id_created")
-//	@OnDelete(action = OnDeleteAction.CASCADE)
-//	@JsonBackReference
-//	User userCategory;
 	@ManyToOne(cascade=CascadeType.DETACH,fetch=FetchType.EAGER)
 	@JoinColumn(name = "user_id_created")
 	@OnDelete(action = OnDeleteAction.CASCADE)
-	 @JsonIgnore
 	User userCategory;
 
-	public QuestionCategory(int id, String categoryName, Date date_created, int status, Set<Question> questions,
+	public QuestionCategory(int id, String categoryName, Date dateCreated, int status,
 			User userCategory) {
 		super();
 		this.id = id;
 		this.categoryName = categoryName;
-		this.date_created = date_created;
+		this.dateCreated = dateCreated;
 		this.status = status;
-		this.questions = questions;
 		this.userCategory = userCategory;
 	}
 
@@ -89,12 +76,12 @@ public class QuestionCategory {
 		this.categoryName = categoryName;
 	}
 
-	public Date getDate_created() {
-		return date_created;
+	public Date getDateCreated() {
+		return dateCreated;
 	}
 
-	public void setDate_created(Date date_created) {
-		this.date_created = date_created;
+	public void setDateCreated(Date dateCreated) {
+		this.dateCreated = dateCreated;
 	}
 
 	public int getStatus() {
@@ -103,14 +90,6 @@ public class QuestionCategory {
 
 	public void setStatus(int status) {
 		this.status = status;
-	}
-
-	public Set<Question> getQuestions() {
-		return questions;
-	}
-
-	public void setQuestions(Set<Question> questions) {
-		this.questions = questions;
 	}
 
 	public User getUserCategory() {

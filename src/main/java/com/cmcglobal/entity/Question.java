@@ -16,105 +16,76 @@ import javax.persistence.TemporalType;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
-@Table(name="question", schema = "TESTING_SYSTEM_DATABASE")
+@Table(name = "question", schema = "TESTING_SYSTEM_DATABASE")
 public class Question {
 	@Id
-	@Column(name = "question_id",  unique = true, nullable = false)
+	@Column(name = "question_id", unique = true, nullable = false)
 	private String id;
-	
+
 	@Column(name = "content")
 	private String content;
-	
+
 	@Column(name = "sugguestion")
 	private String sugguestion;
-	
+
 	@Column(name = "status")
 	private int status;
-	
+
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "date_created")
 	private Date dateCreated;
-	
-//	@ManyToOne(cascade=CascadeType.DETACH,fetch=FetchType.EAGER)
-//	@JoinColumn(name = "category_id")
-//	@OnDelete(action = OnDeleteAction.CASCADE)
-//	@JsonBackReference
-//	QuestionCategory questionCategory;
-	@ManyToOne(cascade=CascadeType.DETACH,fetch=FetchType.EAGER)
+
+	@ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
 	@JoinColumn(name = "category_id")
 	@OnDelete(action = OnDeleteAction.CASCADE)
-	 @JsonIgnore
 	QuestionCategory questionCategory;
-	
-//	@ManyToOne(cascade=CascadeType.DETACH,fetch=FetchType.EAGER)
-//	@JoinColumn(name = "type_id")
-//	@OnDelete(action = OnDeleteAction.CASCADE)
-//	@JsonBackReference
-//	QuestionType questionType;
-	@ManyToOne(cascade=CascadeType.DETACH,fetch=FetchType.EAGER)
+
+	@ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
 	@JoinColumn(name = "type_id")
 	@OnDelete(action = OnDeleteAction.CASCADE)
-	 @JsonIgnore
+//	 @JsonIgnore
 	QuestionType questionType;
-	
-//	@ManyToOne(cascade=CascadeType.DETACH,fetch=FetchType.EAGER)
-//	@JoinColumn(name = "level_id")
-//	@OnDelete(action = OnDeleteAction.CASCADE)
-//	@JsonBackReference
-//	QuestionLevel questionLevel;
-	@ManyToOne(cascade=CascadeType.DETACH,fetch=FetchType.EAGER)
+
+	@ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
 	@JoinColumn(name = "level_id")
 	@OnDelete(action = OnDeleteAction.CASCADE)
-	 @JsonIgnore
+//	 @JsonIgnore
 	QuestionLevel questionLevel;
-	
-//	@ManyToOne(cascade=CascadeType.DETACH,fetch=FetchType.EAGER)
-//	@JoinColumn(name = "tag_id")
-//	@OnDelete(action = OnDeleteAction.CASCADE)
-//	@JsonBackReference
-//	QuestionTag questionTag;
-	@ManyToOne(cascade=CascadeType.DETACH,fetch=FetchType.EAGER)
+
+	@ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
 	@JoinColumn(name = "tag_id")
 	@OnDelete(action = OnDeleteAction.CASCADE)
-	 @JsonIgnore
 	QuestionTag questionTag;
-	
-//	@ManyToOne(cascade=CascadeType.DETACH,fetch=FetchType.EAGER)
-//	@JoinColumn(name = "user_id_created")
-//	@OnDelete(action = OnDeleteAction.CASCADE)
-//	@JsonBackReference
-//	User userQuestion;
-	@ManyToOne(cascade=CascadeType.DETACH,fetch=FetchType.EAGER)
+
+	@ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
 	@JoinColumn(name = "user_id_created")
 	@OnDelete(action = OnDeleteAction.CASCADE)
-	 @JsonIgnore
 	User userQuestion;
-	
-	
-//	@OneToMany(cascade = CascadeType.ALL,mappedBy = "question")
-//	@JsonManagedReference
-//	private Set<Answer> questionAnswer;
-	@OneToMany(cascade = CascadeType.ALL,mappedBy = "question")
+
+	@OneToMany(cascade = CascadeType.ALL)
+	@JoinColumn(name="question_id")
+	@JsonManagedReference
 	private List<Answer> questionAnswer;
 
 	public Question(String id, String content, String sugguestion, int status, Date dateCreated,
-		QuestionCategory questionCategory, QuestionType questionType, QuestionLevel questionLevel,
-		QuestionTag questionTag, User userQuestion, List<Answer> questionAnswer) {
-	super();
-	this.id = id;
-	this.content = content;
-	this.sugguestion = sugguestion;
-	this.status = status;
-	this.dateCreated = dateCreated;
-	this.questionCategory = questionCategory;
-	this.questionType = questionType;
-	this.questionLevel = questionLevel;
-	this.questionTag = questionTag;
-	this.userQuestion = userQuestion;
-	this.questionAnswer = questionAnswer;
-}
+	        QuestionCategory questionCategory, QuestionType questionType, QuestionLevel questionLevel,
+	        QuestionTag questionTag, User userQuestion, List<Answer> questionAnswer) {
+		super();
+		this.id = id;
+		this.content = content;
+		this.sugguestion = sugguestion;
+		this.status = status;
+		this.dateCreated = dateCreated;
+		this.questionCategory = questionCategory;
+		this.questionType = questionType;
+		this.questionLevel = questionLevel;
+		this.questionTag = questionTag;
+		this.userQuestion = userQuestion;
+		this.questionAnswer = questionAnswer;
+	}
 
 	public Question() {
 		super();
@@ -207,9 +178,4 @@ public class Question {
 	public void setQuestionAnswer(List<Answer> questionAnswer) {
 		this.questionAnswer = questionAnswer;
 	}
-
-
-
-	
-	
 }

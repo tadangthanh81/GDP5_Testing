@@ -35,25 +35,12 @@ public class User {
 	
 	@Column(name = "status")
 	private int status;
-	
-//	@OneToMany(cascade = CascadeType.ALL,mappedBy = "userQuestion")
-//	@JsonManagedReference
-//	private Set<Question> userQ;
-	@OneToMany(cascade = CascadeType.ALL,mappedBy = "userQuestion")
-	private Set<Question> userQ;
-	
-//	@OneToMany(cascade = CascadeType.ALL,mappedBy = "userCategory")
-//	@JsonManagedReference
-//	private Set<QuestionCategory> userC;
-	@OneToMany(cascade = CascadeType.ALL,mappedBy = "userCategory")
-	private Set<QuestionCategory> userC;
 
 	public User() {
 		super();
 	}
 
-	public User(int id, String fullName, String email, String mobile, String password, int status, Set<Question> userQ,
-			Set<QuestionCategory> userC) {
+	public User(int id, String fullName, String email, String mobile, String password, int status) {
 		super();
 		this.id = id;
 		this.fullName = fullName;
@@ -61,8 +48,6 @@ public class User {
 		this.mobile = mobile;
 		this.password = password;
 		this.status = status;
-		this.userQ = userQ;
-		this.userC = userC;
 	}
 
 	public int getId() {
@@ -108,27 +93,4 @@ public class User {
 	public int getStatus() {
 		return status;
 	}
-
-	public void setStatus(int status) {
-		this.status = status;
-	}
-
-	public Set<Question> getUserQ() {
-		return userQ;
-	}
-
-	public void setUserQ(Set<Question> userQ) {
-		this.userQ = userQ;
-	}
-
-	public Set<QuestionCategory> getUserC() {
-		return userC;
-	}
-
-	public void setUserC(Set<QuestionCategory> userC) {
-		this.userC = userC;
-	}
-	
-	
-	
 }
