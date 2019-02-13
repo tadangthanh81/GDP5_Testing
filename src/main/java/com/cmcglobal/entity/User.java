@@ -1,11 +1,18 @@
 package com.cmcglobal.entity;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
 @Table(name = "user", schema = "TESTING_SYSTEM_DATABASE")
@@ -29,10 +36,13 @@ public class User {
 
 	@Column(name = "status")
 	private int status;
+	
 
 	public User() {
 		super();
 	}
+	
+	
 
 	public User(int id, String fullName, String email, String mobile, String password, int status) {
 		super();
@@ -43,6 +53,13 @@ public class User {
 		this.password = password;
 		this.status = status;
 	}
+	
+
+	public void setStatus(int status) {
+		this.status = status;
+	}
+
+
 
 	public int getId() {
 		return id;

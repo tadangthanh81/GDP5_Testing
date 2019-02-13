@@ -11,6 +11,7 @@ import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
+
 @Configuration
 @EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter implements WebMvcConfigurer {
@@ -45,4 +46,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter implemen
             }
         };
     }
+	
+//	 @Override
+//	    public void configureContentNegotiation(ContentNegotiationConfigurer configurer) {
+//	    configurer.favorPathExtension(false).
+//	            favorParameter(true).
+//	            defaultContentType(MediaType.APPLICATION_JSON).
+//	            mediaType("xml", MediaType.APPLICATION_XML);
+//	    }
 }

@@ -5,6 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cmcglobal.entity.Question;
@@ -56,7 +59,8 @@ public class QuestionController {
 		questionService.deletebyId(questionID);
 	}
 
-	@RequestMapping(value = "question/edit/{questionID}", method = RequestMethod.PATCH)
+	@RequestMapping(value = "question/edit/{questionID}", 
+	method = RequestMethod.PATCH)
 	private String editQuestion(@PathVariable("questionID") String questionID, @RequestBody Question newQuestion) {
 		return questionService.editQuestion(questionID, newQuestion);
 	}

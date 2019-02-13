@@ -1,6 +1,7 @@
 package com.cmcglobal.entity;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -11,6 +12,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -18,6 +20,7 @@ import javax.persistence.TemporalType;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
@@ -38,11 +41,12 @@ public class QuestionCategory {
 	@Column(name = "status")
 	private int status;
 
-	@ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
-	@JoinColumn(name = "user_id_created")
-	@OnDelete(action = OnDeleteAction.CASCADE)
-	@JsonManagedReference
-	User userCategory;
+//	@ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
+//	@JoinColumn(name = "user_id_created")
+//	@OnDelete(action = OnDeleteAction.CASCADE)
+//	@JsonManagedReference
+//	User userCategory;
+
 
 	public QuestionCategory(int id, String categoryName, Date dateCreated, int status, User userCategory) {
 		super();
@@ -50,8 +54,11 @@ public class QuestionCategory {
 		this.categoryName = categoryName;
 		this.dateCreated = dateCreated;
 		this.status = status;
-		this.userCategory = userCategory;
+//		this.userCategory = userCategory;
 	}
+
+
+
 
 	public QuestionCategory() {
 		super();
@@ -89,12 +96,12 @@ public class QuestionCategory {
 		this.status = status;
 	}
 
-	public User getUserCategory() {
-		return userCategory;
-	}
-
-	public void setUserCategory(User userCategory) {
-		this.userCategory = userCategory;
-	}
+//	public User getUserCategory() {
+//		return userCategory;
+//	}
+//
+//	public void setUserCategory(User userCategory) {
+//		this.userCategory = userCategory;
+//	}
 
 }

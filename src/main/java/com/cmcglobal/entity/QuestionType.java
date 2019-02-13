@@ -1,11 +1,18 @@
 package com.cmcglobal.entity;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
 @Table(name = "question_type", schema = "TESTING_SYSTEM_DATABASE")
@@ -20,6 +27,10 @@ public class QuestionType {
 
 	@Column(name = "status")
 	private int status;
+	
+//	@OneToMany(mappedBy = "questionType", fetch = FetchType.EAGER,cascade = CascadeType.DETACH)
+//    @JsonBackReference
+//    private List<Question> questionTs;
 
 	public QuestionType(int id, String typeName, int status) {
 		super();
@@ -27,10 +38,16 @@ public class QuestionType {
 		this.typeName = typeName;
 		this.status = status;
 	}
+	
+	
+
+	
 
 	public QuestionType() {
 		super();
 	}
+	
+	
 
 	public int getId() {
 		return id;

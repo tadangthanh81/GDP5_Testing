@@ -14,11 +14,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
-
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name = "question", schema = "TESTING_SYSTEM_DATABASE")
@@ -40,39 +37,28 @@ public class Question {
 	@Column(name = "date_created")
 	private Date dateCreated;
 
-	@ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
+	@ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
 	@JoinColumn(name = "category_id")
-	@OnDelete(action = OnDeleteAction.CASCADE)
 	QuestionCategory questionCategory;
 
-	@ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
+	@ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
 	@JoinColumn(name = "type_id")
-	@OnDelete(action = OnDeleteAction.CASCADE)
-//	 @JsonIgnore
-	@JsonManagedReference
 	QuestionType questionType;
 
-	@ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
+	@ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
 	@JoinColumn(name = "level_id")
-	@OnDelete(action = OnDeleteAction.CASCADE)
-	@JsonManagedReference
 	QuestionLevel questionLevel;
 
-	@ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
+	@ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
 	@JoinColumn(name = "tag_id")
-	@OnDelete(action = OnDeleteAction.CASCADE)
-	@JsonManagedReference
 	QuestionTag questionTag;
 
-	@ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
+	@ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
 	@JoinColumn(name = "user_id_created")
-	@OnDelete(action = OnDeleteAction.CASCADE)
-	@JsonManagedReference
 	User userQuestion;
 
 	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name = "question_id")
-	@JsonManagedReference
 	private List<Answer> questionAnswer;
 
 	public Question(String id, String content, String sugguestion, int status, Date dateCreated,

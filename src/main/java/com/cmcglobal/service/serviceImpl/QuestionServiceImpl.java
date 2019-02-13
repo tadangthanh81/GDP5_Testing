@@ -1,9 +1,13 @@
 package com.cmcglobal.service.serviceImpl;
 
 import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.cmcglobal.entity.Question;
 import com.cmcglobal.repository.QuestionRepository;
@@ -42,6 +46,7 @@ public class QuestionServiceImpl implements QuestionServices {
 		if (!existQ) {
 			return "No question with id above";
 		} else {
+			newQuestion.setId(id);
 			questionRepository.saveAndFlush(newQuestion);
 			return "Update success";
 		}
