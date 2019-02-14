@@ -29,7 +29,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 public class QuestionCategory {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "category_id", nullable = false)
+	@Column(name = "category_id", nullable = false,  unique = true)
 	private int id;
 
 	@Column(name = "category_name")

@@ -55,7 +55,7 @@ public class QuestionController {
 	}
 
 	@RequestMapping(value = "question/delete/{questionID}", method = RequestMethod.DELETE)
-	public void deleteUser(@PathVariable("questionID") String questionID) {
+	public void deleteQuestion(@PathVariable("questionID") String questionID) {
 		questionService.deletebyId(questionID);
 	}
 
