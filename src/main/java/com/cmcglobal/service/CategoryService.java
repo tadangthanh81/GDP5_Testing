@@ -10,6 +10,9 @@ package com.cmcglobal.service;
 
 import java.util.List;
 
+import org.springframework.data.domain.Pageable;
+
+import com.cmcglobal.entity.Question;
 import com.cmcglobal.entity.QuestionCategory;
 
 /**
@@ -22,4 +25,9 @@ import com.cmcglobal.entity.QuestionCategory;
  */
 public interface CategoryService {
 	public List<QuestionCategory> getAllCategory();
+	void insertCategory(QuestionCategory category);
+	void deletebyId(Integer id);
+	QuestionCategory findById(Integer id);
+	String editCategory(Integer id, QuestionCategory newCategory);
+	
 }

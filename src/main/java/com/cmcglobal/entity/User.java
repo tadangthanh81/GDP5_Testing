@@ -37,7 +37,7 @@ public class User {
 	@Column(name = "status")
 	private int status;
 	
-
+	
 	public User() {
 		super();
 	}

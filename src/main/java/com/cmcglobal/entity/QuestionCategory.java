@@ -21,6 +21,7 @@ import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
@@ -40,30 +41,33 @@ public class QuestionCategory {
 
 	@Column(name = "status")
 	private int status;
+	
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JoinColumn(name = "question_id")
+	@JsonIgnoreProperties("questionCategory")
+	private List<Question> categorys;
 
-//	@ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
-//	@JoinColumn(name = "user_id_created")
-//	@OnDelete(action = OnDeleteAction.CASCADE)
-//	@JsonManagedReference
-//	User userCategory;
+	@ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
+	@JoinColumn(name = "user_id_created")
+	User userCategory;
 
-
-	public QuestionCategory(int id, String categoryName, Date dateCreated, int status, User userCategory) {
+	public QuestionCategory(int id, String categoryName, Date dateCreated, int status, List<Question> categorys,
+	        User userCategory) {
 		super();
 		this.id = id;
 		this.categoryName = categoryName;
 		this.dateCreated = dateCreated;
 		this.status = status;
-//		this.userCategory = userCategory;
+		this.categorys = categorys;
+		this.userCategory = userCategory;
 	}
-
-
 
 
 	public QuestionCategory() {
 		super();
 	}
 
+	
 	public int getId() {
 		return id;
 	}
@@ -96,12 +100,26 @@ public class QuestionCategory {
 		this.status = status;
 	}
 
-//	public User getUserCategory() {
-//		return userCategory;
-//	}
-//
-//	public void setUserCategory(User userCategory) {
-//		this.userCategory = userCategory;
-//	}
+
+	public List<Question> getCategorys() {
+		return categorys;
+	}
+
+
+	public void setCategorys(List<Question> categorys) {
+		this.categorys = categorys;
+	}
+
+
+	public User getUserCategory() {
+		return userCategory;
+	}
+
+
+	public void setUserCategory(User userCategory) {
+		this.userCategory = userCategory;
+	}
+
+	
 
 }

@@ -40,6 +40,7 @@ public class Question {
 
 	@ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
 	@JoinColumn(name = "category_id")
+	@JsonIgnoreProperties("categorys")
 	QuestionCategory questionCategory;
 
 	@ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
