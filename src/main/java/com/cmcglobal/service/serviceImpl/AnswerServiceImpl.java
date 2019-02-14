@@ -44,6 +44,7 @@ public class AnswerServiceImpl implements AnswerService {
 		if(!existA) {
 			return "No question with id above";
 		} else {
+			newAnswer.setId(id);
 			answerRepository.saveAndFlush(newAnswer);
 			return "Update success";
 		}
