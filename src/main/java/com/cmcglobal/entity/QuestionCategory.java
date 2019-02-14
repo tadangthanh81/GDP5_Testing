@@ -43,7 +43,7 @@ public class QuestionCategory {
 	private int status;
 	
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JoinColumn(name = "question_id")
+	@JoinColumn(name = "category_id")
 	@JsonIgnoreProperties("questionCategory")
 	private List<Question> categorys;
 

@@ -55,14 +55,14 @@ public class CategoryController {
 		categoryService.insertCategory(category);
 	}
 
-	@RequestMapping(value = "question/delete/{id}", method = RequestMethod.DELETE)
+	@RequestMapping(value = "category/delete/{id}", method = RequestMethod.DELETE)
 	public void deleteCategory(@PathVariable("id") Integer id) {
 		categoryService.deletebyId(id);
 	}
 
-	@RequestMapping(value = "question/edit/{id}", 
+	@RequestMapping(value = "category/edit/{id}", 
 	method = RequestMethod.PATCH)
-	private String editQuestion(@PathVariable("id") Integer id, @RequestBody QuestionCategory newCategory) {
+	private String editCategory(@PathVariable("id") Integer id, @RequestBody QuestionCategory newCategory) {
 		return categoryService.editCategory(id, newCategory);
 	}
 
