@@ -42,25 +42,26 @@ public class QuestionCategory {
 	@Column(name = "status")
 	private int status;
 	
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JoinColumn(name = "category_id")
-	@JsonIgnoreProperties("questionCategory")
-	private List<Question> categorys;
+//	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+//	@JoinColumn(name = "category_id")
+//	@JsonIgnoreProperties("questionCategory")
+//	private List<Question> categorys;
 
 	@ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
 	@JoinColumn(name = "user_id_created")
 	User userCategory;
 
-	public QuestionCategory(int id, String categoryName, Date dateCreated, int status, List<Question> categorys,
-	        User userCategory) {
-		super();
-		this.id = id;
-		this.categoryName = categoryName;
-		this.dateCreated = dateCreated;
-		this.status = status;
-		this.categorys = categorys;
-		this.userCategory = userCategory;
-	}
+
+
+
+	public QuestionCategory(int id, String categoryName, Date dateCreated, int status, User userCategory) {
+	super();
+	this.id = id;
+	this.categoryName = categoryName;
+	this.dateCreated = dateCreated;
+	this.status = status;
+	this.userCategory = userCategory;
+}
 
 
 	public QuestionCategory() {
@@ -98,16 +99,6 @@ public class QuestionCategory {
 
 	public void setStatus(int status) {
 		this.status = status;
-	}
-
-
-	public List<Question> getCategorys() {
-		return categorys;
-	}
-
-
-	public void setCategorys(List<Question> categorys) {
-		this.categorys = categorys;
 	}
 
 
