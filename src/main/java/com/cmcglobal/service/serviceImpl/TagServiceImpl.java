@@ -38,5 +38,13 @@ public class TagServiceImpl implements TagService {
 		// TODO Auto-generated method stub
 		return tagRepository.findAll();
 	}
+	/* (non-Javadoc)
+	 * @see com.cmcglobal.service.TagService#createTag(com.cmcglobal.entity.QuestionTag)
+	 */
+	@Override
+	public void createTag(QuestionTag tag) {
+		// TODO Auto-generated method stub
+		tagRepository.save(tag);
+	}
 
 }

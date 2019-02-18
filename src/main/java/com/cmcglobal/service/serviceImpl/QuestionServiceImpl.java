@@ -20,11 +20,6 @@ public class QuestionServiceImpl implements QuestionServices {
 	QuestionRepository questionRepository;
 
 	@Override
-	public List<Question> getAllQuestion() {
-		return questionRepository.findAll();
-	}
-
-	@Override
 	public Question findById(String id) {
 		return questionRepository.findById(id).get();
 	}
@@ -51,24 +46,31 @@ public class QuestionServiceImpl implements QuestionServices {
 			return "Update success";
 		}
 	}
+	
+	@Override
+	public String editQuestion1(Question newQuestion) {
+			System.out.println(newQuestion.getId());
+			questionRepository.saveAndFlush(newQuestion);
+			return "Update success";
+	}
 
 	@Override
 	public List<Question> searchByContent(String contentSearch) {
 		return questionRepository.findByContentContaining(contentSearch);
 	}
-
-	/* (non-Javadoc)
-	 * @see com.cmcglobal.service.QuestionServices#updateMultiQuestion(java.lang.String, java.lang.String, java.lang.String, java.lang.String)
-	 */
-	@Override
-	public void updateMultiQuestion(String category_id, String level_id, String tag_id, String question_id) {
-		// TODO Auto-generated method stub
-		questionRepository.updateMultiQuestion(category_id, level_id, tag_id, question_id);
-	}
 	
 	@Override
 	public List<Question> pageQuestion(Pageable pageable) {
 		return questionRepository.pageQuestion(pageable);
+	}
+
+	/* (non-Javadoc)
+	 * @see com.cmcglobal.service.QuestionServices#countQuestion()
+	 */
+	@Override
+	public String countQuestion() {
+		// TODO Auto-generated method stub
+		return questionRepository.questionSum();
 	}
 
 }

@@ -11,16 +11,13 @@ package com.cmcglobal.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.cmcglobal.entity.Question;
 import com.cmcglobal.entity.QuestionCategory;
 import com.cmcglobal.service.CategoryService;
 
@@ -33,6 +30,7 @@ import com.cmcglobal.service.CategoryService;
  * Version 1.0
  */
 @RestController
+@CrossOrigin(origins = "http://localhost:4200", maxAge=3600)
 public class CategoryController {
 
 	@Autowired

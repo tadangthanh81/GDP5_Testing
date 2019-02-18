@@ -7,12 +7,20 @@ import org.springframework.data.domain.Pageable;
 import com.cmcglobal.entity.Question;
 
 public interface QuestionServices {
-	List<Question> getAllQuestion();
-	Question findById(String id); 
+
+	Question findById(String id);
+
 	void insertQuestion(Question question);
+
 	void deletebyId(String id);
+
 	String editQuestion(String id, Question newQuestion);
-	List<Question> searchByContent( String contentSearch);
-	void updateMultiQuestion(String category_id, String level_id, String tag_id, String question_id);
+
+	String editQuestion1(Question newQuestion);
+
+	List<Question> searchByContent(String contentSearch);
+
 	List<Question> pageQuestion(Pageable pageable);
+
+	String countQuestion();
 }
