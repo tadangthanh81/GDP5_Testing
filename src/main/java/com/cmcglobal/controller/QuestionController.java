@@ -62,8 +62,8 @@ public class QuestionController {
 //		return questionService.filterByAttribute(categoryID, levelID, typeID, userIdCreated, dateCreated, tagID);
 //
 //	}
-	@RequestMapping(value = "question/filter/test", method = RequestMethod.GET)
-	public List<Question> filterByTestString(
+	@RequestMapping(value = "question/filter", method = RequestMethod.GET)
+	public List<Question> filterByAttribute(
 			@RequestParam(name = "categoryName", required = false) String categoryName,
 			@RequestParam(name = "levelName", required = false) String levelName,
 			@RequestParam(name = "typeName", required = false) String typeName,
@@ -74,8 +74,16 @@ public class QuestionController {
 			@RequestParam(name = "size", required = false, defaultValue = "10") Integer size 
 			) {
 		Pageable pageable = PageRequest.of(page, size);	 
-		return questionService.filterByTestString(categoryName, levelName, typeName, fullName, dateCreated, tagName, pageable);
-	}
+		String emt = "";
+		if(emt.equals(categoryName)|| emt.equals(levelName) || emt.equals(typeName)
+				|| emt.equals(fullName) || dateCreated == null  || emt.equals(tagName)) {
+			return questionService.filterByAttribute(categoryName, levelName, typeName, 
+					fullName, dateCreated, tagName, pageable);
+			} else {
+			return questionService.filterByAll(categoryName, levelName, typeName, fullName, dateCreated, tagName, pageable);
+			}
+		}
+		
 
 	@RequestMapping(value = "question/add", method = RequestMethod.POST)
 	public void insert(@RequestBody Question question) {

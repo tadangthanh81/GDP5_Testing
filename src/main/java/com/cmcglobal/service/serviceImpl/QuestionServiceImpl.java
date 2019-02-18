@@ -83,10 +83,20 @@ public class QuestionServiceImpl implements QuestionServices {
 	 * @see com.cmcglobal.service.QuestionServices#filterByTestString(java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.util.Date, java.lang.String, org.springframework.data.domain.Pageable)
 	 */
 	@Override
-	public List<Question> filterByTestString(String categoryName, String levelName, String typeName, String fullName,
+	public List<Question> filterByAttribute(String categoryName, String levelName, String typeName, String fullName,
 	        java.util.Date dateCreated, String tagName, Pageable pageable) {
 		// TODO Auto-generated method stub
-		return questionRepository.filterByTestString(categoryName, levelName, typeName, fullName, dateCreated, tagName, pageable);
+		return questionRepository.filterByAttribute(categoryName, levelName, typeName, fullName, dateCreated, tagName, pageable);
+	}
+
+	/* (non-Javadoc)
+	 * @see com.cmcglobal.service.QuestionServices#filterByAll(java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.util.Date, java.lang.String, org.springframework.data.domain.Pageable)
+	 */
+	@Override
+	public List<Question> filterByAll(String categoryName, String levelName, String typeName, String fullName,
+	        java.util.Date dateCreated, String tagName, Pageable pageable) {
+		
+		return questionRepository.filterByAll(categoryName, levelName, typeName, fullName, dateCreated, tagName, pageable);
 	}
 
 	

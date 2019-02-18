@@ -20,6 +20,9 @@ public interface QuestionServices {
 //	List<Question> filterByAttribute(Integer categoryID, 
 //			Integer levelID, Integer typeID,  Integer userIdCreated,
 //		Date dateCreated, Integer tagID);
-	List<Question>  filterByTestString(String categoryName, String levelName, String typeName, 
+	List<Question>  filterByAttribute(String categoryName, String levelName, String typeName, 
 			String fullName,  Date dateCreated, String tagName, Pageable pageable);
+	
+	List<Question>  filterByAll(String categoryName, String levelName, String typeName, 
+			String fullName,  Date dateCreated, String tagName, Pageable pageable );
 }
