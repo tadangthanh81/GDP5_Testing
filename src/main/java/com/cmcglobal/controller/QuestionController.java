@@ -34,11 +34,16 @@ public class QuestionController {
 	private void sumQuestion(HttpServletResponse responseHeaders) {
 		responseHeaders.addHeader("SumQuestion", questionService.countQuestion());
 	}
+	
+	@RequestMapping(value = "question/count-search-question", method = RequestMethod.GET)
+	private void countQuestion(HttpServletResponse responseHeaders,@RequestParam String content) {
+		responseHeaders.addHeader("CountSearchQuestion", questionService.countSearchQuestion(content));
+	}
 
 	@RequestMapping(value = "question/pagination", method = RequestMethod.GET)
 	private List<Question> getPageQuestion(
 	        @RequestParam(name = "page", required = false, defaultValue = "0") Integer page,
-	        @RequestParam(name = "size", required = false, defaultValue = "10") Integer size){
+	        @RequestParam(name = "size", required = false, defaultValue = "10") Integer size) {
 		Pageable pageable = PageRequest.of(page, size);
 		return questionService.pageQuestion(pageable);
 	}
@@ -54,13 +59,17 @@ public class QuestionController {
 	}
 
 	@RequestMapping(value = "question/search-by-content", method = RequestMethod.GET)
-	private List<Question> searchByContent(@RequestParam("contentSearch") String contentSearch,
-			@RequestParam(name = "page", required = false, defaultValue = "0") Integer page,
-			@RequestParam(name = "size", required = false, defaultValue = "10") Integer size ) {
-				Pageable pageable = PageRequest.of(page, size);	 
-		return questionService.searchByContent(contentSearch, pageable);
+	private List<Question> searchByContent(@RequestParam(defaultValue="") String contentSearch,
+	        @RequestParam(name = "page", required = false, defaultValue = "0") Integer page,
+	        @RequestParam(name = "size", required = false, defaultValue = "10") Integer size) {
+		Pageable pageable = PageRequest.of(page, size);
+		String content = contentSearch.trim();
+		if(content.equals("")) {
+			return questionService.pageQuestion(pageable);
+		}
+		return questionService.searchByContent(content, pageable);
 	}
-	
+
 //	@RequestMapping(value = "question/filter", method = RequestMethod.GET)
 //	private List<Question> filterByAttribute(@RequestParam("categoryID") Integer categoryID, 
 //			@RequestParam(name = "levelID", required = false) Integer levelID, @RequestParam(name = "typeID", required = false) Integer typeID,
@@ -70,27 +79,25 @@ public class QuestionController {
 //
 //	}
 	@RequestMapping(value = "question/filter", method = RequestMethod.GET)
-	public List<Question> filterByAttribute(
-			@RequestParam(name = "categoryName", required = false) String categoryName,
-			@RequestParam(name = "levelName", required = false) String levelName,
-			@RequestParam(name = "typeName", required = false) String typeName,
-			@RequestParam(name = "fullName", required = false) String fullName,
-			@RequestParam(name = "dateCreated", required = false) Date dateCreated,
-			@RequestParam(name = "tagName", required = false) String tagName,
-			@RequestParam(name = "page", required = false, defaultValue = "0") Integer page,
-			@RequestParam(name = "size", required = false, defaultValue = "10") Integer size 
-			) {
-		Pageable pageable = PageRequest.of(page, size);	 
+	public List<Question> filterByAttribute(@RequestParam(name = "categoryName", required = false) String categoryName,
+	        @RequestParam(name = "levelName", required = false) String levelName,
+	        @RequestParam(name = "typeName", required = false) String typeName,
+	        @RequestParam(name = "fullName", required = false) String fullName,
+	        @RequestParam(name = "dateCreated", required = false) Date dateCreated,
+	        @RequestParam(name = "tagName", required = false) String tagName,
+	        @RequestParam(name = "page", required = false, defaultValue = "0") Integer page,
+	        @RequestParam(name = "size", required = false, defaultValue = "10") Integer size) {
+		Pageable pageable = PageRequest.of(page, size);
 		String emt = "";
-		if(emt.equals(categoryName)|| emt.equals(levelName) || emt.equals(typeName)
-				|| emt.equals(fullName) || dateCreated == null  || emt.equals(tagName)) {
-			return questionService.filterByAttribute(categoryName, levelName, typeName, 
-					fullName, dateCreated, tagName, pageable);
-			} else {
-			return questionService.filterByAll(categoryName, levelName, typeName, fullName, dateCreated, tagName, pageable);
-			}
+		if (emt.equals(categoryName) || emt.equals(levelName) || emt.equals(typeName) || emt.equals(fullName)
+		        || dateCreated == null || emt.equals(tagName)) {
+			return questionService.filterByAttribute(categoryName, levelName, typeName, fullName, dateCreated, tagName,
+			        pageable);
+		} else {
+			return questionService.filterByAll(categoryName, levelName, typeName, fullName, dateCreated, tagName,
+			        pageable);
 		}
-		
+	}
 
 	@RequestMapping(value = "question/add", method = RequestMethod.POST)
 	public void insert(@RequestBody Question question) {
@@ -113,6 +120,5 @@ public class QuestionController {
 		System.out.println(newQuestion);
 		return questionService.editQuestion1(newQuestion);
 	}
-	
-	
+
 }

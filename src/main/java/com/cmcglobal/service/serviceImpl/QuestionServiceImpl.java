@@ -92,5 +92,15 @@ public class QuestionServiceImpl implements QuestionServices {
 		return questionRepository.filterByAll(categoryName, levelName, typeName, fullName, dateCreated, tagName, pageable);
 	}
 
+	/* (non-Javadoc)
+	 * @see com.cmcglobal.service.QuestionServices#countSearchQuestion(java.lang.String)
+	 */
+	@Override
+	public String countSearchQuestion(String content) {
+		// TODO Auto-generated method stub
+		content = "%" + content + "%" ;
+		return questionRepository.countSearchQuestion(content);
+	}
+
 
 }

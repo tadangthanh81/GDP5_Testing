@@ -32,4 +32,8 @@ public interface QuestionRepository extends JpaRepository<Question, String> {
 
 	@Query("select count(question_id) from Question")
 	String questionSum();
+	
+	@Query("select count(question_id) from Question where content like ?1")
+	String countSearchQuestion(String content);
+	
 }

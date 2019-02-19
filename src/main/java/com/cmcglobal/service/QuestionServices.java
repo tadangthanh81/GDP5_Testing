@@ -25,6 +25,8 @@ public interface QuestionServices {
 
 	String countQuestion();
 
+	String countSearchQuestion(String content);
+
 	List<Question> filterByAttribute(String categoryName, String levelName, String typeName, String fullName,
 	        Date dateCreated, String tagName, Pageable pageable);
 
