@@ -26,7 +26,7 @@ import com.cmcglobal.service.CategoryService;
  * Create date: Feb 11, 2019
  * Modifier: thanhtd
  * Modified date: Feb 11, 2019
- * Description: ....
+ * Description: category controller
  * Version 1.0
  */
 @RestController
