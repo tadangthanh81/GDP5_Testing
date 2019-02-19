@@ -53,6 +53,8 @@ public class CategoryController {
 		Pageable pageable = PageRequest.of(page, size);
 		return categoryService.pageQuestionCategory(pageable);
 	}
+	
+	//get all
 		
 	@RequestMapping(value="/category", method = RequestMethod.GET)
 	public List<QuestionCategory> getAllCategories(){
