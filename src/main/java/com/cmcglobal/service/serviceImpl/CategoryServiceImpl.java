@@ -11,9 +11,9 @@ package com.cmcglobal.service.serviceImpl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import com.cmcglobal.entity.Question;
 import com.cmcglobal.entity.QuestionCategory;
 import com.cmcglobal.repository.QuestionCategoryRepository;
 import com.cmcglobal.service.CategoryService;
@@ -76,6 +76,30 @@ public class CategoryServiceImpl implements CategoryService {
 	public QuestionCategory findById(Integer id) {
 		// TODO Auto-generated method stub
 		return categoryRepository.findById(id).get();
+	}
+	/* (non-Javadoc)
+	 * @see com.cmcglobal.service.CategoryService#searchByContent(java.lang.String)
+	 */
+	@Override
+	public List<QuestionCategory> searchByContent(String contentSearch) {
+		
+		return categoryRepository.findByCategoryNameContaining(contentSearch);
+	}
+	/* (non-Javadoc)
+	 * @see com.cmcglobal.service.CategoryService#pageQuestionCategory(org.springframework.data.domain.Pageable)
+	 */
+	@Override
+	public List<QuestionCategory> pageQuestionCategory(Pageable pageable) {
+		
+		return categoryRepository.pageQuestionCategory(pageable);
+		
+	}
+	/* (non-Javadoc)
+	 * @see com.cmcglobal.service.CategoryService#countQuestionCategory()
+	 */
+	@Override
+	public String countQuestionCategory() {
+		return categoryRepository.questionCategorySum();
 	}
 	
 //	Boolean existQ = questionRepository.existsById(id);
