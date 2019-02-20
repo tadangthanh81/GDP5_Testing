@@ -13,9 +13,12 @@ public interface QuestionCategoryRepository extends JpaRepository<QuestionCatego
 
 	List<QuestionCategory> findByCategoryNameContaining(String contentSearch);
 
-	@Query("SELECT c FROM QuestionCategory c")
+	@Query("SELECT c FROM QuestionCategory c where c.status=1")
 	List<QuestionCategory> pageQuestionCategory(Pageable pageable);
 
 	@Query("select count(category_id) from QuestionCategory")
 	String questionCategorySum();
+	
+	@Query("select c FROM QuestionCategory c where c.status=1")
+	List<QuestionCategory> getListCategory();
 }

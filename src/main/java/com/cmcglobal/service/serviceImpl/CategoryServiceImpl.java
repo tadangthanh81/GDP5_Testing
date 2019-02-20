@@ -37,7 +37,7 @@ public class CategoryServiceImpl implements CategoryService {
 	@Override
 	public List<QuestionCategory> getAllCategory() {
 		// TODO Auto-generated method stub
-		return categoryRepository.findAll();
+		return categoryRepository.getListCategory();
 	}
 	/* (non-Javadoc)
 	 * @see com.cmcglobal.service.CategoryService#insertCategory(com.cmcglobal.entity.QuestionCategory)
