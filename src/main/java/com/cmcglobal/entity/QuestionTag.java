@@ -41,15 +41,10 @@ public class QuestionTag {
 	
 	
 
-	
-
 	public QuestionTag() {
 		super();
 	}
 	
-
-
-
 	public int getId() {
 		return id;
 	}
