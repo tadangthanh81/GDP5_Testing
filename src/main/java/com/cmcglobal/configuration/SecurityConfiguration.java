@@ -67,7 +67,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter implemen
 		        .antMatchers(HttpMethod.POST, "/question/add").permitAll()//
 		        .antMatchers(HttpMethod.PUT, "/question/edit/**").permitAll()//
 		        .antMatchers(HttpMethod.GET, "/questions/**").permitAll()//
-		        .antMatchers(HttpMethod.DELETE, "/question/delete/**").permitAll().and().exceptionHandling()
+		        .antMatchers(HttpMethod.DELETE, "/question/delete/**").permitAll()
+		        .and().exceptionHandling()
 		        .authenticationEntryPoint(entrypoint).accessDeniedHandler(denied)
 		.and().cors()
 		.and().sessionManagement()
