@@ -7,6 +7,7 @@ import org.springframework.data.domain.Pageable;
 
 import com.cmcglobal.entity.Question;
 
+
 public interface QuestionServices {
 
 	Question findById(String id);
@@ -24,6 +25,8 @@ public interface QuestionServices {
 	List<Question> pageQuestion(Pageable pageable);
 
 	String countQuestion();
+
+	String countSearchQuestion(String content);
 
 	List<Question> filterByAttribute(String categoryName, String levelName, String typeName, String fullName,
 	        Date dateCreated, String tagName, Pageable pageable);
