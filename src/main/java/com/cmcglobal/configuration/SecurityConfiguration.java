@@ -62,8 +62,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter implemen
 
 		http.csrf().disable().cors();
 		http.authorizeRequests()//
-		        .antMatchers(HttpMethod.GET, "/question/all")
-		        .access("hasROLE('ROLE_ADMIN_R') or hasROLE('ROLR_ADMIN_C')")
+		        .antMatchers(HttpMethod.GET, "/question/all").permitAll()
 		        .antMatchers(HttpMethod.POST, "/question/add").permitAll()//
 		        .antMatchers(HttpMethod.PUT, "/question/edit/**").permitAll()//
 		        .antMatchers(HttpMethod.GET, "/questions/**").permitAll()//
