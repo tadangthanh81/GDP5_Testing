@@ -46,15 +46,19 @@ public class CategoryController {
 		responseHeaders.addHeader("SumCategory", categoryService.countQuestionCategory());
 	}
 
+	@RequestMapping(value = "category/count-search-category", method = RequestMethod.GET)
+	private void countCategory(HttpServletResponse responseHeaders,@RequestParam String content) {
+		responseHeaders.addHeader("CountSearchCategory", categoryService.countSearchCategory(content));
+	}
+	
+	
 	@RequestMapping(value = "category/pagination", method = RequestMethod.GET)
 	private List<QuestionCategory> getPageCategory(
 	        @RequestParam(name = "page", required = false, defaultValue = "0") Integer page,
-	        @RequestParam(name = "size", required = false, defaultValue = "2") Integer size){
+	        @RequestParam(name = "size", required = false, defaultValue = "5") Integer size){
 		Pageable pageable = PageRequest.of(page, size);
 		return categoryService.pageQuestionCategory(pageable);
 	}
-	
-	//get all
 		
 	@RequestMapping(value="/category", method = RequestMethod.GET)
 	public List<QuestionCategory> getAllCategories(){
@@ -67,9 +71,16 @@ public class CategoryController {
 		return categoryService.findById(id);
 	}
 
-	@RequestMapping(value = "category/search-by-content/{contentSearch}", method = RequestMethod.GET)
-	private List<QuestionCategory> searchByContent(@PathVariable("contentSearch") String contentSearch) {
-		return categoryService.searchByContent(contentSearch);
+	@RequestMapping(value = "category/search-by-content", method = RequestMethod.GET)
+	private List<QuestionCategory> searchByContent(@RequestParam(defaultValue="") String contentSearch,
+	        @RequestParam(name = "page", required = false, defaultValue = "0") Integer page,
+	        @RequestParam(name = "size", required = false, defaultValue = "5") Integer size) {
+		Pageable pageable = PageRequest.of(page, size);
+		String content = contentSearch.trim();
+		if(content.equals("")) {
+			return categoryService.pageQuestionCategory(pageable);
+		}
+		return categoryService.searchByContent(content, pageable);
 	}
 
 	@RequestMapping(value = "/category", method = RequestMethod.POST)

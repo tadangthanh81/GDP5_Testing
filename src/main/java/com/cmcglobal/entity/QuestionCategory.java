@@ -29,7 +29,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 public class QuestionCategory {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "category_id", nullable = false,  unique = true)
+	@Column(name = "category_id", nullable = false, unique = true)
 	private int id;
 
 	@Column(name = "category_name")
@@ -46,8 +46,7 @@ public class QuestionCategory {
 	@JoinColumn(name = "user_id_created")
 	User userCategory;
 
-	public QuestionCategory(int id, String categoryName, Date dateCreated, int status,
-	        User userCategory) {
+	public QuestionCategory(int id, String categoryName, Date dateCreated, int status, User userCategory) {
 		super();
 		this.id = id;
 		this.categoryName = categoryName;
@@ -56,12 +55,10 @@ public class QuestionCategory {
 		this.userCategory = userCategory;
 	}
 
-
 	public QuestionCategory() {
 		super();
 	}
 
-	
 	public int getId() {
 		return id;
 	}
@@ -98,11 +95,8 @@ public class QuestionCategory {
 		return userCategory;
 	}
 
-
 	public void setUserCategory(User userCategory) {
 		this.userCategory = userCategory;
 	}
-
-	
 
 }

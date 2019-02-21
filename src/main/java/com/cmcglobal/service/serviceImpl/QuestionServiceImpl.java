@@ -1,17 +1,15 @@
 package com.cmcglobal.service.serviceImpl;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.cmcglobal.entity.Question;
 import com.cmcglobal.repository.QuestionRepository;
 import com.cmcglobal.service.QuestionServices;
+
 
 @Service
 public class QuestionServiceImpl implements QuestionServices {
@@ -55,14 +53,15 @@ public class QuestionServiceImpl implements QuestionServices {
 	}
 
 	@Override
-	public List<Question> searchByContent(String contentSearch) {
-		return questionRepository.findByContentContaining(contentSearch);
+	public List<Question> searchByContent(String contentSearch, Pageable pageable) {
+		return questionRepository.findByContentContaining(contentSearch, pageable);
 	}
-	
+
 	@Override
 	public List<Question> pageQuestion(Pageable pageable) {
 		return questionRepository.pageQuestion(pageable);
 	}
+
 
 	/* (non-Javadoc)
 	 * @see com.cmcglobal.service.QuestionServices#countQuestion()
@@ -72,5 +71,36 @@ public class QuestionServiceImpl implements QuestionServices {
 		// TODO Auto-generated method stub
 		return questionRepository.questionSum();
 	}
+
+	/* (non-Javadoc)
+	 * @see com.cmcglobal.service.QuestionServices#filterByTestString(java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.util.Date, java.lang.String, org.springframework.data.domain.Pageable)
+	 */
+	@Override
+	public List<Question> filterByAttribute(String categoryName, String levelName, String typeName, String fullName,
+	        java.util.Date dateCreated, String tagName, Pageable pageable) {
+		// TODO Auto-generated method stub
+		return questionRepository.filterByAttribute(categoryName, levelName, typeName, fullName, dateCreated, tagName, pageable);
+	}
+
+	/* (non-Javadoc)
+	 * @see com.cmcglobal.service.QuestionServices#filterByAll(java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.util.Date, java.lang.String, org.springframework.data.domain.Pageable)
+	 */
+	@Override
+	public List<Question> filterByAll(String categoryName, String levelName, String typeName, String fullName,
+	        java.util.Date dateCreated, String tagName, Pageable pageable) {
+		
+		return questionRepository.filterByAll(categoryName, levelName, typeName, fullName, dateCreated, tagName, pageable);
+	}
+
+	/* (non-Javadoc)
+	 * @see com.cmcglobal.service.QuestionServices#countSearchQuestion(java.lang.String)
+	 */
+	@Override
+	public String countSearchQuestion(String content) {
+		// TODO Auto-generated method stub
+		content = "%" + content + "%" ;
+		return questionRepository.countSearchQuestion(content);
+	}
+
 
 }

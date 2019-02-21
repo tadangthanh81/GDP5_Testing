@@ -38,7 +38,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter implemen
 	    config.setAllowCredentials(true);
 	    config.addAllowedOrigin("*");
 	    config.addExposedHeader("Authorization, x-xsrf-token, Access-Control-Allow-Headers, Origin, Accept, X-Requested-With, " +
-	            "Content-Type, Access-Control-Request-Method, SumQuestion");
+	            "Content-Type, Access-Control-Request-Method, SumQuestion, CountSearchQuestion, SumCategory, CountSearchCategory");
 	    config.addAllowedHeader("*");
 	    config.addAllowedMethod("OPTIONS");
 	    config.addAllowedMethod("GET");
