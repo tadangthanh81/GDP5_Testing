@@ -8,6 +8,8 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;	
 
 /**
+ * custion validate
+ * read token
  * @author User
  *
  */
