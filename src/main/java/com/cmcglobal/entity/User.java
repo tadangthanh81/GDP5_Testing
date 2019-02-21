@@ -18,6 +18,8 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 /**
  * @author User
  *
@@ -49,6 +51,7 @@ public class User implements Serializable{
 
 	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(name= "user_role", joinColumns = { @JoinColumn(name="user_id")},inverseJoinColumns= {@JoinColumn(name="role_id")})
+	@JsonIgnore
 	private Set<Role> roles = new HashSet<>();
 	
 	
