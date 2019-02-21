@@ -40,6 +40,6 @@ public interface CategoryService {
 	List<QuestionCategory> pageQuestionCategory(Pageable pageable);
 
 	String countQuestionCategory();
-	public QuestionCategory getOneById(int categoryId);
+	public QuestionCategory getOneById(int categoryId); //Yen 
 	
 }

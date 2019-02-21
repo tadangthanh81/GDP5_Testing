@@ -18,5 +18,5 @@ import com.cmcglobal.entity.QuestionTag;
  */
 public interface LevelService {
 	List<QuestionLevel> getAllQuestionLevel();
-	public QuestionLevel getOneById(int levelId);
+	public QuestionLevel getOneById(int levelId); //Yen 
 }

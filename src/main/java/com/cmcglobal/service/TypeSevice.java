@@ -22,5 +22,5 @@ import com.cmcglobal.entity.Type;
  */
 public interface TypeSevice {
 	List<Type> getAllType();
-	public Type getOneById(int typeId);
+	public Type getOneById(int typeId); //Yen 
 }
