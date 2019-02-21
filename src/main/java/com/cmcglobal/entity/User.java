@@ -7,6 +7,7 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -49,7 +50,7 @@ public class User implements Serializable{
 	@Column(name = "status")
 	private String status;
 
-	@ManyToMany(fetch = FetchType.LAZY)
+	@ManyToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
 	@JoinTable(name= "user_role", joinColumns = { @JoinColumn(name="user_id")},inverseJoinColumns= {@JoinColumn(name="role_id")})
 	@JsonIgnore
 	private Set<Role> roles = new HashSet<>();

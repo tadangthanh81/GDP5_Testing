@@ -34,10 +34,12 @@ public interface CategoryService {
 	
 	String editCategory(Integer id, QuestionCategory newCategory);
 	
-	List<QuestionCategory> searchByContent(String contentSearch);
+	List<QuestionCategory> searchByContent(String contentSearch, Pageable pageable);
 
 	List<QuestionCategory> pageQuestionCategory(Pageable pageable);
 
 	String countQuestionCategory();
+	
+	String countSearchCategory(String content);
 	
 }

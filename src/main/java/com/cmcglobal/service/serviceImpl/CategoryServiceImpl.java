@@ -37,7 +37,7 @@ public class CategoryServiceImpl implements CategoryService {
 	@Override
 	public List<QuestionCategory> getAllCategory() {
 		// TODO Auto-generated method stub
-		return categoryRepository.findAll();
+		return categoryRepository.getListCategory();
 	}
 	/* (non-Javadoc)
 	 * @see com.cmcglobal.service.CategoryService#insertCategory(com.cmcglobal.entity.QuestionCategory)
@@ -83,9 +83,9 @@ public class CategoryServiceImpl implements CategoryService {
 	 * @see com.cmcglobal.service.CategoryService#searchByContent(java.lang.String)
 	 */
 	@Override
-	public List<QuestionCategory> searchByContent(String contentSearch) {
-		
-		return categoryRepository.findByCategoryNameContaining(contentSearch);
+	public List<QuestionCategory> searchByContent(String contentSearch, Pageable pageable) {
+		contentSearch = "%" + contentSearch + "%";
+		return categoryRepository.findByCategoryNameContaining(contentSearch, pageable);
 	}
 	/* (non-Javadoc)
 	 * @see com.cmcglobal.service.CategoryService#pageQuestionCategory(org.springframework.data.domain.Pageable)
@@ -102,6 +102,15 @@ public class CategoryServiceImpl implements CategoryService {
 	@Override
 	public String countQuestionCategory() {
 		return categoryRepository.questionCategorySum();
+	}
+	/* (non-Javadoc)
+	 * @see com.cmcglobal.service.CategoryService#countSearchCategory(java.lang.String)
+	 */
+	@Override
+	public String countSearchCategory(String content) {
+		// TODO Auto-generated method stub
+		content = "%" + content + "%" ;
+		return categoryRepository.countSearchCategory(content);
 	}
 	
 //	Boolean existQ = questionRepository.existsById(id);
