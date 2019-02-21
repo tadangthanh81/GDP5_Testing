@@ -150,19 +150,15 @@ public class QuestionController {
 		if (listQuestion.size() == 0) {
 			return ResponseEntity.ok("Not ok");
 		}
-		try {
-			List<Question> list = questionService.findAll();
-			int x = list.size();
-			for (Question question : listQuestion) {
+		List<Question> list = questionService.findAll();
+		int x = list.size();
+		for (Question question : listQuestion) {
 
-				String s = "Question" + " " + String.valueOf(x); // to create id for question
-				question.setId(s);
-				++x;
-				System.out.println(question);
-				questionService.insertQuestion(question);
-			}
-		} catch (Exception e) {
-			return ResponseEntity.ok("Not ok");
+			String s = "Question" + " " + String.valueOf(x); // to create id for question
+			question.setId(questionService.createId());
+			++x;
+			System.out.println(question);
+			questionService.insertQuestion(question);
 		}
 		return ResponseEntity.ok("Ok");
 	}

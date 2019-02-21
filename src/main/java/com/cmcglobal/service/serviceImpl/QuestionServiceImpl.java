@@ -156,8 +156,8 @@ public class QuestionServiceImpl implements QuestionServices {
 		return questionRepository.countSearchQuestion(content);
 	}
 
-	/* Yen Trinh
-	 * (non-Javadoc)
+	/*
+	 * Yen Trinh (non-Javadoc)
 	 * 
 	 * @see com.cmcglobal.service.QuestionServices#createId()
 	 */
@@ -321,21 +321,24 @@ public class QuestionServiceImpl implements QuestionServices {
 	@Override
 	public String createId() {
 		String id;
-		List<Question> question = questionRepository.findAll(); 
-		int ids = question.size() - 1; 
+		List<Question> findAll = questionRepository.findAll();
+		int ids = findAll.size() - 1;
 		if (ids < 0) {
 			ids = 0;
+			return "Question001";
+		} else {
+			String tmp = findAll.get(ids).getId();
+			tmp = tmp.substring(tmp.length() - 3, tmp.length());
+
+			int id1 = Integer.parseInt(tmp) + 1;
+			if (id1 < 10)
+				id = ("Question00") + id1;
+			else if (id1 > 9 && id1 < 100)
+				id = ("Question0") + id1;
+			else
+				id = ("Question") + id1;
+			return id;
 		}
-		String tmp = question.get(ids).getId() + "";
-	tmp = tmp.substring(tmp.length(), tmp.length()); 
-		int id1 = Integer.parseInt(tmp) + 1;
-		if (id1 < 10)
-			id = ("Question00") + id1;
-		else if (id1 > 9 && id1 < 100)
-			id = ("Question0") + id1;
-		else
-			id = ("Question") + id1;
-		return id;
 	}
 
 	/*
