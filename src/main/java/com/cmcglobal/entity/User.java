@@ -1,28 +1,38 @@
+/**
+ * 
+ */
 package com.cmcglobal.entity;
 
-import java.util.List;
+import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-
+/**
+ * @author User
+ *
+ */
+@SuppressWarnings("serial")
 @Entity
-@Table(name = "user", schema = "TESTING_SYSTEM_DATABASE")
-public class User {
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "user_id", nullable = false)
-	private int id;
+@Table(name = "user")
+public class User implements Serializable{
 
-	@Column(name = "full_name")
+	@Id
+	@Column
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private int userId;
+
+	@Column
 	private String fullName;
 
 	@Column(name = "email")
@@ -35,47 +45,51 @@ public class User {
 	private String password;
 
 	@Column(name = "status")
-	private int status;
-	
-	
-	public User() {
-		super();
-	}
-	
-	
+	private String status;
 
-	public User(int id, String fullName, String email, String mobile, String password, int status) {
+	@ManyToMany(fetch = FetchType.LAZY)
+	@JoinTable(name= "user_role", joinColumns = { @JoinColumn(name="user_id")},inverseJoinColumns= {@JoinColumn(name="role_id")})
+	private Set<Role> roles = new HashSet<>();
+	
+	
+	public User(int userId, String fullName, String email, String mobile, String password, String status,
+			Set<Role> roles) {
 		super();
-		this.id = id;
+		this.userId = userId;
 		this.fullName = fullName;
 		this.email = email;
 		this.mobile = mobile;
 		this.password = password;
 		this.status = status;
-	}
-	
-
-	public void setStatus(int status) {
-		this.status = status;
+		this.roles = roles;
 	}
 
 
-
-	public int getId() {
-		return id;
+	public User(String email) {
+		super();
+		this.email = email;
 	}
 
-	public void setId(int id) {
-		this.id = id;
+
+	public int getUserId() {
+		return userId;
 	}
+
+
+	public void setUserId(int userId) {
+		this.userId = userId;
+	}
+
 
 	public String getFullName() {
 		return fullName;
 	}
 
+
 	public void setFullName(String fullName) {
 		this.fullName = fullName;
 	}
+
 
 	public String getEmail() {
 		return email;
@@ -85,23 +99,50 @@ public class User {
 		this.email = email;
 	}
 
+
 	public String getMobile() {
 		return mobile;
 	}
+
 
 	public void setMobile(String mobile) {
 		this.mobile = mobile;
 	}
 
+
 	public String getPassword() {
 		return password;
 	}
+
 
 	public void setPassword(String password) {
 		this.password = password;
 	}
 
-	public int getStatus() {
+
+	public String getStatus() {
 		return status;
 	}
+
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+
+	public Set<Role> getRoles() {
+		return roles;
+	}
+
+
+	public void setRoles(Set<Role> roles) {
+		this.roles = roles;
+	}
+
+
+	public User() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
 }
