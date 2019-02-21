@@ -29,7 +29,7 @@ public interface QuestionServices {
 	String countSearchQuestion(String content);
 
 	List<Question> filterByAttribute(String categoryName, String levelName, String typeName, String fullName,
-	        Date dateCreated, String tagName, Pageable pageable);
+	     String tagName, Pageable pageable);
 
 	List<Question> filterByAll(String categoryName, String levelName, String typeName, String fullName,
 	        Date dateCreated, String tagName, Pageable pageable);

@@ -77,9 +77,9 @@ public class QuestionServiceImpl implements QuestionServices {
 	 */
 	@Override
 	public List<Question> filterByAttribute(String categoryName, String levelName, String typeName, String fullName,
-	        java.util.Date dateCreated, String tagName, Pageable pageable) {
+	         String tagName, Pageable pageable) {
 		// TODO Auto-generated method stub
-		return questionRepository.filterByAttribute(categoryName, levelName, typeName, fullName, dateCreated, tagName, pageable);
+		return questionRepository.filterByAttribute(categoryName, levelName, typeName, fullName, tagName, pageable);
 	}
 
 	/* (non-Javadoc)
