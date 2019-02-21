@@ -42,7 +42,7 @@ public class QuestionCategory {
 	@Column(name = "status")
 	private int status;
 
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
 	@JoinColumn(name = "user_id_created")
 	User userCategory;
 

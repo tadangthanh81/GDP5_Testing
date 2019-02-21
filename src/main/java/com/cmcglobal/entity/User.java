@@ -31,11 +31,11 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 public class User implements Serializable{
 
 	@Id
-	@Column
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@Column(name = "user_id")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int userId;
 
-	@Column
+	@Column(name = "full_name")
 	private String fullName;
 
 	@Column(name = "email")
@@ -56,8 +56,7 @@ public class User implements Serializable{
 	private Set<Role> roles = new HashSet<>();
 	
 	
-	public User(int userId, String fullName, String email, String mobile, String password, String status,
-			Set<Role> roles) {
+	public User(int userId, String fullName, String email, String mobile, String password, String status,Set<Role> roles ) {
 		super();
 		this.userId = userId;
 		this.fullName = fullName;
@@ -65,7 +64,7 @@ public class User implements Serializable{
 		this.mobile = mobile;
 		this.password = password;
 		this.status = status;
-		this.roles = roles;
+//		this.roles = roles;
 	}
 
 
