@@ -67,6 +67,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter implemen
 		        .antMatchers(HttpMethod.PUT, "/question/edit/**").permitAll()//
 		        .antMatchers(HttpMethod.GET, "/questions/**").permitAll()//
 		        .antMatchers(HttpMethod.DELETE, "/question/delete/**").permitAll()
+		        .and()
+		        .formLogin().loginPage("/login").defaultSuccessUrl("/home")
+		        .and()
+		        .logout().logoutUrl("/logout").deleteCookies("JSESSIONID")
 		        .and().exceptionHandling()
 		        .authenticationEntryPoint(entrypoint).accessDeniedHandler(denied)
 		.and().cors()
