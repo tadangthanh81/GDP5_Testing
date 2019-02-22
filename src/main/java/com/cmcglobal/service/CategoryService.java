@@ -15,31 +15,28 @@ import org.springframework.data.domain.Pageable;
 import com.cmcglobal.entity.QuestionCategory;
 
 /**
- * Create by: thanhtd - CMC
- * Create date: Feb 11, 2019
- * Modifier: thanhtd
- * Modified date: Feb 11, 2019
- * Description: ....
- * Version 1.0
+ * Create by: thanhtd - CMC Create date: Feb 11, 2019 Modifier: thanhtd Modified
+ * date: Feb 11, 2019 Description: .... Version 1.0
  */
 
 public interface CategoryService {
 	public List<QuestionCategory> getAllCategory();
-	
+
 	void insertCategory(QuestionCategory category);
-	
+
 	void deletebyId(Integer id);
-	
+
 	QuestionCategory findById(Integer id);
-	
+
 	String editCategory(Integer id, QuestionCategory newCategory);
-	
+
 	List<QuestionCategory> searchByContent(String contentSearch, Pageable pageable);
 
 	List<QuestionCategory> pageQuestionCategory(Pageable pageable);
 
 	String countQuestionCategory();
-	
+
 	String countSearchCategory(String content);
-	
+	QuestionCategory getOneById(int categoryId);
+
 }

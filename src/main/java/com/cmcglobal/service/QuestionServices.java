@@ -7,7 +7,6 @@ import org.springframework.data.domain.Pageable;
 
 import com.cmcglobal.entity.Question;
 
-
 public interface QuestionServices {
 
 	Question findById(String id);
@@ -33,4 +32,21 @@ public interface QuestionServices {
 
 	List<Question> filterByAll(String categoryName, String levelName, String typeName, String fullName,
 	        Date dateCreated, String tagName, Pageable pageable);
+
+	/**
+	 ** Yen Trinh
+	 * 
+	 * @return
+	 */
+	String createId();
+
+	/**
+	 * Yen Trinh
+	 * 
+	 * @param exelFilePath
+	 * @return
+	 */
+	List<Question> readExcel(String exelFilePath);
+
+	List<Question> findAll(); // Yen
 }

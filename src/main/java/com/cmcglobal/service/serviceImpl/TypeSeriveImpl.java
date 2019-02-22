@@ -10,6 +10,8 @@ package com.cmcglobal.service.serviceImpl;
 
 import java.util.List;
 
+import javax.persistence.EntityManager;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,6 +29,9 @@ import com.cmcglobal.service.TypeSevice;
  */
 @Service
 public class TypeSeriveImpl implements TypeSevice {
+	
+	@Autowired
+	EntityManager entityManager;
 
 	@Autowired
 	QuestionTypeRepository typeRepoitory;
@@ -37,6 +42,14 @@ public class TypeSeriveImpl implements TypeSevice {
 	public List<QuestionType> getAllType() {
 		// TODO Auto-generated method stub
 		return typeRepoitory.findAll();
+	}
+	/* (non-Javadoc)
+	 * @see com.cmcglobal.service.TypeSevice#getOneById(int)
+	 */
+	@Override
+	public QuestionType getOneById(int typeId) {
+		// TODO Auto-generated method stub
+		return entityManager.find(QuestionType.class, typeId);
 	}
 
 }

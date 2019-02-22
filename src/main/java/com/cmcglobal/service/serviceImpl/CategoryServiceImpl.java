@@ -10,6 +10,8 @@ package com.cmcglobal.service.serviceImpl;
 
 import java.util.List;
 
+import javax.persistence.EntityManager;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -19,19 +21,21 @@ import com.cmcglobal.repository.QuestionCategoryRepository;
 import com.cmcglobal.service.CategoryService;
 
 /**
- * Create by: thanhtd - CMC
- * Create date: Feb 11, 2019
- * Modifier: thanhtd
- * Modified date: Feb 11, 2019
- * Description: ....
- * Version 1.0
+ * Create by: thanhtd - CMC Create date: Feb 11, 2019 Modifier: thanhtd Modified
+ * date: Feb 11, 2019 Description: .... Version 1.0
  */
 @Service
 public class CategoryServiceImpl implements CategoryService {
 
 	@Autowired
+	EntityManager entityManager;
+
+	@Autowired
 	QuestionCategoryRepository categoryRepository;
-	/* (non-Javadoc)
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see com.cmcglobal.service.CategoryService#getAllCategory()
 	 */
 	@Override
@@ -39,29 +43,41 @@ public class CategoryServiceImpl implements CategoryService {
 		// TODO Auto-generated method stub
 		return categoryRepository.getListCategory();
 	}
-	/* (non-Javadoc)
-	 * @see com.cmcglobal.service.CategoryService#insertCategory(com.cmcglobal.entity.QuestionCategory)
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.cmcglobal.service.CategoryService#insertCategory(com.cmcglobal.entity.
+	 * QuestionCategory)
 	 */
 	@Override
 	public void insertCategory(QuestionCategory category) {
 		categoryRepository.save(category);
-		
+
 	}
-	/* (non-Javadoc)
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see com.cmcglobal.service.CategoryService#deletebyId(java.lang.String)
 	 */
 	@Override
 	public void deletebyId(Integer id) {
 		categoryRepository.deleteById(id);
-		
+
 	}
-	/* (non-Javadoc)
-	 * @see com.cmcglobal.service.CategoryService#editCategory(java.lang.String, com.cmcglobal.entity.Question)
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.cmcglobal.service.CategoryService#editCategory(java.lang.String,
+	 * com.cmcglobal.entity.Question)
 	 */
 	@Override
 	public String editCategory(Integer id, QuestionCategory newCategory) {
 		Boolean existC = categoryRepository.existsById(id);
-		if(!existC) {
+		if (!existC) {
 			return "No category with id above";
 		} else {
 			newCategory.setId(id);
@@ -69,9 +85,10 @@ public class CategoryServiceImpl implements CategoryService {
 		}
 		return null;
 	}
-	
-	
-	/* (non-Javadoc)
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see com.cmcglobal.service.CategoryService#findById(java.lang.Integer)
 	 */
 	@Override
@@ -79,7 +96,10 @@ public class CategoryServiceImpl implements CategoryService {
 		// TODO Auto-generated method stub
 		return categoryRepository.findById(id).get();
 	}
-	/* (non-Javadoc)
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see com.cmcglobal.service.CategoryService#searchByContent(java.lang.String)
 	 */
 	@Override
@@ -87,39 +107,50 @@ public class CategoryServiceImpl implements CategoryService {
 		contentSearch = "%" + contentSearch + "%";
 		return categoryRepository.findByCategoryNameContaining(contentSearch, pageable);
 	}
-	/* (non-Javadoc)
-	 * @see com.cmcglobal.service.CategoryService#pageQuestionCategory(org.springframework.data.domain.Pageable)
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.cmcglobal.service.CategoryService#pageQuestionCategory(org.
+	 * springframework.data.domain.Pageable)
 	 */
 	@Override
 	public List<QuestionCategory> pageQuestionCategory(Pageable pageable) {
-		
+
 		return categoryRepository.pageQuestionCategory(pageable);
-		
+
 	}
-	/* (non-Javadoc)
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see com.cmcglobal.service.CategoryService#countQuestionCategory()
 	 */
 	@Override
 	public String countQuestionCategory() {
 		return categoryRepository.questionCategorySum();
 	}
-	/* (non-Javadoc)
-	 * @see com.cmcglobal.service.CategoryService#countSearchCategory(java.lang.String)
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.cmcglobal.service.CategoryService#countSearchCategory(java.lang.String)
 	 */
 	@Override
 	public String countSearchCategory(String content) {
 		// TODO Auto-generated method stub
-		content = "%" + content + "%" ;
+		content = "%" + content + "%";
 		return categoryRepository.countSearchCategory(content);
 	}
-	
-//	Boolean existQ = questionRepository.existsById(id);
-//	if (!existQ) {
-//		return "No question with id above";
-//	} else {
-//		newQuestion.setId(id);
-//		questionRepository.saveAndFlush(newQuestion);
-//		return "Update success";
-//	}
+
+	/* (non-Javadoc)
+	 * @see com.cmcglobal.service.CategoryService#getOneById(int)
+	 */
+	@Override
+	public QuestionCategory getOneById(int categoryId) {
+		// TODO Auto-generated method stub
+		return entityManager.find(QuestionCategory.class, categoryId);
+	}
 
 }
