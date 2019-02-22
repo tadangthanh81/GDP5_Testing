@@ -66,7 +66,7 @@ public class QuestionController {
 	@RequestMapping(value = "question/search-by-content", method = RequestMethod.GET)
 	private List<Question> searchByContent(@RequestParam(defaultValue="") String contentSearch,
 	        @RequestParam(name = "page", required = false, defaultValue = "0") Integer page,
-	        @RequestParam(name = "size", required = false, defaultValue = "10") Integer size) {
+	        @RequestParam(name = "size", required = false, defaultValue = "5") Integer size) {
 		Pageable pageable = PageRequest.of(page, size);
 		String content = contentSearch.trim();
 		if(content.equals("")) {
@@ -105,14 +105,11 @@ public class QuestionController {
 			@RequestParam(name = "dateCreated", required = false) String dateCreated,
 			@RequestParam(name = "tagName", required = false) String tagName,
 			@RequestParam(name = "page", required = false, defaultValue = "0") Integer page,
-			@RequestParam(name = "size", required = false, defaultValue = "10") Integer size 
+			@RequestParam(name = "size", required = false, defaultValue = "5") Integer size 
 			) throws java.text.ParseException {
 		Pageable pageable = PageRequest.of(page, size);	 
 
-		String emt = "";
-
-		Date date = (Date) df.parse(dateCreated);
-		System.out.println(date);
+		
 //		try {
 //		    startDate = df.parse(startDateString);
 //		    String newDateString = df.format(startDate);
@@ -120,13 +117,13 @@ public class QuestionController {
 //		} catch (ParseException e) {
 //		    e.printStackTrace();
 //		}
-//		if(emt.equals(categoryName)|| emt.equals(levelName) || emt.equals(typeName) 
-//			|| emt.equals(fullName) || date == null || emt.equals(tagName)) {
-//			return questionService.filterByAttribute(categoryName, levelName, typeName, 
-//					fullName, date, tagName, pageable);
-//			} else {
+		if(null == dateCreated) {
+			return questionService.filterByAttribute(categoryName, levelName, typeName, fullName, tagName, pageable);
+			} else {
+				Date date = (Date) df.parse(dateCreated);
+				System.out.println(date);
 			return questionService.filterByAll(categoryName, levelName, typeName, fullName, date, tagName, pageable);
-//			}
+			}
 
 		}
 	
