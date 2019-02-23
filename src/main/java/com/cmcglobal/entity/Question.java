@@ -40,7 +40,7 @@ public class Question {
 	@ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
 	@JoinColumn(name = "category_id")
 	@JsonIgnoreProperties("categorys")
-	QuestionCategory questionCategory;
+	Category category;
 
 	@ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
 	@JoinColumn(name = "type_id")
@@ -64,7 +64,7 @@ public class Question {
 	private List<Answer> questionAnswer;
 
 	public Question(String id, String content, String sugguestion, int status, Date dateCreated,
-	        QuestionCategory questionCategory, QuestionType questionType, QuestionLevel questionLevel,
+	        Category category, QuestionType questionType, QuestionLevel questionLevel,
 	        QuestionTag questionTag, User userQuestion, List<Answer> questionAnswer) {
 		super();
 		this.id = id;
@@ -72,7 +72,7 @@ public class Question {
 		this.sugguestion = sugguestion;
 		this.status = status;
 		this.dateCreated = dateCreated;
-		this.questionCategory = questionCategory;
+		this.category = category;
 		this.questionType = questionType;
 		this.questionLevel = questionLevel;
 		this.questionTag = questionTag;
@@ -102,7 +102,7 @@ public class Question {
 	@Override
 	public String toString() {
 		return "Question [id=" + id + ", content=" + content + ", sugguestion=" + sugguestion + ", status=" + status
-		        + ", dateCreated=" + dateCreated + ", questionCategory=" + questionCategory + ", questionType="
+		        + ", dateCreated=" + dateCreated + ", category=" + category + ", questionType="
 		        + questionType + ", questionLevel=" + questionLevel + ", questionTag=" + questionTag + ", userQuestion="
 		        + userQuestion + ", questionAnswer=" + questionAnswer + "]";
 	}
@@ -135,12 +135,12 @@ public class Question {
 		this.dateCreated = dateCreated;
 	}
 
-	public QuestionCategory getQuestionCategory() {
-		return questionCategory;
+	public Category getQuestionCategory() {
+		return category;
 	}
 
-	public void setQuestionCategory(QuestionCategory questionCategory) {
-		this.questionCategory = questionCategory;
+	public void setQuestionCategory(Category category) {
+		this.category = category;
 	}
 
 	public QuestionType getQuestionType() {

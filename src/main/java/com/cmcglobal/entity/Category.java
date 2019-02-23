@@ -26,7 +26,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name = "category", schema = "TESTING_SYSTEM_DATABASE")
-public class QuestionCategory {
+public class Category {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "category_id", nullable = false, unique = true)
@@ -46,7 +46,7 @@ public class QuestionCategory {
 	@JoinColumn(name = "user_id_created")
 	User userCategory;
 
-	public QuestionCategory(int id, String categoryName, Date dateCreated, int status, User userCategory) {
+	public Category(int id, String categoryName, Date dateCreated, int status, User userCategory) {
 		super();
 		this.id = id;
 		this.categoryName = categoryName;
@@ -55,7 +55,7 @@ public class QuestionCategory {
 		this.userCategory = userCategory;
 	}
 
-	public QuestionCategory() {
+	public Category() {
 		super();
 	}
 
