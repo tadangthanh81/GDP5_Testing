@@ -13,35 +13,41 @@ public class QuestionType {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "type_id", nullable = false)
-	private int id;
+	private int typeId;
 
 	@Column(name = "type_name")
 	private String typeName;
 
 	@Column(name = "status")
 	private int status;
-	
+
 //	@OneToMany(mappedBy = "questionType", fetch = FetchType.EAGER,cascade = CascadeType.DETACH)
 //    @JsonBackReference
 //    private List<Question> questionTs;
 
-	public QuestionType(int id, String typeName, int status) {
+	public QuestionType(int typeId, String typeName, int status) {
 		super();
-		this.id = id;
+		this.typeId = typeId;
 		this.typeName = typeName;
 		this.status = status;
 	}
-	
+
 	public QuestionType() {
 		super();
 	}
-	
-	public int getId() {
-		return id;
+
+	/**
+	 * @return the typeId
+	 */
+	public int getTypeId() {
+		return typeId;
 	}
 
-	public void setId(int id) {
-		this.id = id;
+	/**
+	 * @param typeId the typeId to set
+	 */
+	public void setTypeId(int typeId) {
+		this.typeId = typeId;
 	}
 
 	public String getTypeName() {

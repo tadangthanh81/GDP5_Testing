@@ -1,18 +1,11 @@
 package com.cmcglobal.entity;
 
-import java.util.List;
-
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
-
-import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
 @Table(name = "tag", schema = "TESTING_SYSTEM_DATABASE")
@@ -20,37 +13,41 @@ public class QuestionTag {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "tag_id", nullable = false)
-	private int id;
+	private int tagId;
 
 	@Column(name = "tag_name")
 	private String tagName;
 
 	@Column(name = "status")
 	private int status;
-	
+
 //	 @OneToMany(mappedBy = "questionTag", fetch = FetchType.EAGER,cascade = CascadeType.DETACH)
 //     @JsonBackReference
 //     private List<Question> questionT;
 
-	public QuestionTag(int id, String tagName, int status) {
+	public QuestionTag(int tagId, String tagName, int status) {
 		super();
-		this.id = id;
+		this.tagId = tagId;
 		this.tagName = tagName;
 		this.status = status;
 	}
-	
-	
 
 	public QuestionTag() {
 		super();
 	}
-	
-	public int getId() {
-		return id;
+
+	/**
+	 * @return the tagId
+	 */
+	public int getTagId() {
+		return tagId;
 	}
 
-	public void setId(int id) {
-		this.id = id;
+	/**
+	 * @param tagId the tagId to set
+	 */
+	public void setTagId(int tagId) {
+		this.tagId = tagId;
 	}
 
 	public String getTagName() {

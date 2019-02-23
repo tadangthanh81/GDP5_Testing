@@ -24,7 +24,7 @@ public class Answer {
 
 	@Id
 	@Column(name = "answer_id", nullable = false, unique=true)
-	private  String id;
+	private  String answerId;
 	
 	@Column(name = "content")
 	private String content;
@@ -40,9 +40,9 @@ public class Answer {
 	@JsonIgnoreProperties("questionAnswer")
 	Question answerQ;
 	
-	public Answer(String id, String content, int isTrue, int status, Question answerQ) {
+	public Answer(String answerId, String content, int isTrue, int status, Question answerQ) {
 		super();
-		this.id = id;
+		this.answerId = answerId;
 		this.content = content;
 		this.isTrue = isTrue;
 		this.status = status;
@@ -53,12 +53,18 @@ public class Answer {
 		super();
 	}
 
-	public String getId() {
-		return id;
+	/**
+	 * @return the answerId
+	 */
+	public String getAnswerId() {
+		return answerId;
 	}
 
-	public void setId(String id) {
-		this.id = id;
+	/**
+	 * @param answerId the answerId to set
+	 */
+	public void setAnswerId(String answerId) {
+		this.answerId = answerId;
 	}
 
 	public String getContent() {

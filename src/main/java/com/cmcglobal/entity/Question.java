@@ -22,7 +22,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 public class Question {
 	@Id
 	@Column(name = "question_id", unique = true, nullable = false)
-	private String id;
+	private String questionId;
 
 	@Column(name = "content")
 	private String content;
@@ -40,7 +40,7 @@ public class Question {
 	@ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
 	@JoinColumn(name = "category_id")
 	@JsonIgnoreProperties("categorys")
-	QuestionCategory questionCategory;
+	Category category;
 
 	@ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
 	@JoinColumn(name = "type_id")
@@ -63,16 +63,16 @@ public class Question {
 	@JsonIgnoreProperties("answerQ")
 	private List<Answer> questionAnswer;
 
-	public Question(String id, String content, String sugguestion, int status, Date dateCreated,
-	        QuestionCategory questionCategory, QuestionType questionType, QuestionLevel questionLevel,
-	        QuestionTag questionTag, User userQuestion, List<Answer> questionAnswer) {
+	public Question(String questionId, String content, String sugguestion, int status, Date dateCreated,
+	        Category questionCategory, QuestionType questionType, QuestionLevel questionLevel, QuestionTag questionTag,
+	        User userQuestion, List<Answer> questionAnswer) {
 		super();
-		this.id = id;
+		this.questionId = questionId;
 		this.content = content;
 		this.sugguestion = sugguestion;
 		this.status = status;
 		this.dateCreated = dateCreated;
-		this.questionCategory = questionCategory;
+		this.category = questionCategory;
 		this.questionType = questionType;
 		this.questionLevel = questionLevel;
 		this.questionTag = questionTag;
@@ -84,27 +84,35 @@ public class Question {
 		super();
 	}
 
-	public String getId() {
-		return id;
+	/**
+	 * @return the questionId
+	 */
+	public String getQuestionId() {
+		return questionId;
 	}
 
-	public void setId(String id) {
-		this.id = id;
+	/**
+	 * @param questionId the questionId to set
+	 */
+	public void setQuestionId(String questionId) {
+		this.questionId = questionId;
 	}
 
 	public String getContent() {
 		return content;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
 	public String toString() {
-		return "Question [id=" + id + ", content=" + content + ", sugguestion=" + sugguestion + ", status=" + status
-		        + ", dateCreated=" + dateCreated + ", questionCategory=" + questionCategory + ", questionType="
-		        + questionType + ", questionLevel=" + questionLevel + ", questionTag=" + questionTag + ", userQuestion="
-		        + userQuestion + ", questionAnswer=" + questionAnswer + "]";
+		return "Question [id=" + questionId + ", content=" + content + ", sugguestion=" + sugguestion + ", status=" + status
+		        + ", dateCreated=" + dateCreated + ", questionCategory=" + category + ", questionType=" + questionType
+		        + ", questionLevel=" + questionLevel + ", questionTag=" + questionTag + ", userQuestion=" + userQuestion
+		        + ", questionAnswer=" + questionAnswer + "]";
 	}
 
 	public void setContent(String content) {
@@ -135,12 +143,18 @@ public class Question {
 		this.dateCreated = dateCreated;
 	}
 
-	public QuestionCategory getQuestionCategory() {
-		return questionCategory;
+	/**
+	 * @return the category
+	 */
+	public Category getCategory() {
+		return category;
 	}
 
-	public void setQuestionCategory(QuestionCategory questionCategory) {
-		this.questionCategory = questionCategory;
+	/**
+	 * @param category the category to set
+	 */
+	public void setCategory(Category category) {
+		this.category = category;
 	}
 
 	public QuestionType getQuestionType() {

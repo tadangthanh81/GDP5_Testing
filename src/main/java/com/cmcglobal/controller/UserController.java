@@ -1,10 +1,13 @@
 package com.cmcglobal.controller;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.function.Consumer;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -48,7 +51,7 @@ public class UserController {
 				String role= "";
 				@Override
 				public void accept(Role t) {
-					role = "ROLE_"+t.getRole_name(); 
+					role = "ROLE_"+t.getRoleName(); 
 					t.getMenus().forEach(new Consumer<Menu>() {
 						@Override
 						public void accept(Menu t) {
@@ -67,5 +70,4 @@ public class UserController {
 		} else
 			return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
 	}
-	
 }

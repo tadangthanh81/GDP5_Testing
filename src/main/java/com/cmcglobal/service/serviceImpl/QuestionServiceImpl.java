@@ -25,20 +25,20 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.cmcglobal.entity.Question;
-import com.cmcglobal.entity.QuestionCategory;
+import com.cmcglobal.entity.Category;
 import com.cmcglobal.entity.QuestionLevel;
 import com.cmcglobal.entity.QuestionTag;
 import com.cmcglobal.entity.QuestionType;
 import com.cmcglobal.repository.QuestionRepository;
 import com.cmcglobal.service.CategoryService;
 import com.cmcglobal.service.LevelService;
-import com.cmcglobal.service.QuestionServices;
+import com.cmcglobal.service.QuestionService;
 import com.cmcglobal.service.TagService;
 import com.cmcglobal.service.TypeSevice;
 
 
 @Service
-public class QuestionServiceImpl implements QuestionServices {
+public class QuestionServiceImpl implements QuestionService {
 
 	@Autowired
 	EntityManager entityManager;
@@ -80,7 +80,7 @@ public class QuestionServiceImpl implements QuestionServices {
 		if (!existQ) {
 			return "No question with id above";
 		} else {
-			newQuestion.setId(id);
+			newQuestion.setQuestionId(id);
 			questionRepository.saveAndFlush(newQuestion);
 			return "Update success";
 		}
@@ -88,7 +88,6 @@ public class QuestionServiceImpl implements QuestionServices {
 	
 	@Override
 	public String editQuestion1(Question newQuestion) {
-			System.out.println(newQuestion.getId());
 			questionRepository.saveAndFlush(newQuestion);
 			return "Update success";
 	}
@@ -120,7 +119,8 @@ public class QuestionServiceImpl implements QuestionServices {
 	public List<Question> filterByAttribute(String categoryName, String levelName, String typeName, String fullName,
 	         String tagName, Pageable pageable) {
 		// TODO Auto-generated method stub
-		return questionRepository.filterByAttribute(categoryName, levelName, typeName, fullName, tagName, pageable);
+//		return questionRepository.filterByAttribute(categoryName, levelName, typeName, fullName, tagName, pageable);
+		return null;
 	}
 
 	/* (non-Javadoc)
@@ -130,7 +130,8 @@ public class QuestionServiceImpl implements QuestionServices {
 	public List<Question> filterByAll(String categoryName, String levelName, String typeName, String fullName,
 	        java.util.Date dateCreated, String tagName, Pageable pageable) {
 		
-		return questionRepository.filterByAll(categoryName, levelName, typeName, fullName, dateCreated, tagName, pageable);
+//		return questionRepository.filterByAll(categoryName, levelName, typeName, fullName, dateCreated, tagName, pageable);
+		return null;
 	}
 
 	/* (non-Javadoc)
@@ -198,8 +199,8 @@ public class QuestionServiceImpl implements QuestionServices {
 					case COLUMN_INDEX_CATEGORYID:
 						float catergoryCell = Float.parseFloat(getCellValue(cell).toString());
 						int categoryId = (int) catergoryCell;
-						QuestionCategory questionCategory = categoryService.findById(categoryId);
-						question.setQuestionCategory(questionCategory);
+						Category questionCategory = categoryService.findById(categoryId);
+						question.setCategory(questionCategory);
 						System.out.println(questionCategory.toString());
 						break;
 					case COLUMN_INDEX_CONTENT:
@@ -317,7 +318,7 @@ public class QuestionServiceImpl implements QuestionServices {
 			ids = 0;
 			return "Question001";
 		} else {
-			String tmp = findAll.get(ids).getId();
+			String tmp = findAll.get(ids).getQuestionId();
 			tmp = tmp.substring(tmp.length() - 3, tmp.length());
 
 			int id1 = Integer.parseInt(tmp) + 1;

@@ -16,8 +16,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import com.cmcglobal.entity.QuestionCategory;
-import com.cmcglobal.repository.QuestionCategoryRepository;
+import com.cmcglobal.entity.Category;
+import com.cmcglobal.repository.CategoryRepository;
 import com.cmcglobal.service.CategoryService;
 
 /**
@@ -31,7 +31,7 @@ public class CategoryServiceImpl implements CategoryService {
 	EntityManager entityManager;
 
 	@Autowired
-	QuestionCategoryRepository categoryRepository;
+	CategoryRepository categoryRepository;
 
 	/*
 	 * (non-Javadoc)
@@ -39,7 +39,7 @@ public class CategoryServiceImpl implements CategoryService {
 	 * @see com.cmcglobal.service.CategoryService#getAllCategory()
 	 */
 	@Override
-	public List<QuestionCategory> getAllCategory() {
+	public List<Category> getAllCategory() {
 		// TODO Auto-generated method stub
 		return categoryRepository.getListCategory();
 	}
@@ -52,7 +52,7 @@ public class CategoryServiceImpl implements CategoryService {
 	 * QuestionCategory)
 	 */
 	@Override
-	public void insertCategory(QuestionCategory category) {
+	public void insertCategory(Category category) {
 		categoryRepository.save(category);
 
 	}
@@ -75,12 +75,12 @@ public class CategoryServiceImpl implements CategoryService {
 	 * com.cmcglobal.entity.Question)
 	 */
 	@Override
-	public String editCategory(Integer id, QuestionCategory newCategory) {
+	public String editCategory(Integer id, Category newCategory) {
 		Boolean existC = categoryRepository.existsById(id);
 		if (!existC) {
 			return "No category with id above";
 		} else {
-			newCategory.setId(id);
+			newCategory.setCategoryId(id);
 			categoryRepository.save(newCategory);
 		}
 		return null;
@@ -92,7 +92,7 @@ public class CategoryServiceImpl implements CategoryService {
 	 * @see com.cmcglobal.service.CategoryService#findById(java.lang.Integer)
 	 */
 	@Override
-	public QuestionCategory findById(Integer id) {
+	public Category findById(Integer id) {
 		// TODO Auto-generated method stub
 		return categoryRepository.findById(id).get();
 	}
@@ -103,7 +103,7 @@ public class CategoryServiceImpl implements CategoryService {
 	 * @see com.cmcglobal.service.CategoryService#searchByContent(java.lang.String)
 	 */
 	@Override
-	public List<QuestionCategory> searchByContent(String contentSearch, Pageable pageable) {
+	public List<Category> searchByContent(String contentSearch, Pageable pageable) {
 		contentSearch = "%" + contentSearch + "%";
 		return categoryRepository.findByCategoryNameContaining(contentSearch, pageable);
 	}
@@ -115,7 +115,7 @@ public class CategoryServiceImpl implements CategoryService {
 	 * springframework.data.domain.Pageable)
 	 */
 	@Override
-	public List<QuestionCategory> pageQuestionCategory(Pageable pageable) {
+	public List<Category> pageQuestionCategory(Pageable pageable) {
 
 		return categoryRepository.pageQuestionCategory(pageable);
 
@@ -148,9 +148,9 @@ public class CategoryServiceImpl implements CategoryService {
 	 * @see com.cmcglobal.service.CategoryService#getOneById(int)
 	 */
 	@Override
-	public QuestionCategory getOneById(int categoryId) {
+	public Category getOneById(int categoryId) {
 		// TODO Auto-generated method stub
-		return entityManager.find(QuestionCategory.class, categoryId);
+		return entityManager.find(Category.class, categoryId);
 	}
 
 }

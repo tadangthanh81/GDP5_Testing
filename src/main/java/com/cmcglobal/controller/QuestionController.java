@@ -24,21 +24,21 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.cmcglobal.entity.Question;
-import com.cmcglobal.service.QuestionServices;
+import com.cmcglobal.service.QuestionService;
 
 @RestController
 public class QuestionController {
 	@Autowired
-	private QuestionServices questionService;
+	private QuestionService questionService;
 	DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
 
 	@RequestMapping(value = "question/sum", method = RequestMethod.GET)
 	private void sumQuestion(HttpServletResponse responseHeaders) {
 		responseHeaders.addHeader("SumQuestion", questionService.countQuestion());
 	}
-	
+
 	@RequestMapping(value = "question/count-search-question", method = RequestMethod.GET)
-	private void countQuestion(HttpServletResponse responseHeaders,@RequestParam String content) {
+	private void countQuestion(HttpServletResponse responseHeaders, @RequestParam String content) {
 		responseHeaders.addHeader("CountSearchQuestion", questionService.countSearchQuestion(content));
 	}
 
@@ -60,19 +60,18 @@ public class QuestionController {
 		return questionService.findById(id);
 	}
 
-
 	@RequestMapping(value = "question/search-by-content", method = RequestMethod.GET)
-	private List<Question> searchByContent(@RequestParam(defaultValue="") String contentSearch,
+	private List<Question> searchByContent(@RequestParam(defaultValue = "") String contentSearch,
 	        @RequestParam(name = "page", required = false, defaultValue = "0") Integer page,
 	        @RequestParam(name = "size", required = false, defaultValue = "5") Integer size) {
 		Pageable pageable = PageRequest.of(page, size);
 		String content = contentSearch.trim();
-		if(content.equals("")) {
+		if (content.equals("")) {
 			return questionService.pageQuestion(pageable);
 		}
 		return questionService.searchByContent(content, pageable);
 	}
-	
+
 //	@RequestMapping(value = "question/search-by-content/{contentSearch}", method = RequestMethod.GET)
 //	private List<Question> searchByContent(@PathVariable( "contentSearch") String contentSearch,
 //	        @RequestParam(name = "page", required = false, defaultValue = "0") Integer page,
@@ -95,19 +94,17 @@ public class QuestionController {
 //	}
 	@RequestMapping(value = "question/filter", method = RequestMethod.GET)
 
-	public List<Question> filterByAttribute(
-			@RequestParam(name = "categoryName", required = false) String categoryName,
-			@RequestParam(name = "levelName", required = false) String levelName,
-			@RequestParam(name = "typeName", required = false) String typeName,
-			@RequestParam(name = "fullName", required = false) String fullName,
-			@RequestParam(name = "dateCreated", required = false) String dateCreated,
-			@RequestParam(name = "tagName", required = false) String tagName,
-			@RequestParam(name = "page", required = false, defaultValue = "0") Integer page,
-			@RequestParam(name = "size", required = false, defaultValue = "5") Integer size 
-			) throws java.text.ParseException {
-		Pageable pageable = PageRequest.of(page, size);	 
+	public List<Question> filterByAttribute(@RequestParam(name = "categoryName", required = false) String categoryName,
+	        @RequestParam(name = "levelName", required = false) String levelName,
+	        @RequestParam(name = "typeName", required = false) String typeName,
+	        @RequestParam(name = "fullName", required = false) String fullName,
+	        @RequestParam(name = "dateCreated", required = false) String dateCreated,
+	        @RequestParam(name = "tagName", required = false) String tagName,
+	        @RequestParam(name = "page", required = false, defaultValue = "0") Integer page,
+	        @RequestParam(name = "size", required = false, defaultValue = "5") Integer size)
+	        throws java.text.ParseException {
+		Pageable pageable = PageRequest.of(page, size);
 
-		
 //		try {
 //		    startDate = df.parse(startDateString);
 //		    String newDateString = df.format(startDate);
@@ -115,16 +112,15 @@ public class QuestionController {
 //		} catch (ParseException e) {
 //		    e.printStackTrace();
 //		}
-		if(null == dateCreated) {
+		if (null == dateCreated) {
 			return questionService.filterByAttribute(categoryName, levelName, typeName, fullName, tagName, pageable);
-			} else {
-				Date date = (Date) df.parse(dateCreated);
-				System.out.println(date);
+		} else {
+			Date date = (Date) df.parse(dateCreated);
+			System.out.println(date);
 			return questionService.filterByAll(categoryName, levelName, typeName, fullName, date, tagName, pageable);
-			}
-
 		}
-	
+
+	}
 
 	@RequestMapping(value = "question/add", method = RequestMethod.POST)
 	public void insert(@RequestBody Question question) {
@@ -147,6 +143,7 @@ public class QuestionController {
 		System.out.println(newQuestion);
 		return questionService.editQuestion1(newQuestion);
 	}
+
 	/**
 	 * Yen
 	 * 
@@ -178,13 +175,12 @@ public class QuestionController {
 		for (Question question : listQuestion) {
 
 			String s = "Question" + " " + String.valueOf(x); // to create id for question
-			question.setId(questionService.createId());
+			question.setQuestionId(questionService.createId());
 			++x;
 			System.out.println(question);
 			questionService.insertQuestion(question);
 		}
 		return ResponseEntity.ok("Ok");
 	}
-
 
 }

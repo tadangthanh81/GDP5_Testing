@@ -20,7 +20,7 @@ public class QuestionLevel {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "level_id", nullable = false)
-	private int id;
+	private int levelId;
 
 	@Column(name = "level_name")
 	private String levelName;
@@ -31,29 +31,30 @@ public class QuestionLevel {
 //	 @OneToMany(mappedBy = "questionLevel", fetch = FetchType.EAGER,cascade = CascadeType.DETACH)
 //     @JsonBackReference
 //     private List<Question> questionL;
-	 
-	public QuestionLevel(int id, String levelName, int status) {
+
+	public QuestionLevel(int levelId, String levelName, int status) {
 		super();
-		this.id = id;
+		this.levelId = levelId;
 		this.levelName = levelName;
 		this.status = status;
 	}
-	
-	
-
-	
-
 
 	public QuestionLevel() {
 		super();
 	}
 
-	public int getId() {
-		return id;
+	/**
+	 * @return the levelId
+	 */
+	public int getLevelId() {
+		return levelId;
 	}
 
-	public void setId(int id) {
-		this.id = id;
+	/**
+	 * @param levelId the levelId to set
+	 */
+	public void setLevelId(int levelId) {
+		this.levelId = levelId;
 	}
 
 	public String getLevelName() {

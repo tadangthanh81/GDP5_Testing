@@ -27,10 +27,10 @@ public class Role {
 
 	@Id
 	@Column
-	private int role_id;
+	private int roleId;
 
 	@Column
-	private String role_name;
+	private String roleName;
 
 	@ManyToMany(mappedBy = "roles", fetch = FetchType.LAZY)
 	@JsonIgnore
@@ -38,13 +38,13 @@ public class Role {
 
 	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "role_menu", joinColumns = { @JoinColumn(name = "role_id") }, inverseJoinColumns = {
-			@JoinColumn(name = "menu_id") })
+	        @JoinColumn(name = "menu_id") })
 	private Set<Menu> menus = new HashSet<>();
 
-	public Role(int role_id, String role_name, Set<User> users, Set<Menu> menus) {
+	public Role(int roleId, String roleName, Set<User> users, Set<Menu> menus) {
 		super();
-		this.role_id = role_id;
-		this.role_name = role_name;
+		this.roleId = roleId;
+		this.roleName = roleName;
 		this.users = users;
 		this.menus = menus;
 	}
@@ -70,19 +70,32 @@ public class Role {
 		// TODO Auto-generated constructor stub
 	}
 
-	public int getRole_id() {
-		return role_id;
+	/**
+	 * @return the roleId
+	 */
+	public int getRoleId() {
+		return roleId;
 	}
 
-	public void setRole_id(int role_id) {
-		this.role_id = role_id;
+	/**
+	 * @param roleId the roleId to set
+	 */
+	public void setRoleId(int roleId) {
+		this.roleId = roleId;
 	}
 
-	public String getRole_name() {
-		return role_name;
+	/**
+	 * @return the roleName
+	 */
+	public String getRoleName() {
+		return roleName;
 	}
 
-	public void setRole_name(String role_name) {
-		this.role_name = role_name;
+	/**
+	 * @param roleName the roleName to set
+	 */
+	public void setRoleName(String roleName) {
+		this.roleName = roleName;
 	}
+
 }
