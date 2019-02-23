@@ -12,7 +12,7 @@ import java.util.List;
 
 import org.springframework.data.domain.Pageable;
 
-import com.cmcglobal.entity.QuestionCategory;
+import com.cmcglobal.entity.Category;
 
 /**
  * Create by: thanhtd - CMC
@@ -24,19 +24,19 @@ import com.cmcglobal.entity.QuestionCategory;
  */
 
 public interface CategoryService {
-	public List<QuestionCategory> getAllCategory();
+	public List<Category> getAllCategory();
 	
-	void insertCategory(QuestionCategory category);
+	void insertCategory(Category category);
 	
 	void deletebyId(Integer id);
 	
-	QuestionCategory findById(Integer id);
+	Category findById(Integer id);
 	
-	String editCategory(Integer id, QuestionCategory newCategory);
+	String editCategory(Integer id, Category newCategory);
 	
-	List<QuestionCategory> searchByContent(String contentSearch, Pageable pageable);
+	List<Category> searchByContent(String contentSearch, Pageable pageable);
 
-	List<QuestionCategory> pageQuestionCategory(Pageable pageable);
+	List<Category> pageQuestionCategory(Pageable pageable);
 
 	String countQuestionCategory();
 	

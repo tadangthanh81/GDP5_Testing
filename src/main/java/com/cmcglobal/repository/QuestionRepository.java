@@ -2,14 +2,19 @@ package com.cmcglobal.repository;
 
 import java.util.Date;
 import java.util.List;
+
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
+
 import com.cmcglobal.entity.Question;
-import org.springframework.data.repository.query.Param;
 @Repository
 public interface QuestionRepository extends JpaRepository<Question, String> {
+	
+	@Query("select q from Question q where q.id = ?1 ")
+	Question getOne(String id);
+	
 	@Query("SELECT q FROM Question q WHERE q.content LIKE %?1%")
 	List<Question>  findByContentContaining(String contentSearch, Pageable pageable);
 	
@@ -26,7 +31,6 @@ public interface QuestionRepository extends JpaRepository<Question, String> {
 	List<Question>  filterByAll(String categoryName,   String levelName, String typeName, 
 			String fullName,  Date dateCreated, String tagName, Pageable pageable );
 	
-
 	@Query("SELECT q FROM Question q")
 	List<Question> pageQuestion(Pageable pageable);
 
@@ -34,6 +38,8 @@ public interface QuestionRepository extends JpaRepository<Question, String> {
 	String questionSum();
 	
 	@Query("select count(question_id) from Question where content like ?1")
-	String countSearchQuestion(String content);
+	String countSearchQuestion(String content);	
 	
+	List<Question> filterQuestion(String userName, Date dateCreated, Integer tagId, Integer levelId, 
+			Integer categoryId, Integer typeId, Pageable pageable);
 }

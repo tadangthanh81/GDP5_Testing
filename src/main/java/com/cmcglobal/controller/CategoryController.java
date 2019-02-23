@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.cmcglobal.entity.QuestionCategory;
+import com.cmcglobal.entity.Category;
 import com.cmcglobal.service.CategoryService;
 
 /**
@@ -53,7 +53,7 @@ public class CategoryController {
 	
 	
 	@RequestMapping(value = "category/pagination", method = RequestMethod.GET)
-	private List<QuestionCategory> getPageCategory(
+	private List<Category> getPageCategory(
 	        @RequestParam(name = "page", required = false, defaultValue = "0") Integer page,
 	        @RequestParam(name = "size", required = false, defaultValue = "5") Integer size){
 		Pageable pageable = PageRequest.of(page, size);
@@ -61,18 +61,18 @@ public class CategoryController {
 	}
 		
 	@RequestMapping(value="/category", method = RequestMethod.GET)
-	public List<QuestionCategory> getAllCategories(){
+	public List<Category> getAllCategories(){
 		return categoryService.getAllCategory();
 	}
 	
 
 	@RequestMapping(value = "category/{id}", method = RequestMethod.GET)
-	public QuestionCategory getCById(@PathVariable("id") Integer id) {
+	public Category getCById(@PathVariable("id") Integer id) {
 		return categoryService.findById(id);
 	}
 
 	@RequestMapping(value = "category/search-by-content", method = RequestMethod.GET)
-	private List<QuestionCategory> searchByContent(@RequestParam(defaultValue="") String contentSearch,
+	private List<Category> searchByContent(@RequestParam(defaultValue="") String contentSearch,
 	        @RequestParam(name = "page", required = false, defaultValue = "0") Integer page,
 	        @RequestParam(name = "size", required = false, defaultValue = "5") Integer size) {
 		Pageable pageable = PageRequest.of(page, size);
@@ -84,7 +84,7 @@ public class CategoryController {
 	}
 
 	@RequestMapping(value = "/category", method = RequestMethod.POST)
-	public void insert(@RequestBody QuestionCategory category) {
+	public void insert(@RequestBody Category category) {
 		categoryService.insertCategory(category);
 	}
 
@@ -95,7 +95,7 @@ public class CategoryController {
 
 	@RequestMapping(value = "category/{id}", 
 	method = RequestMethod.PATCH)
-	private String editCategory(@PathVariable("id") Integer id, @RequestBody QuestionCategory newCategory) {
+	private String editCategory(@PathVariable("id") Integer id, @RequestBody Category newCategory) {
 		return categoryService.editCategory(id, newCategory);
 	}
 

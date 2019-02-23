@@ -33,4 +33,7 @@ public interface QuestionServices {
 
 	List<Question> filterByAll(String categoryName, String levelName, String typeName, String fullName,
 	        Date dateCreated, String tagName, Pageable pageable);
+	
+	List<Question> filterQuestion(String userName, Date dateCreated, Integer tagId, 
+			Integer levelId, Integer categoryId,Integer typeId, Pageable pageable);
 }

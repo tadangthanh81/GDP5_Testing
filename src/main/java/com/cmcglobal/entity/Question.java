@@ -40,7 +40,7 @@ public class Question {
 	@ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
 	@JoinColumn(name = "category_id")
 	@JsonIgnoreProperties("categorys")
-	QuestionCategory questionCategory;
+	Category questionCategory;
 
 	@ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
 	@JoinColumn(name = "type_id")
@@ -54,7 +54,7 @@ public class Question {
 	@JoinColumn(name = "tag_id")
 	QuestionTag questionTag;
 
-	@ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
+	@ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
 	@JoinColumn(name = "user_id_created")
 	User userQuestion;
 
@@ -64,7 +64,7 @@ public class Question {
 	private List<Answer> questionAnswer;
 
 	public Question(String id, String content, String sugguestion, int status, Date dateCreated,
-	        QuestionCategory questionCategory, QuestionType questionType, QuestionLevel questionLevel,
+	        Category questionCategory, QuestionType questionType, QuestionLevel questionLevel,
 	        QuestionTag questionTag, User userQuestion, List<Answer> questionAnswer) {
 		super();
 		this.id = id;
@@ -135,11 +135,11 @@ public class Question {
 		this.dateCreated = dateCreated;
 	}
 
-	public QuestionCategory getQuestionCategory() {
+	public Category getQuestionCategory() {
 		return questionCategory;
 	}
 
-	public void setQuestionCategory(QuestionCategory questionCategory) {
+	public void setQuestionCategory(Category questionCategory) {
 		this.questionCategory = questionCategory;
 	}
 
