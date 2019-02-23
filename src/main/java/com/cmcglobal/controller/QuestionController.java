@@ -26,6 +26,7 @@ public class QuestionController {
 	@Autowired
 	private QuestionServices questionService;
 	DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+	String filterText;
 
 	@RequestMapping(value = "question/sum", method = RequestMethod.GET)
 	private void sumQuestion(HttpServletResponse responseHeaders) {
@@ -91,6 +92,37 @@ public class QuestionController {
 	@RequestMapping(value = "question/filter", method = RequestMethod.GET)
 
 	public List<Question> filterByAttribute(
+			@RequestParam(name = "categoryName", required = false) String categoryName,
+			@RequestParam(name = "levelName", required = false) String levelName,
+			@RequestParam(name = "typeName", required = false) String typeName,
+			@RequestParam(name = "fullName", required = false) String fullName,
+			@RequestParam(name = "dateCreated", required = false) String dateCreated,
+			@RequestParam(name = "tagName", required = false) String tagName,
+			@RequestParam(name = "page", required = false, defaultValue = "0") Integer page,
+			@RequestParam(name = "size", required = false, defaultValue = "5") Integer size 
+			) throws java.text.ParseException {
+		Pageable pageable = PageRequest.of(page, size);	 
+
+		
+//		try {
+//		    startDate = df.parse(startDateString);
+//		    String newDateString = df.format(startDate);
+//		    System.out.println(newDateString);
+//		} catch (ParseException e) {
+//		    e.printStackTrace();
+//		}
+		if(null == dateCreated) {
+			return questionService.filterByAttribute(categoryName, levelName, typeName, fullName, tagName, pageable);
+			} else {
+				Date date = (Date) df.parse(dateCreated);
+				System.out.println(date);
+			return questionService.filterByAll(categoryName, levelName, typeName, fullName, date, tagName, pageable);
+			}
+
+		}
+	
+	@RequestMapping(value = "question/filter-method2", method = RequestMethod.GET)
+	public List<Question> filterMeThod2(
 			@RequestParam(name = "categoryName", required = false) String categoryName,
 			@RequestParam(name = "levelName", required = false) String levelName,
 			@RequestParam(name = "typeName", required = false) String typeName,
