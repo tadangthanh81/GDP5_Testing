@@ -12,6 +12,7 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 
+import org.apache.log4j.Logger;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellType;
@@ -38,6 +39,8 @@ import com.cmcglobal.service.TypeSevice;
 
 @Service
 public class QuestionServiceImpl implements QuestionService {
+	
+	private static final Logger logger = Logger.getLogger(QuestionServiceImpl.class);
 
 	@Autowired
 	EntityManager entityManager;
@@ -60,8 +63,10 @@ public class QuestionServiceImpl implements QuestionService {
 	@Override
 	public Question findById(String id) {
 		try {
+			logger.info("Find Question by id = " + id);
 			return questionRepository.findById(id).get();
 		} catch (Exception e) {
+			logger.error(e.getMessage(), e);
 			return null;
 		}
 	}
@@ -69,9 +74,11 @@ public class QuestionServiceImpl implements QuestionService {
 	@Override
 	public void insertQuestion(Question question) {
 		try {
+			
 			questionRepository.save(question);
+			logger.info("Insert question success");
 		} catch (Exception e) {
-			// TODO: handle exception
+			logger.error(e.getMessage(), e);
 		}
 	}
 
@@ -79,8 +86,9 @@ public class QuestionServiceImpl implements QuestionService {
 	public void deletebyId(String id) {
 		try {
 			questionRepository.deleteById(id);
+			logger.info("Delete question by id = " + id);
 		} catch (Exception e) {
-			// TODO: handle exception
+			logger.error(e.getMessage(), e);
 		}
 
 	}
@@ -88,6 +96,7 @@ public class QuestionServiceImpl implements QuestionService {
 	@Override
 	public String editQuestion(String id, Question newQuestion) {
 		try {
+			logger.info("Edit question by id = " + id);
 			Boolean existQ = questionRepository.existsById(id);
 			if (!existQ) {
 				return "No question with id above";
@@ -97,6 +106,7 @@ public class QuestionServiceImpl implements QuestionService {
 				return "Update success";
 			}
 		} catch (Exception e) {
+			logger.error(e.getMessage(), e);
 			return "fail";
 		}
 	}
@@ -108,6 +118,7 @@ public class QuestionServiceImpl implements QuestionService {
 			questionRepository.saveAndFlush(newQuestion);
 			return "Update success";
 		} catch (Exception e) {
+			logger.error(e.getMessage(), e);
 			return "fail";
 		}
 	}
@@ -115,8 +126,10 @@ public class QuestionServiceImpl implements QuestionService {
 	@Override
 	public List<Question> searchByContent(String contentSearch, Pageable pageable) {
 		try {
+			logger.info("Search question by text:  " + contentSearch);
 			return questionRepository.findByContentContaining(contentSearch, pageable);
 		} catch (Exception e) {
+			logger.error(e.getMessage(), e);
 			return null;
 		}
 	}
@@ -126,6 +139,7 @@ public class QuestionServiceImpl implements QuestionService {
 		try {
 			return questionRepository.pageQuestion(pageable);
 		} catch (Exception e) {
+			logger.error(e.getMessage(), e);
 			return null;
 		}
 	}
@@ -140,6 +154,7 @@ public class QuestionServiceImpl implements QuestionService {
 		try {
 			return questionRepository.questionSum();
 		} catch (Exception e) {
+			logger.error(e.getMessage(), e);
 			return "fail";
 		}
 	}
@@ -155,9 +170,10 @@ public class QuestionServiceImpl implements QuestionService {
 	@Override
 	public List<Question> filterByAttribute(String categoryName, String levelName, String typeName, String fullName,
 	        String tagName, Pageable pageable) {
-		try {
+		try {			
 			return questionRepository.filterByAttribute(categoryName, levelName, typeName, fullName, tagName, pageable);
 		} catch (Exception e) {
+			logger.error(e.getMessage(), e);
 			return null;
 		}
 	}
@@ -177,6 +193,7 @@ public class QuestionServiceImpl implements QuestionService {
 			return questionRepository.filterByAll(categoryName, levelName, typeName, fullName, dateCreated, tagName,
 			        pageable);
 		} catch (Exception e) {
+			logger.error(e.getMessage(), e);
 			return null;
 		}
 	}
@@ -193,6 +210,7 @@ public class QuestionServiceImpl implements QuestionService {
 			content = "%" + content + "%";
 			return questionRepository.countSearchQuestion(content);
 		} catch (Exception e) {
+			logger.error(e.getMessage(), e);
 			return null;
 		}
 	}
@@ -204,6 +222,7 @@ public class QuestionServiceImpl implements QuestionService {
 	 */
 	@Override
 	public List<Question> readExcel(final String exelFilePath) {
+		logger.info("Read Excel");
 		final int COLUMN_INDEX_CATEGORYID = 0;
 		final int COLUMN_INDEX_CONTENT = 1;
 		final int COLUMN_INDEX_TYPEID = 2;
@@ -317,6 +336,8 @@ public class QuestionServiceImpl implements QuestionService {
 
 // Get Cell's value
 	private static Object getCellValue(Cell cell) {
+		
+		logger.info("Get cell value");
 		CellType cellType = cell.getCellTypeEnum();
 		Object cellValue = null;
 		switch (cellType) {
@@ -347,6 +368,8 @@ public class QuestionServiceImpl implements QuestionService {
 
 // Get Workbook
 	private static Workbook getWorkbook(InputStream inputStream, String excelFilePath) throws IOException {
+		
+		logger.info("Get work book");
 		Workbook workbook = null;
 		if (excelFilePath.endsWith("xlsx")) {
 			workbook = new XSSFWorkbook(inputStream);
@@ -366,6 +389,8 @@ public class QuestionServiceImpl implements QuestionService {
 	 */ // Yen Trinh
 	@Override
 	public String createId() {
+		
+		logger.info("Creat id");
 		String id;
 		List<Question> findAll = questionRepository.findAll();
 		int ids = findAll.size() - 1;
@@ -394,7 +419,12 @@ public class QuestionServiceImpl implements QuestionService {
 	 */
 	@Override
 	public List<Question> findAll() {
-		// TODO Auto-generated method stub
-		return questionRepository.findAll();
+		try {
+			logger.info("Get all question");
+			return questionRepository.findAll();
+		} catch (Exception e) {
+			logger.error(e.getMessage(), e);
+			return null;
+		}
 	}
 }

@@ -1,0 +1,28 @@
+2019-02-25 12:47:55 DEBUG TestingSystemApplication:15 - debug log
+2019-02-25 12:47:55 ERROR TestingSystemApplication:16 - error log
+2019-02-25 12:47:55 INFO  TestingSystemApplication:17 - info log
+2019-02-25 12:49:31 DEBUG TestingSystemApplication:15 - debug log
+2019-02-25 12:49:31 ERROR TestingSystemApplication:16 - error log
+2019-02-25 12:49:31 INFO  TestingSystemApplication:17 - info log
+2019-02-25 12:49:55 INFO  TestingSystemApplication:15 - info log
+2019-02-25 14:11:48 INFO  TestingSystemApplication:15 - Run App Success 
+2019-02-25 14:13:08 INFO  TestingSystemApplication:15 - Run App Success 
+2019-02-25 14:13:16 INFO  QuestionServiceImpl:66 - Find answer by id
+2019-02-25 14:14:00 INFO  TestingSystemApplication:15 - Run App Success 
+2019-02-25 14:14:38 INFO  TestingSystemApplication:15 - Run App Success 
+2019-02-25 14:14:56 INFO  TestingSystemApplication:15 - Run App Success 
+2019-02-25 14:15:02 INFO  QuestionServiceImpl:66 - Find answer by id1
+2019-02-25 14:15:37 INFO  TestingSystemApplication:15 - Run App Success 
+2019-02-25 14:17:42 INFO  TestingSystemApplication:15 - Run App Success 
+2019-02-25 14:20:11 INFO  TestingSystemApplication:15 - Run App Success 
+2019-02-25 14:20:14 INFO  TestingSystemApplication:15 - Run App Success 
+2019-02-25 14:23:02 INFO  TestingSystemApplication:15 - Run App Success 
+2019-02-25 14:23:29 INFO  TestingSystemApplication:15 - Run App Success 
+2019-02-25 14:24:14 INFO  TestingSystemApplication:15 - Run App Success 
+2019-02-25 14:24:59 INFO  TestingSystemApplication:15 - Run App Success 
+2019-02-25 14:25:28 INFO  TestingSystemApplication:15 - Run App Success 
+2019-02-25 14:26:08 INFO  TestingSystemApplication:15 - Run App Success 
+2019-02-25 14:26:22 INFO  TestingSystemApplication:15 - Run App Success 
+2019-02-25 14:27:11 INFO  TestingSystemApplication:15 - Run App Success 
+2019-02-25 14:28:15 INFO  TestingSystemApplication:15 - Run App Success 
+2019-02-25 14:28:59 INFO  TestingSystemApplication:15 - Run App Success 

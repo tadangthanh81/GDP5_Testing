@@ -7,6 +7,7 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +21,9 @@ import com.cmcglobal.service.LevelService;
  */
 @Service
 public class LevelQuestionImpl implements LevelService {
+	
+	private static final Logger logger = Logger.getLogger(LevelQuestionImpl.class);
+	
 	@Autowired
 	EntityManager entityManager;
 
@@ -28,8 +32,13 @@ public class LevelQuestionImpl implements LevelService {
 
 	@Override
 	public List<QuestionLevel> getAllQuestionLevel() {
-		// TODO Auto-generated method stub
-		return levelRepository.findAll();
+		try {
+			logger.info("get all level");
+			return levelRepository.findAll();
+		} catch (Exception e) {
+			logger.error(e.getMessage(), e);
+			return null;
+		}
 	}
 
 	/* (non-Javadoc)
@@ -37,8 +46,13 @@ public class LevelQuestionImpl implements LevelService {
 	 */
 	@Override
 	public QuestionLevel getOneById(int levelId) {
-		// TODO Auto-generated method stub
-		return entityManager.find(QuestionLevel.class, levelId);
+		try {
+			logger.info("get all level by id = " + levelId);
+			return entityManager.find(QuestionLevel.class, levelId);
+		} catch (Exception e) {
+			logger.error(e.getMessage(), e);
+			return null;
+		}
 	}
 
 }

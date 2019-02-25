@@ -12,6 +12,7 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,6 +31,9 @@ import com.cmcglobal.service.TagService;
  */
 @Service
 public class TagServiceImpl implements TagService {
+	
+	private static final Logger logger = Logger.getLogger(TagServiceImpl.class);
+	
 	@Autowired
 	EntityManager entityManager;
 
@@ -40,24 +44,38 @@ public class TagServiceImpl implements TagService {
 	 */
 	@Override
 	public List<QuestionTag> getAllTag() {
-		// TODO Auto-generated method stub
-		return tagRepository.findAll();
+		try {
+			logger.info("get all level  ");
+			return tagRepository.findAll();
+		} catch (Exception e) {
+			logger.error(e.getMessage(), e);
+			return null;
+		}
 	}
 	/* (non-Javadoc)
 	 * @see com.cmcglobal.service.TagService#createTag(com.cmcglobal.entity.QuestionTag)
 	 */
 	@Override
 	public void createTag(QuestionTag tag) {
-		// TODO Auto-generated method stub
-		tagRepository.save(tag);
+		try {
+			logger.info("Insert Tag ");
+			tagRepository.save(tag);
+		} catch (Exception e) {
+			logger.error(e.getMessage(), e);
+		}
 	}
 	/* (non-Javadoc)
 	 * @see com.cmcglobal.service.TagService#getOneById(int)
 	 */
 	@Override
 	public QuestionTag getOneById(int tagId) {
-		// TODO Auto-generated method stub
-		return entityManager.find(QuestionTag.class, tagId);
+		try {
+			logger.info("get tag by id = " + tagId);
+			return entityManager.find(QuestionTag.class, tagId);
+		} catch (Exception e) {
+			logger.error(e.getMessage(), e);
+			return null;
+		}
 	}
 
 }

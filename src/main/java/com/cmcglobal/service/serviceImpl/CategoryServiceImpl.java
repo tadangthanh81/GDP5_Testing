@@ -12,6 +12,7 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -27,6 +28,8 @@ import com.cmcglobal.service.CategoryService;
 @Service
 public class CategoryServiceImpl implements CategoryService {
 
+	private static final Logger logger = Logger.getLogger(CategoryServiceImpl.class);
+	
 	@Autowired
 	EntityManager entityManager;
 
@@ -40,8 +43,13 @@ public class CategoryServiceImpl implements CategoryService {
 	 */
 	@Override
 	public List<Category> getAllCategory() {
-		// TODO Auto-generated method stub
-		return categoryRepository.getListCategory();
+		try {
+			logger.info("Get all category");
+			return categoryRepository.getListCategory();
+		} catch (Exception e) {
+			logger.error(e.getMessage(), e);
+			return null;
+		}
 	}
 
 	/*
@@ -53,7 +61,12 @@ public class CategoryServiceImpl implements CategoryService {
 	 */
 	@Override
 	public void insertCategory(Category category) {
-		categoryRepository.save(category);
+		try {
+			logger.info("Insert answer");
+			categoryRepository.save(category);
+		} catch (Exception e) {
+			logger.error(e.getMessage(), e);
+		}
 
 	}
 
@@ -64,7 +77,12 @@ public class CategoryServiceImpl implements CategoryService {
 	 */
 	@Override
 	public void deletebyId(Integer id) {
-		categoryRepository.deleteById(id);
+		try {
+			logger.info("Delete category by id = " + id);
+			categoryRepository.deleteById(id);
+		} catch (Exception e) {
+			logger.error(e.getMessage(), e);
+		}
 
 	}
 
@@ -76,15 +94,21 @@ public class CategoryServiceImpl implements CategoryService {
 	 */
 	@Override
 	public String editCategory(Integer id, Category newCategory) {
-		Boolean existC = categoryRepository.existsById(id);
-		if (!existC) {
-			return "No category with id above";
-		} else {
-			newCategory.setId(id);
-			categoryRepository.save(newCategory);
+		try {
+			logger.info("Edit category by id = " + id);
+			Boolean existC = categoryRepository.existsById(id);
+			if (!existC) {
+				return "No category with id above";
+			} else {
+				newCategory.setId(id);
+				categoryRepository.save(newCategory);
+			}
+			return null;
+		} catch (Exception e) {
+			logger.error(e.getMessage(), e);
+			return "fail";
 		}
-		return null;
-	}
+		}
 
 	/*
 	 * (non-Javadoc)
@@ -93,8 +117,13 @@ public class CategoryServiceImpl implements CategoryService {
 	 */
 	@Override
 	public Category findById(Integer id) {
-		// TODO Auto-generated method stub
-		return categoryRepository.findById(id).get();
+		try {
+			logger.info("Find category by id = " + id);
+			return categoryRepository.findById(id).get();
+		} catch (Exception e) {
+			logger.error(e.getMessage(), e);
+			return null;
+		}
 	}
 
 	/*
@@ -105,7 +134,13 @@ public class CategoryServiceImpl implements CategoryService {
 	@Override
 	public List<Category> searchByContent(String contentSearch, Pageable pageable) {
 		contentSearch = "%" + contentSearch + "%";
-		return categoryRepository.findByCategoryNameContaining(contentSearch, pageable);
+		try {
+			logger.info("Search category by text = " + contentSearch);
+			return categoryRepository.findByCategoryNameContaining(contentSearch, pageable);
+		} catch (Exception e) {
+			logger.error(e.getMessage(), e);
+			return null;
+		}
 	}
 
 	/*
@@ -117,7 +152,13 @@ public class CategoryServiceImpl implements CategoryService {
 	@Override
 	public List<Category> pageQuestionCategory(Pageable pageable) {
 
-		return categoryRepository.pageQuestionCategory(pageable);
+		try {
+			logger.info("get all category by pagination");
+			return categoryRepository.pageQuestionCategory(pageable);
+		} catch (Exception e) {
+			logger.error(e.getMessage(), e);
+			return null;
+		}
 
 	}
 
@@ -128,7 +169,12 @@ public class CategoryServiceImpl implements CategoryService {
 	 */
 	@Override
 	public String countQuestionCategory() {
-		return categoryRepository.questionCategorySum();
+		try {
+			return categoryRepository.questionCategorySum();
+		} catch (Exception e) {
+			logger.error(e.getMessage(), e);
+			return "fail";
+		}
 	}
 
 	/*
@@ -139,9 +185,13 @@ public class CategoryServiceImpl implements CategoryService {
 	 */
 	@Override
 	public String countSearchCategory(String content) {
-		// TODO Auto-generated method stub
 		content = "%" + content + "%";
-		return categoryRepository.countSearchCategory(content);
+		try {
+			return categoryRepository.countSearchCategory(content);
+		} catch (Exception e) {
+			logger.error(e.getMessage(), e);
+			return "fail";
+		}
 	}
 
 	/* (non-Javadoc)
@@ -149,7 +199,12 @@ public class CategoryServiceImpl implements CategoryService {
 	 */
 	@Override
 	public Category getOneById(int categoryId) {
-		// TODO Auto-generated method stub
-		return entityManager.find(Category.class, categoryId);
+		try {
+			logger.info("Get Category by id = " + categoryId);
+			return entityManager.find(Category.class, categoryId);
+		} catch (Exception e) {
+			logger.error(e.getMessage(), e);
+			return null;
+		}
 	}
 }

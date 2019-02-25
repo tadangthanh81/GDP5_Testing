@@ -16,6 +16,7 @@ import java.nio.file.Paths;
 
 import javax.servlet.ServletContext;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
@@ -33,6 +34,8 @@ import com.cmcglobal.service.UploadFileService;
  * Version 1.0
  */
 public class UploadFileImpl implements UploadFileService {
+	
+	private static final Logger logger = Logger.getLogger(TypeSeriveImpl.class);
 
 	private final Path rootLocation = Paths.get("files");
 
@@ -49,6 +52,7 @@ public class UploadFileImpl implements UploadFileService {
 			Files.copy(file.getInputStream(), this.rootLocation.resolve(file.getOriginalFilename()));
 			return "Success";
 		} catch (Exception e) {
+			logger.error(e.getMessage(), e);
 			throw new RuntimeException("FAIL!");
 		}
 	}
@@ -61,6 +65,7 @@ public class UploadFileImpl implements UploadFileService {
 			// transfer the received file to the given destination file
 			file.transferTo(fileTranfer);
 		} catch (IllegalStateException e) {
+			logger.error(e.getMessage(), e);
 		} catch (IOException e) {
 		}
 		return file.getOriginalFilename();
@@ -79,6 +84,7 @@ public class UploadFileImpl implements UploadFileService {
 				throw new Exception();
 			}
 		} catch (Exception ex) {
+			logger.error(ex.getMessage(), ex);
 			return null;
 		}
 	}
