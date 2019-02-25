@@ -63,10 +63,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter implemen
 		http.csrf().disable().cors();
 		http.authorizeRequests()//
 		        .antMatchers("/question/**").permitAll()
-		        .and()
-		        .formLogin().loginPage("/login").defaultSuccessUrl("/home")
-		        .and()
-		        .logout().logoutUrl("/logout").deleteCookies("JSESSIONID")
 		        .and().exceptionHandling()
 		        .authenticationEntryPoint(entrypoint).accessDeniedHandler(denied)
 		.and().cors()

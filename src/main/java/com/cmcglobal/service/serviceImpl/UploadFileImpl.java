@@ -1,8 +1,8 @@
 /**
- * Create by: User - CMC
- * Create date: Feb 22, 2019
- * Modifier: User
- * Modified date: Feb 22, 2019
+ * Create by: yentrinh - CMC
+ * Create date: Feb 21, 2019
+ * Modifier: yentrinh
+ * Modified date: Feb 21, 2019
  * Description: ....
  * Version 1.0
  */
@@ -16,24 +16,18 @@ import java.nio.file.Paths;
 
 import javax.servlet.ServletContext;
 
+import org.springframework.scheduling.annotation.Async;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
-import org.springframework.scheduling.annotation.Async;
+import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.cmcglobal.service.UploadFileService;
 
-/**
- * Create by: thanhtd - CMC
- * Create date: Feb 22, 2019
- * Modifier: thanhtd
- * Modified date: Feb 22, 2019
- * Description: ....
- * Version 1.0
- */
+@Service
 public class UploadFileImpl implements UploadFileService {
-
 	private final Path rootLocation = Paths.get("files");
 
 	@Autowired

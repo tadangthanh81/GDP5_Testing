@@ -41,8 +41,8 @@ public class UserController {
 	}
 
 	@PostMapping(value = "/login", produces=MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<User> login(@RequestBody User user, HttpServletResponse response) {
-		User usera = useService.findEmail(user.getEmail());
+	public ResponseEntity<User> login(@RequestBody String user, HttpServletResponse response) {
+		User usera = useService.findEmail(user);
 		String token = "";
 		if (usera != null) {
 			List<String> roles= new ArrayList<>();
