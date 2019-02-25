@@ -221,7 +221,7 @@ public class QuestionServiceImpl implements QuestionService {
 	 * @see com.cmcglobal.service.QuestionService#createId()
 	 */
 	@Override
-	public List<Question> readExcel(final String exelFilePath) {
+	public List<Question> readExcel(final String exelFilePath){
 		logger.info("Read Excel");
 		final int COLUMN_INDEX_CATEGORYID = 0;
 		final int COLUMN_INDEX_CONTENT = 1;
