@@ -24,13 +24,20 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.cmcglobal.entity.Answer;
 import com.cmcglobal.entity.Question;
+import com.cmcglobal.service.AnswerService;
 import com.cmcglobal.service.QuestionService;
 
 @RestController
 public class QuestionController {
+	
 	@Autowired
 	private QuestionService questionService;
+	
+	@Autowired
+	private AnswerService answerService;
+	
 	DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
 
 	@RequestMapping(value = "question/sum", method = RequestMethod.GET)
@@ -74,9 +81,16 @@ public class QuestionController {
 	}
 
 
-	@RequestMapping(value = "question/add", method = RequestMethod.POST)
-	public void insert(@RequestBody Question question) {
+	@RequestMapping(value = "question", method = RequestMethod.POST)
+	public void insert(@RequestBody Question question) {		
 		questionService.insertQuestion(question);
+		question.getQuestionId();
+		List<Answer> answers = question.getQuestionAnswer();
+		String id = question.getQuestionId();
+		for (Answer answer : answers) {
+			answer.setQuestionId(id);
+			answerService.insertAnswer(answer);
+		}
 	}
 
 

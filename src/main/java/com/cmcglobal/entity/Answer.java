@@ -1,49 +1,52 @@
 package com.cmcglobal.entity;
-import javax.persistence.CascadeType;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
 @Entity
-@Table(name="answer", schema = "TESTING_SYSTEM_DATABASE")
+@Table(name = "answer", schema = "TESTING_SYSTEM_DATABASE")
 
 public class Answer {
 
 	@Id
-	@Column(name = "answer_id", nullable = false, unique=true)
-	private  String answerId;
-	
+	@Column(name = "answer_id", nullable = false, unique = true)
+	private String answerId;
+
 	@Column(name = "content")
 	private String content;
-	
+
 	@Column(name = "is_true")
 	private int isTrue;
-	
+
 	@Column(name = "status")
 	private int status;
-	
-	@ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
-	@JoinColumn(name = "question_id")
-	@JsonIgnoreProperties("questionAnswer")
-	Question answerQ;
-	
-	public Answer(String answerId, String content, int isTrue, int status, Question answerQ) {
+
+	@Column(name = "question_id")
+	private String questionId;
+	/**
+	 * 
+	 */
+	public Answer() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	/**
+	 * @param answerId
+	 * @param content
+	 * @param isTrue
+	 * @param status
+	 * @param questionId
+	 */
+	public Answer(String answerId, String content, int isTrue, int status, String questionId) {
 		super();
 		this.answerId = answerId;
 		this.content = content;
 		this.isTrue = isTrue;
 		this.status = status;
-		this.answerQ = answerQ;
-	}
-
-	public Answer() {
-		super();
+		this.questionId = questionId;
 	}
 
 	/**
@@ -60,38 +63,60 @@ public class Answer {
 		this.answerId = answerId;
 	}
 
+	/**
+	 * @return the content
+	 */
 	public String getContent() {
 		return content;
 	}
 
+	/**
+	 * @param content the content to set
+	 */
 	public void setContent(String content) {
 		this.content = content;
 	}
 
+	/**
+	 * @return the isTrue
+	 */
 	public int getIsTrue() {
 		return isTrue;
 	}
 
+	/**
+	 * @param isTrue the isTrue to set
+	 */
 	public void setIsTrue(int isTrue) {
 		this.isTrue = isTrue;
 	}
 
+	/**
+	 * @return the status
+	 */
 	public int getStatus() {
 		return status;
 	}
 
+	/**
+	 * @param status the status to set
+	 */
 	public void setStatus(int status) {
 		this.status = status;
 	}
 
-	public Question getAnswerQ() {
-		return answerQ;
+	/**
+	 * @return the questionId
+	 */
+	public String getQuestionId() {
+		return questionId;
 	}
 
-	public void setAnswerQ(Question answerQ) {
-		this.answerQ = answerQ;
+	/**
+	 * @param questionId the questionId to set
+	 */
+	public void setQuestionId(String questionId) {
+		this.questionId = questionId;
 	}
-	
-	
-	
+
 }

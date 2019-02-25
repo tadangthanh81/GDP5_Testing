@@ -68,6 +68,7 @@ public class QuestionServiceImpl implements QuestionService {
 
 	@Override
 	public void insertQuestion(Question question) {
+		
 		questionRepository.save(question);
 	}
 

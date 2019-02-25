@@ -62,12 +62,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter implemen
 
 		http.csrf().disable().cors();
 		http.authorizeRequests()//
-		        .antMatchers(HttpMethod.GET, "/question/all").permitAll()
-		        .antMatchers(HttpMethod.POST, "/question/add").permitAll()//
-		        .antMatchers(HttpMethod.PUT, "/question/edit/**").permitAll()//
-		        .antMatchers(HttpMethod.GET, "/questions/**").permitAll()//
-		        .antMatchers(HttpMethod.DELETE, "/question/delete/**").permitAll()
-		        .antMatchers(HttpMethod.POST, "/category").permitAll()
+		        .antMatchers("/question/**").permitAll()
 		        .and()
 		        .formLogin().loginPage("/login").defaultSuccessUrl("/home")
 		        .and()

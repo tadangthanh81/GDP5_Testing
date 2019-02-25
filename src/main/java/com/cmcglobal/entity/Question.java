@@ -40,7 +40,6 @@ public class Question {
 	@ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
 	@JoinColumn(name = "category_id")
 	@JsonIgnoreProperties("categorys")
-
 	Category category;
 
 
