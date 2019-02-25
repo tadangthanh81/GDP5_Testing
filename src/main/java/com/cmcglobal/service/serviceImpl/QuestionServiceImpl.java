@@ -18,48 +18,76 @@ public class QuestionServiceImpl implements QuestionServices {
 	QuestionRepository questionRepository;
 
 	@Override
-	public Question findById(String id) {
-		return questionRepository.findById(id).get();
+	public Question findById(String id)  {
+		try {
+			return questionRepository.findById(id).get();
+		} catch (Exception e) {
+			return null;
+		}
 	}
 
 	@Override
 	public void insertQuestion(Question question) {
-		questionRepository.save(question);
+		try {
+			questionRepository.save(question);
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
 	}
 
 	@Override
 	public void deletebyId(String id) {
-		questionRepository.deleteById(id);
+		try {
+			questionRepository.deleteById(id);
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
 
 	}
 
 	@Override
 	public String editQuestion(String id, Question newQuestion) {
-		Boolean existQ = questionRepository.existsById(id);
-		if (!existQ) {
-			return "No question with id above";
-		} else {
-			newQuestion.setId(id);
-			questionRepository.saveAndFlush(newQuestion);
-			return "Update success";
+		try {
+			Boolean existQ = questionRepository.existsById(id);
+			if (!existQ) {
+				return "No question with id above";
+			} else {
+				newQuestion.setId(id);
+				questionRepository.saveAndFlush(newQuestion);
+				return "Update success";
+			}
+		} catch (Exception e) {
+			return "fail";
 		}
 	}
 	
 	@Override
 	public String editQuestion1(Question newQuestion) {
-			System.out.println(newQuestion.getId());
-			questionRepository.saveAndFlush(newQuestion);
-			return "Update success";
+			try {
+				System.out.println(newQuestion.getId());
+				questionRepository.saveAndFlush(newQuestion);
+				return "Update success";
+			} catch (Exception e) {
+				return "fail";
+			}
 	}
 
 	@Override
 	public List<Question> searchByContent(String contentSearch, Pageable pageable) {
-		return questionRepository.findByContentContaining(contentSearch, pageable);
+		try {
+			return questionRepository.findByContentContaining(contentSearch, pageable);
+		} catch (Exception e) {
+			return null;
+		}
 	}
 
 	@Override
 	public List<Question> pageQuestion(Pageable pageable) {
-		return questionRepository.pageQuestion(pageable);
+		try {
+			return questionRepository.pageQuestion(pageable);
+		} catch (Exception e) {
+			return null;
+		}
 	}
 
 
@@ -68,8 +96,11 @@ public class QuestionServiceImpl implements QuestionServices {
 	 */
 	@Override
 	public String countQuestion() {
-		// TODO Auto-generated method stub
-		return questionRepository.questionSum();
+		try {
+			return questionRepository.questionSum();
+		} catch (Exception e) {
+			return "fail";
+		}
 	}
 
 	/* (non-Javadoc)
@@ -78,8 +109,11 @@ public class QuestionServiceImpl implements QuestionServices {
 	@Override
 	public List<Question> filterByAttribute(String categoryName, String levelName, String typeName, String fullName,
 	         String tagName, Pageable pageable) {
-		// TODO Auto-generated method stub
-		return questionRepository.filterByAttribute(categoryName, levelName, typeName, fullName, tagName, pageable);
+		try {
+			return questionRepository.filterByAttribute(categoryName, levelName, typeName, fullName, tagName, pageable);
+		} catch (Exception e) {
+			return null;
+		}
 	}
 
 	/* (non-Javadoc)
@@ -89,7 +123,12 @@ public class QuestionServiceImpl implements QuestionServices {
 	public List<Question> filterByAll(String categoryName, String levelName, String typeName, String fullName,
 	        java.util.Date dateCreated, String tagName, Pageable pageable) {
 		
-		return questionRepository.filterByAll(categoryName, levelName, typeName, fullName, dateCreated, tagName, pageable);
+		try {
+			return questionRepository.filterByAll(categoryName,
+					levelName, typeName, fullName, dateCreated, tagName, pageable);
+		} catch (Exception e) {
+			return null;
+		}
 	}
 
 	/* (non-Javadoc)
@@ -97,9 +136,12 @@ public class QuestionServiceImpl implements QuestionServices {
 	 */
 	@Override
 	public String countSearchQuestion(String content) {
-		// TODO Auto-generated method stub
-		content = "%" + content + "%" ;
-		return questionRepository.countSearchQuestion(content);
+		try {
+			content = "%" + content + "%" ;
+			return questionRepository.countSearchQuestion(content);
+		} catch (Exception e) {
+			return null;
+		}
 	}
 
 
