@@ -26,13 +26,6 @@ public interface QuestionService {
 	String countQuestion();
 
 	String countSearchQuestion(String content);
-
-	List<Question> filterByAttribute(String categoryName, String levelName, String typeName, String fullName,
-	     String tagName, Pageable pageable);
-
-	List<Question> filterByAll(String categoryName, String levelName, String typeName, String fullName,
-	        Date dateCreated, String tagName, Pageable pageable);
-
 	/**
 	 ** Yen Trinh
 	 * 
@@ -49,4 +42,7 @@ public interface QuestionService {
 	List<Question> readExcel(String exelFilePath);
 
 	List<Question> findAll(); // Yen
+	
+	List<Question> filterQuestion(String userName, Date dateCreated, Integer tagId, 
+			Integer levelId, Integer categoryId,Integer typeId, Pageable pageable);
 }

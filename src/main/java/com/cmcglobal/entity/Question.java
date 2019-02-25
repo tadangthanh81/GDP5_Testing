@@ -40,7 +40,9 @@ public class Question {
 	@ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
 	@JoinColumn(name = "category_id")
 	@JsonIgnoreProperties("categorys")
+
 	Category category;
+
 
 	@ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
 	@JoinColumn(name = "type_id")
@@ -66,6 +68,7 @@ public class Question {
 	public Question(String questionId, String content, String sugguestion, int status, Date dateCreated,
 	        Category questionCategory, QuestionType questionType, QuestionLevel questionLevel, QuestionTag questionTag,
 	        User userQuestion, List<Answer> questionAnswer) {
+
 		super();
 		this.questionId = questionId;
 		this.content = content;
@@ -148,13 +151,16 @@ public class Question {
 	 */
 	public Category getCategory() {
 		return category;
+
 	}
+
 
 	/**
 	 * @param category the category to set
 	 */
 	public void setCategory(Category category) {
 		this.category = category;
+
 	}
 
 	public QuestionType getQuestionType() {

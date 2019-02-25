@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 import com.cmcglobal.entity.Category;
 @Repository
 public interface CategoryRepository extends JpaRepository<Category, Integer> {
- 
+
 	@Query("select c from Category c where c.categoryName like ?1")
 	List<Category> findByCategoryNameContaining(String contentSearch, Pageable pageable);
 
@@ -26,4 +26,5 @@ public interface CategoryRepository extends JpaRepository<Category, Integer> {
 	@Query("select count(category_id) from Category c where c.categoryName like ?1")
 	String countSearchCategory(String content);
 	
+
 }

@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -72,65 +73,12 @@ public class QuestionController {
 		return questionService.searchByContent(content, pageable);
 	}
 
-//	@RequestMapping(value = "question/search-by-content/{contentSearch}", method = RequestMethod.GET)
-//	private List<Question> searchByContent(@PathVariable( "contentSearch") String contentSearch,
-//	        @RequestParam(name = "page", required = false, defaultValue = "0") Integer page,
-//	        @RequestParam(name = "size", required = false, defaultValue = "10") Integer size) {
-//		Pageable pageable = PageRequest.of(page, size);
-//		String content = contentSearch.trim();
-//		if(content.equals("")) {
-//			return questionService.pageQuestion(pageable);
-//		}
-//		return questionService.searchByContent(content, pageable);
-//	}
-
-//	@RequestMapping(value = "question/filter", method = RequestMethod.GET)
-//	private List<Question> filterByAttribute(@RequestParam("categoryID") Integer categoryID, 
-//			@RequestParam(name = "levelID", required = false) Integer levelID, @RequestParam(name = "typeID", required = false) Integer typeID,
-//			@RequestParam(name = "userIdCreated", required = false) Integer userIdCreated,
-//			@RequestParam(name = "dateCreated", required = false) Date dateCreated, @RequestParam(name = "tagID", required = false) Integer tagID) {
-//		return questionService.filterByAttribute(categoryID, levelID, typeID, userIdCreated, dateCreated, tagID);
-//
-//	}
-	@RequestMapping(value = "question/filter", method = RequestMethod.GET)
-
-	public List<Question> filterByAttribute(@RequestParam(name = "categoryName", required = false) String categoryName,
-	        @RequestParam(name = "levelName", required = false) String levelName,
-	        @RequestParam(name = "typeName", required = false) String typeName,
-	        @RequestParam(name = "fullName", required = false) String fullName,
-	        @RequestParam(name = "dateCreated", required = false) String dateCreated,
-	        @RequestParam(name = "tagName", required = false) String tagName,
-	        @RequestParam(name = "page", required = false, defaultValue = "0") Integer page,
-	        @RequestParam(name = "size", required = false, defaultValue = "5") Integer size)
-	        throws java.text.ParseException {
-		Pageable pageable = PageRequest.of(page, size);
-
-//		try {
-//		    startDate = df.parse(startDateString);
-//		    String newDateString = df.format(startDate);
-//		    System.out.println(newDateString);
-//		} catch (ParseException e) {
-//		    e.printStackTrace();
-//		}
-		if (null == dateCreated) {
-			return questionService.filterByAttribute(categoryName, levelName, typeName, fullName, tagName, pageable);
-		} else {
-			Date date = (Date) df.parse(dateCreated);
-			System.out.println(date);
-			return questionService.filterByAll(categoryName, levelName, typeName, fullName, date, tagName, pageable);
-		}
-
-	}
 
 	@RequestMapping(value = "question/add", method = RequestMethod.POST)
 	public void insert(@RequestBody Question question) {
 		questionService.insertQuestion(question);
 	}
 
-	@RequestMapping(value = "question/delete/{questionID}", method = RequestMethod.DELETE)
-	public void deleteQuestion(@PathVariable("questionID") String questionID) {
-		questionService.deletebyId(questionID);
-	}
 
 	@PutMapping(value = "question/edit/{questionID}")
 	private String editQuestion(@PathVariable("questionID") String questionID, @RequestBody Question newQuestion) {
@@ -143,6 +91,7 @@ public class QuestionController {
 		System.out.println(newQuestion);
 		return questionService.editQuestion1(newQuestion);
 	}
+
 
 	/**
 	 * Yen
@@ -181,6 +130,21 @@ public class QuestionController {
 			questionService.insertQuestion(question);
 		}
 		return ResponseEntity.ok("Ok");
+	}
+
+
+	@GetMapping(value = "question/filterQuestion")
+	public List<Question> filterQuestion(
+			@RequestParam(value = "userName", required = false) String userName,
+	        @RequestParam(value = "dateCreated", required = false) Date dateCreated,
+	        @RequestParam(value = "tagId", required = false) Integer tagId,
+	        @RequestParam(value = "levelId", required = false) Integer levelId,
+	        @RequestParam(value = "categoryId", required = false) Integer categoryId,
+	        @RequestParam(value = "typeId", required = false) Integer typeId,
+	        @RequestParam(name = "page", required = false, defaultValue = "0") Integer page,
+	        @RequestParam(name = "size", required = false, defaultValue = "10") Integer size) {
+		Pageable pageable = PageRequest.of(page, size);
+		return questionService.filterQuestion(userName, dateCreated, tagId, levelId, categoryId, typeId, pageable);
 	}
 
 }

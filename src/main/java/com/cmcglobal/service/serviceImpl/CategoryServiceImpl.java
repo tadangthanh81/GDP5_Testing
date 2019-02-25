@@ -28,6 +28,7 @@ import com.cmcglobal.service.CategoryService;
 public class CategoryServiceImpl implements CategoryService {
 
 	@Autowired
+
 	EntityManager entityManager;
 
 	@Autowired
@@ -36,6 +37,7 @@ public class CategoryServiceImpl implements CategoryService {
 	/*
 	 * (non-Javadoc)
 	 * 
+
 	 * @see com.cmcglobal.service.CategoryService#getAllCategory()
 	 */
 	@Override
