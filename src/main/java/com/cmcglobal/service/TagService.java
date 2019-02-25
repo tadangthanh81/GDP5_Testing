@@ -22,6 +22,10 @@ import com.cmcglobal.entity.QuestionTag;
  */
 public interface TagService {
 	List<QuestionTag> getAllTag();
+
+	void insertTag(QuestionTag tag);
+
 	void createTag(QuestionTag tag);
+	
 	public QuestionTag getOneById(int tagId); //yen
 }

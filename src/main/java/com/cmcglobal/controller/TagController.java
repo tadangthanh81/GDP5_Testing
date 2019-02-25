@@ -11,6 +11,7 @@ package com.cmcglobal.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -31,5 +32,10 @@ public class TagController {
 	@RequestMapping(value = "/tag", method = RequestMethod.GET)
 	public List<QuestionTag> getAllTag() {
 		return tagService.getAllTag();
+	}
+	
+	@RequestMapping(value = "tag/add", method = RequestMethod.POST)
+	public void insert(@RequestBody QuestionTag tag) {
+		tagService.insertTag(tag);
 	}
 }

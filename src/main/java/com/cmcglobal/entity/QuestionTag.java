@@ -6,6 +6,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
 
 @Entity
 @Table(name = "tag", schema = "TESTING_SYSTEM_DATABASE")
@@ -15,8 +16,12 @@ public class QuestionTag {
 	@Column(name = "tag_id", nullable = false)
 	private int tagId;
 
+	@NotBlank
 	@Column(name = "tag_name")
 	private String tagName;
+
+	@Column(name = "description")
+	private String tagDescription;
 
 	@Column(name = "status")
 	private int status;
@@ -25,10 +30,18 @@ public class QuestionTag {
 //     @JsonBackReference
 //     private List<Question> questionT;
 
-	public QuestionTag(int tagId, String tagName, int status) {
+	public QuestionTag(int tagId, String tagName, String tagDescription, int status) {
 		super();
 		this.tagId = tagId;
 		this.tagName = tagName;
+		this.tagDescription = tagDescription;
+		this.status = status;
+	}
+
+	public QuestionTag(String tagName, String tagDescription, int status) {
+		super();
+		this.tagName = tagName;
+		this.tagDescription = tagDescription;
 		this.status = status;
 	}
 
@@ -58,6 +71,14 @@ public class QuestionTag {
 		this.tagName = tagName;
 	}
 
+	public String getTagDescription() {
+		return tagDescription;
+	}
+
+	public void setTagDescription(String tagDescription) {
+		this.tagDescription = tagDescription;
+	}
+
 	public int getStatus() {
 		return status;
 	}
@@ -65,4 +86,5 @@ public class QuestionTag {
 	public void setStatus(int status) {
 		this.status = status;
 	}
+
 }
