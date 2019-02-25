@@ -62,12 +62,16 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter implemen
 
 		http.csrf().disable().cors();
 		http.authorizeRequests()//
-		        .antMatchers(HttpMethod.GET, "/question/all")
-		        .access("hasROLE('ROLE_ADMIN_R') or hasROLE('ROLR_ADMIN_C')")
+		        .antMatchers(HttpMethod.GET, "/question/all").permitAll()
 		        .antMatchers(HttpMethod.POST, "/question/add").permitAll()//
 		        .antMatchers(HttpMethod.PUT, "/question/edit/**").permitAll()//
 		        .antMatchers(HttpMethod.GET, "/questions/**").permitAll()//
-		        .antMatchers(HttpMethod.DELETE, "/question/delete/**").permitAll().and().exceptionHandling()
+		        .antMatchers(HttpMethod.DELETE, "/question/delete/**").permitAll()
+		        .and()
+		        .formLogin().loginPage("/login").defaultSuccessUrl("/home")
+		        .and()
+		        .logout().logoutUrl("/logout").deleteCookies("JSESSIONID")
+		        .and().exceptionHandling()
 		        .authenticationEntryPoint(entrypoint).accessDeniedHandler(denied)
 		.and().cors()
 		.and().sessionManagement()
@@ -81,20 +85,21 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter implemen
 	@Bean
 	public CorsFilter corsFilter() {
 		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-		CorsConfiguration config = new CorsConfiguration();
-		config.setAllowCredentials(true);
-		config.addAllowedOrigin("*");
-		config.addExposedHeader(
-		        "Authorization, x-xsrf-token, Access-Control-Allow-Headers, Origin, Accept, X-Requested-With, "
-		                + "Content-Type, Access-Control-Request-Method, SumQuestion, CountSearchQuestion");
-		config.addAllowedHeader("*");
-		config.addAllowedMethod("OPTIONS");
-		config.addAllowedMethod("GET");
-		config.addAllowedMethod("POST");
-		config.addAllowedMethod("PUT");
-		config.addAllowedMethod("DELETE");
-		source.registerCorsConfiguration("/**", config);
-		return new CorsFilter(source);
+
+	    CorsConfiguration config = new CorsConfiguration();
+	    config.setAllowCredentials(true);
+	    config.addAllowedOrigin("*");
+	    config.addExposedHeader("Authorization, x-xsrf-token, Access-Control-Allow-Headers, Origin, Accept, X-Requested-With, " +
+	            "Content-Type, Access-Control-Request-Method, SumQuestion, CountSearchQuestion, SumCategory, CountSearchCategory");
+	    config.addAllowedHeader("*");
+	    config.addAllowedMethod("OPTIONS");
+	    config.addAllowedMethod("GET");
+	    config.addAllowedMethod("POST");
+	    config.addAllowedMethod("PUT");
+	    config.addAllowedMethod("DELETE");
+	    source.registerCorsConfiguration("/**", config);
+	    return new CorsFilter(source);
+
 	}
 
 	@Override

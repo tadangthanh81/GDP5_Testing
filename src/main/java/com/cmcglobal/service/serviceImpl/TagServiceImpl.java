@@ -10,8 +10,11 @@ package com.cmcglobal.service.serviceImpl;
 
 import java.util.List;
 
+import javax.persistence.EntityManager;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 
 import com.cmcglobal.entity.QuestionTag;
 import com.cmcglobal.repository.QuestionTagRepository;
@@ -27,6 +30,8 @@ import com.cmcglobal.service.TagService;
  */
 @Service
 public class TagServiceImpl implements TagService {
+	@Autowired
+	EntityManager entityManager;
 
 	@Autowired
 	QuestionTagRepository tagRepository;
@@ -45,6 +50,14 @@ public class TagServiceImpl implements TagService {
 	public void createTag(QuestionTag tag) {
 		// TODO Auto-generated method stub
 		tagRepository.save(tag);
+	}
+	/* (non-Javadoc)
+	 * @see com.cmcglobal.service.TagService#getOneById(int)
+	 */
+	@Override
+	public QuestionTag getOneById(int tagId) {
+		// TODO Auto-generated method stub
+		return entityManager.find(QuestionTag.class, tagId);
 	}
 
 }

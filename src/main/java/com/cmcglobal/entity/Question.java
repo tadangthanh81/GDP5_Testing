@@ -54,7 +54,7 @@ public class Question {
 	@JoinColumn(name = "tag_id")
 	QuestionTag questionTag;
 
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
 	@JoinColumn(name = "user_id_created")
 	User userQuestion;
 
@@ -63,9 +63,9 @@ public class Question {
 	@JsonIgnoreProperties("answerQ")
 	private List<Answer> questionAnswer;
 
-	public Question(String id, String content, String sugguestion, int status, Date dateCreated,
-	        Category category, QuestionType questionType, QuestionLevel questionLevel,
-	        QuestionTag questionTag, User userQuestion, List<Answer> questionAnswer) {
+	public Question(String id, String content, String sugguestion, int status, Date dateCreated, Category category,
+	        QuestionType questionType, QuestionLevel questionLevel, QuestionTag questionTag, User userQuestion,
+	        List<Answer> questionAnswer) {
 		super();
 		this.id = id;
 		this.content = content;
@@ -96,15 +96,17 @@ public class Question {
 		return content;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
 	public String toString() {
 		return "Question [id=" + id + ", content=" + content + ", sugguestion=" + sugguestion + ", status=" + status
-		        + ", dateCreated=" + dateCreated + ", category=" + category + ", questionType="
-		        + questionType + ", questionLevel=" + questionLevel + ", questionTag=" + questionTag + ", userQuestion="
-		        + userQuestion + ", questionAnswer=" + questionAnswer + "]";
+		        + ", dateCreated=" + dateCreated + ", category=" + category + ", questionType=" + questionType
+		        + ", questionLevel=" + questionLevel + ", questionTag=" + questionTag + ", userQuestion=" + userQuestion
+		        + ", questionAnswer=" + questionAnswer + "]";
 	}
 
 	public void setContent(String content) {

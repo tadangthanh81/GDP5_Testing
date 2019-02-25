@@ -22,4 +22,5 @@ import com.cmcglobal.entity.QuestionType;
  */
 public interface TypeSevice {
 	List<QuestionType> getAllType();
+	public QuestionType getOneById(int typeId); //yen
 }

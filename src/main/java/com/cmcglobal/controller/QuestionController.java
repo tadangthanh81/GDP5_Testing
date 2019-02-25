@@ -1,30 +1,35 @@
 package com.cmcglobal.controller;
 
+import java.io.File;
+import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+
 import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.cmcglobal.entity.Question;
-import com.cmcglobal.service.QuestionServices;
+import com.cmcglobal.service.QuestionService;
 
-@CrossOrigin(origins = "http://localhost:4200", maxAge = 3600)
 @RestController
 public class QuestionController {
 	@Autowired
-	private QuestionServices questionService;
+	private QuestionService questionService;
 	DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
 	String filterText;
 
@@ -174,5 +179,44 @@ public class QuestionController {
 		System.out.println(newQuestion);
 		return questionService.editQuestion1(newQuestion);
 	}
+	/**
+	 * Yen
+	 * 
+	 * @param multipartFile
+	 * @return
+	 */
+	@PostMapping("/question/importlist")
+	public ResponseEntity<String> readExcelFile(@RequestParam("multipartFile") MultipartFile multipartFile) {
+
+		File file = new File("files");
+		String pathToSave = file.getAbsolutePath(); // save file vao server
+		System.out.println(pathToSave);
+
+		File fileTranfer = new File(pathToSave + "/" + multipartFile.getOriginalFilename());
+		try {
+			multipartFile.transferTo(fileTranfer);
+		} catch (IllegalStateException e) {
+		} catch (IOException e) {
+		}
+		System.out.println(fileTranfer.toString());
+		System.out.println(multipartFile.getOriginalFilename());
+
+		List<Question> listQuestion = questionService.readExcel(fileTranfer.toString()); // lay tu server ra r doc file
+		if (listQuestion.size() == 0) {
+			return ResponseEntity.ok("Not ok");
+		}
+		List<Question> list = questionService.findAll();
+		int x = list.size();
+		for (Question question : listQuestion) {
+
+			String s = "Question" + " " + String.valueOf(x); // to create id for question
+			question.setId(questionService.createId());
+			++x;
+			System.out.println(question);
+			questionService.insertQuestion(question);
+		}
+		return ResponseEntity.ok("Ok");
+	}
+
 
 }
