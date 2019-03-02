@@ -155,4 +155,14 @@ public class CategoryServiceImpl implements CategoryService {
 		return entityManager.find(Category.class, categoryId);
 	}
 
+	/* (non-Javadoc)
+	 * @see com.cmcglobal.service.CategoryService#editCate(com.cmcglobal.entity.Category)
+	 */
+	@Override
+	public String editCate(Category newCategory) {
+		// TODO Auto-generated method stub
+		categoryRepository.saveAndFlush(newCategory);
+		return "Seccuss";
+	}
+
 }

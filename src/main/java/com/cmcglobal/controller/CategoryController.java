@@ -17,6 +17,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -24,6 +25,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cmcglobal.entity.Category;
+import com.cmcglobal.entity.Question;
 import com.cmcglobal.service.CategoryService;
 
 /**
@@ -96,6 +98,10 @@ public class CategoryController {
 	method = RequestMethod.PATCH)
 	private String editCategory(@PathVariable("id") Integer id, @RequestBody Category newCategory) {
 		return categoryService.editCategory(id, newCategory);
+	}
+	@PutMapping(value = "category/edit")
+	private String editCategory(@RequestBody Category newCategory) {
+		return categoryService.editCate(newCategory);
 	}
 
 

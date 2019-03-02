@@ -20,7 +20,8 @@ public class AnswerController {
 	@Autowired
 	private AnswerServiceImpl answerServiceImpl;
 	
-	@RequestMapping(value = "answer/all", method = RequestMethod.GET)
+	
+	@RequestMapping(value = "answer", method = RequestMethod.GET)
 	private List<Answer> getAllAnswer() {
 		return answerServiceImpl.getAllAnswer();
 	}
@@ -46,4 +47,5 @@ public class AnswerController {
 		return answerServiceImpl.editAnswer(answerID, newAnswer);
 
 	}
+	
 }

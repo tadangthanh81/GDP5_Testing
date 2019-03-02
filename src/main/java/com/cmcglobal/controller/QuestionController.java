@@ -31,25 +31,40 @@ import com.cmcglobal.service.QuestionService;
 
 @RestController
 public class QuestionController {
-	
+
 	@Autowired
 	private QuestionService questionService;
-	
+
 	@Autowired
 	private AnswerService answerService;
-	
+
 	DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
 
+	/**
+	 * get sum question
+	 * @param responseHeaders
+	 */
 	@RequestMapping(value = "question/sum", method = RequestMethod.GET)
 	private void sumQuestion(HttpServletResponse responseHeaders) {
 		responseHeaders.addHeader("SumQuestion", questionService.countQuestion());
 	}
 
+	/**
+	 * count search
+	 * @param responseHeaders
+	 * @param content
+	 */
 	@RequestMapping(value = "question/count-search-question", method = RequestMethod.GET)
 	private void countQuestion(HttpServletResponse responseHeaders, @RequestParam String content) {
 		responseHeaders.addHeader("CountSearchQuestion", questionService.countSearchQuestion(content));
 	}
 
+	/**
+	 * get question
+	 * @param page
+	 * @param size
+	 * @return
+	 */
 	@RequestMapping(value = "question/pagination", method = RequestMethod.GET)
 	private List<Question> getPageQuestion(
 	        @RequestParam(name = "page", required = false, defaultValue = "0") Integer page,
@@ -58,16 +73,23 @@ public class QuestionController {
 		return questionService.pageQuestion(pageable);
 	}
 
-//	@RequestMapping(value = "question/sum", method = RequestMethod.GET)
-//	public int sum() {
-//		return questionService.countQuestion();
-//	}
 
+	/**
+	 * get by id
+	 * @param id
+	 * @return
+	 */
 	@RequestMapping(value = "question/{id}", method = RequestMethod.GET)
 	public Question getQById(@PathVariable("id") String id) {
 		return questionService.findById(id);
 	}
 
+	/**
+	 * @param contentSearch
+	 * @param page
+	 * @param size
+	 * @return
+	 */
 	@RequestMapping(value = "question/search-by-content", method = RequestMethod.GET)
 	private List<Question> searchByContent(@RequestParam(defaultValue = "") String contentSearch,
 	        @RequestParam(name = "page", required = false, defaultValue = "0") Integer page,
@@ -80,9 +102,8 @@ public class QuestionController {
 		return questionService.searchByContent(content, pageable);
 	}
 
-
 	@RequestMapping(value = "question", method = RequestMethod.POST)
-	public void insert(@RequestBody Question question) {		
+	public void insert(@RequestBody Question question) {
 		questionService.insertQuestion(question);
 		question.getQuestionId();
 		List<Answer> answers = question.getQuestionAnswer();
@@ -92,7 +113,6 @@ public class QuestionController {
 			answerService.insertAnswer(answer);
 		}
 	}
-
 
 	@PutMapping(value = "question/edit/{questionID}")
 	private String editQuestion(@PathVariable("questionID") String questionID, @RequestBody Question newQuestion) {
@@ -105,7 +125,6 @@ public class QuestionController {
 		System.out.println(newQuestion);
 		return questionService.editQuestion1(newQuestion);
 	}
-
 
 	/**
 	 * Yen
@@ -146,10 +165,8 @@ public class QuestionController {
 		return ResponseEntity.ok("Ok");
 	}
 
-
 	@GetMapping(value = "question/filterQuestion")
-	public List<Question> filterQuestion(
-			@RequestParam(value = "userName", required = false) String userName,
+	public List<Question> filterQuestion(@RequestParam(value = "userName", required = false) String userName,
 	        @RequestParam(value = "dateCreated", required = false) Date dateCreated,
 	        @RequestParam(value = "tagId", required = false) Integer tagId,
 	        @RequestParam(value = "levelId", required = false) Integer levelId,
@@ -158,7 +175,13 @@ public class QuestionController {
 	        @RequestParam(name = "page", required = false, defaultValue = "0") Integer page,
 	        @RequestParam(name = "size", required = false, defaultValue = "10") Integer size) {
 		Pageable pageable = PageRequest.of(page, size);
+		System.out.println("hehehe");
 		return questionService.filterQuestion(userName, dateCreated, tagId, levelId, categoryId, typeId, pageable);
+	}
+
+	@RequestMapping(value = "question/add", method = RequestMethod.POST)
+	public void insertQ(@RequestBody Question question) {
+		questionService.insertQuestion(question);
 	}
 
 }

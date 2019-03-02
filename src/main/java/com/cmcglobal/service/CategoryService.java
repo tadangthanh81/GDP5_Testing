@@ -37,6 +37,9 @@ public interface CategoryService {
 	String countQuestionCategory();
 
 	String countSearchCategory(String content);
+	
 	Category getOneById(int categoryId);
+	
+	String editCate(Category newCategory);
 
 }

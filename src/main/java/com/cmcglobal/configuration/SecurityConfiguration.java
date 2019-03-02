@@ -62,7 +62,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter implemen
 
 		http.csrf().disable().cors();
 		http.authorizeRequests()//
-		        .antMatchers("/question/**").permitAll()
+		        .antMatchers("/question/**").access("hasRole('ROLE_ADMIN')")
 		        .and().exceptionHandling()
 		        .authenticationEntryPoint(entrypoint).accessDeniedHandler(denied)
 		.and().cors()
